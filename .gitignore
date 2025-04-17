@@ -19,3 +19,4 @@ out/
 *.class
 
 test-output/
+nbproject/project.properties
