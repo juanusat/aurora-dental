@@ -10,9 +10,8 @@ package capaPresentacion;
  */
 public class Frm_Principal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Frm_Principal
-     */
+    public static String usuario = ""; 
+    
     public Frm_Principal() {
         initComponents();
     }

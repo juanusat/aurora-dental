@@ -60,6 +60,12 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem18 = new javax.swing.JMenuItem();
+        jMenuItem19 = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem20 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -143,7 +149,7 @@ public class Frm_PRec extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Pacientes");
+        jMenu2.setText("  Pacientes");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jMenu3.setText("Registrar Paciente");
@@ -185,7 +191,7 @@ public class Frm_PRec extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("Citas");
+        jMenu5.setText("    Citas");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jMenu6.setText("General");
@@ -237,6 +243,22 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu5.add(jMenu7);
 
         jMenuBar1.add(jMenu5);
+
+        jMenu4.setText("  Gestion ");
+        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jMenu4.add(jSeparator3);
+
+        jMenuItem18.setText("Recepcionista");
+        jMenu4.add(jMenuItem18);
+
+        jMenuItem19.setText("Odontologo");
+        jMenu4.add(jMenuItem19);
+        jMenu4.add(jSeparator4);
+
+        jMenuItem20.setText("Tratamiento");
+        jMenu4.add(jMenuItem20);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -336,6 +358,7 @@ public class Frm_PRec extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
@@ -343,7 +366,10 @@ public class Frm_PRec extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem18;
+    private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem20;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -355,5 +381,7 @@ public class Frm_PRec extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }
