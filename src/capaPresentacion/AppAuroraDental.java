@@ -17,8 +17,10 @@ public class AppAuroraDental {
     /**
      * @param args the command line arguments
      */
+    public AppAuroraDental() {
+    }
+
     public static void main(String[] args) {
-        
         System.out.println("HOLA");
         System.out.println("Good");
         if (1 == 1) {
