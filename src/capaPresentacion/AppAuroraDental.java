@@ -21,8 +21,6 @@ public class AppAuroraDental {
     }
 
     public static void main(String[] args) {
-        System.out.println("HOLA");
-        System.out.println("Good");
         if (1 == 1) {
             try {
                 UIManager.setLookAndFeel(new FlatLightLaf());
