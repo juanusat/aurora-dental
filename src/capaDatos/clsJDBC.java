@@ -2,13 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Capa_Datos;
+package capaDatos;
 
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class clsJDBC {
 
@@ -18,10 +19,12 @@ public class clsJDBC {
 
     //Constructor
     public clsJDBC() {
+        Dotenv dotenv = Dotenv.load();
+
         this.driver = "org.postgresql.Driver";
-        this.url = "jdbc:postgresql://localhost:5432/BD_DAE";
-        this.user = "postgres";
-        this.password = "postgres";
+        this.url = dotenv.get("DB_URL");
+        this.user = dotenv.get("DB_USER");
+        this.password = dotenv.get("DB_PASSWORD");
         this.con = null;
     }
 
