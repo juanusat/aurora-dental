@@ -34,13 +34,11 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem12ActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="  Pacientes"/>
+            <Property name="text" type="java.lang.String" value="Pacientes"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
@@ -51,12 +49,15 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/color1/user-plus-solid.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Registrar Paciente"/>
+                <Property name="text" type="java.lang.String" value="Registrar"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Paciente Nuevo"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/color1/user-plus-solid.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nueva persona"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem2ActionPerformed"/>
@@ -64,7 +65,10 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Por Doctor"/>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/icons/color1/tooth-solid.png"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Desde trabajador"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
@@ -77,13 +81,11 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/color1/user-pen-solid.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Actualizar Paciente"/>
+                <Property name="text" type="java.lang.String" value="Actualizar informaci&#xf3;n"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem9ActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator2">
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem4">
               <Properties>
@@ -100,7 +102,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="    Citas"/>
+            <Property name="text" type="java.lang.String" value="Citas"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
@@ -116,7 +118,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/color1/calendar-plus-solid.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Programar"/>
+                    <Property name="text" type="java.lang.String" value="Agendar"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem5ActionPerformed"/>
@@ -138,7 +140,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/color1/calendar-minus-solid.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Cancelar"/>
+                    <Property name="text" type="java.lang.String" value="Anular"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem7ActionPerformed"/>
@@ -156,7 +158,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/color1/user-tie-solid.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Por Paciente"/>
+                    <Property name="text" type="java.lang.String" value="Por paciente"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem8ActionPerformed"/>
@@ -167,7 +169,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/color1/tooth-solid.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Por Doctor"/>
+                    <Property name="text" type="java.lang.String" value="Por odont&#xf3;logo"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem10ActionPerformed"/>
@@ -177,22 +179,46 @@
             </Menu>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="jMenu4">
+        <Menu class="javax.swing.JMenu" name="jMenu8">
           <Properties>
-            <Property name="text" type="java.lang.String" value="  Gestion "/>
+            <Property name="text" type="java.lang.String" value="Pagos"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="15" style="0"/>
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator3">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem21">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/color1/receipt-solid.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Registrar pago"/>
+              </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem22">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/color1/file-invoice-solid.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Consultar por paciente"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Gesti&#xf3;n"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="15" style="0"/>
+            </Property>
+          </Properties>
+          <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem18">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/color1/user-tie-solid.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Recepcionista"/>
+                <Property name="text" type="java.lang.String" value="Recepcionistas"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem19">
@@ -200,7 +226,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/color1/tooth-solid.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Odontologo"/>
+                <Property name="text" type="java.lang.String" value="Odontol&#xf3;gos"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator4">
@@ -210,7 +236,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/icons/color1/clipboard-list-solid.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Tratamiento"/>
+                <Property name="text" type="java.lang.String" value="Tratamientos"/>
               </Properties>
             </MenuItem>
           </SubComponents>

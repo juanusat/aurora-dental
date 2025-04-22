@@ -44,13 +44,11 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -60,8 +58,10 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu8 = new javax.swing.JMenu();
+        jMenuItem21 = new javax.swing.JMenuItem();
+        jMenuItem22 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
-        jSeparator3 = new javax.swing.JPopupMenu.Separator();
         jMenuItem18 = new javax.swing.JMenuItem();
         jMenuItem19 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
@@ -147,17 +147,17 @@ public class Frm_Principal extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem12);
-        jMenu1.add(jSeparator1);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("  Pacientes");
+        jMenu2.setText("Pacientes");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-plus-solid.png"))); // NOI18N
-        jMenu3.setText("Registrar Paciente");
+        jMenu3.setText("Registrar");
 
-        jMenuItem2.setText("Paciente Nuevo");
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-plus-solid.png"))); // NOI18N
+        jMenuItem2.setText("Nueva persona");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -165,7 +165,8 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem2);
 
-        jMenuItem3.setText("Por Doctor");
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
+        jMenuItem3.setText("Desde trabajador");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -176,14 +177,13 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu2.add(jMenu3);
 
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-pen-solid.png"))); // NOI18N
-        jMenuItem9.setText("Actualizar Paciente");
+        jMenuItem9.setText("Actualizar información");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem9ActionPerformed(evt);
             }
         });
         jMenu2.add(jMenuItem9);
-        jMenu2.add(jSeparator2);
 
         jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/clipboard-list-solid.png"))); // NOI18N
         jMenuItem4.setText("Atenciones Pendientes");
@@ -196,13 +196,13 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu5.setText("    Citas");
+        jMenu5.setText("Citas");
         jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
         jMenu6.setText("General");
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-plus-solid.png"))); // NOI18N
-        jMenuItem5.setText("Programar");
+        jMenuItem5.setText("Agendar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem5ActionPerformed(evt);
@@ -220,7 +220,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu6.add(jMenuItem6);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-minus-solid.png"))); // NOI18N
-        jMenuItem7.setText("Cancelar");
+        jMenuItem7.setText("Anular");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -233,7 +233,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu7.setText("Consultar citas");
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
-        jMenuItem8.setText("Por Paciente");
+        jMenuItem8.setText("Por paciente");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem8ActionPerformed(evt);
@@ -242,7 +242,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu7.add(jMenuItem8);
 
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
-        jMenuItem10.setText("Por Doctor");
+        jMenuItem10.setText("Por odontólogo");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem10ActionPerformed(evt);
@@ -254,21 +254,33 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu4.setText("  Gestion ");
+        jMenu8.setText("Pagos");
+        jMenu8.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+
+        jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/receipt-solid.png"))); // NOI18N
+        jMenuItem21.setText("Registrar pago");
+        jMenu8.add(jMenuItem21);
+
+        jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/file-invoice-solid.png"))); // NOI18N
+        jMenuItem22.setText("Consultar por paciente");
+        jMenu8.add(jMenuItem22);
+
+        jMenuBar1.add(jMenu8);
+
+        jMenu4.setText("Gestión");
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jMenu4.add(jSeparator3);
 
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
-        jMenuItem18.setText("Recepcionista");
+        jMenuItem18.setText("Recepcionistas");
         jMenu4.add(jMenuItem18);
 
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
-        jMenuItem19.setText("Odontologo");
+        jMenuItem19.setText("Odontológos");
         jMenu4.add(jMenuItem19);
         jMenu4.add(jSeparator4);
 
         jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/clipboard-list-solid.png"))); // NOI18N
-        jMenuItem20.setText("Tratamiento");
+        jMenuItem20.setText("Tratamientos");
         jMenu4.add(jMenuItem20);
 
         jMenuBar1.add(jMenu4);
@@ -374,6 +386,7 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -382,6 +395,8 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
+    private javax.swing.JMenuItem jMenuItem21;
+    private javax.swing.JMenuItem jMenuItem22;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
@@ -391,9 +406,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JPopupMenu.Separator jSeparator2;
-    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }
