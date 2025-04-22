@@ -29,7 +29,7 @@ public class AppAuroraDental {
             }
 
         }
-        Frm_PRec objPRc = new Frm_PRec();
+        Frm_Principal objPRc = new Frm_Principal();
         objPRc.setSize(772, 436);
         objPRc.setMinimumSize(new Dimension(500, 300));
         if (1 == 1) {

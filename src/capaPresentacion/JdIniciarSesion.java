@@ -118,7 +118,7 @@ public class JdIniciarSesion extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Frm_Principal.usuario= txtusuario.getText(); 
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
   
