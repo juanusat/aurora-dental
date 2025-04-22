@@ -130,6 +130,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu1.setText("Perfil");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/address-card-solid.png"))); // NOI18N
         jMenuItem1.setText("Editar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +139,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/right-from-bracket-solid.png"))); // NOI18N
         jMenuItem12.setText("Cerrar Sesión");
         jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,6 +154,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu2.setText("  Pacientes");
         jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-plus-solid.png"))); // NOI18N
         jMenu3.setText("Registrar Paciente");
 
         jMenuItem2.setText("Paciente Nuevo");
@@ -172,6 +175,7 @@ public class Frm_PRec extends javax.swing.JFrame {
 
         jMenu2.add(jMenu3);
 
+        jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-pen-solid.png"))); // NOI18N
         jMenuItem9.setText("Actualizar Paciente");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +185,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu2.add(jMenuItem9);
         jMenu2.add(jSeparator2);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/clipboard-list-solid.png"))); // NOI18N
         jMenuItem4.setText("Atenciones Pendientes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +201,7 @@ public class Frm_PRec extends javax.swing.JFrame {
 
         jMenu6.setText("General");
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-plus-solid.png"))); // NOI18N
         jMenuItem5.setText("Programar");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +210,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem5);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-days-solid.png"))); // NOI18N
         jMenuItem6.setText("Modificar");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,6 +219,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem6);
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-minus-solid.png"))); // NOI18N
         jMenuItem7.setText("Cancelar");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,6 +232,7 @@ public class Frm_PRec extends javax.swing.JFrame {
 
         jMenu7.setText("Consultar citas");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
         jMenuItem8.setText("Por Paciente");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,6 +241,7 @@ public class Frm_PRec extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem8);
 
+        jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
         jMenuItem10.setText("Por Doctor");
         jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,13 +258,16 @@ public class Frm_PRec extends javax.swing.JFrame {
         jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jMenu4.add(jSeparator3);
 
+        jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
         jMenuItem18.setText("Recepcionista");
         jMenu4.add(jMenuItem18);
 
+        jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
         jMenuItem19.setText("Odontologo");
         jMenu4.add(jMenuItem19);
         jMenu4.add(jSeparator4);
 
+        jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/clipboard-list-solid.png"))); // NOI18N
         jMenuItem20.setText("Tratamiento");
         jMenu4.add(jMenuItem20);
 
@@ -281,37 +294,37 @@ public class Frm_PRec extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        jd_ActualizarPA objdAP = new jd_ActualizarPA(this, true); 
+        Jd_ActualizarPA objdAP = new Jd_ActualizarPA(this, true); 
         objdAP.setLocationRelativeTo(this);
         objdAP.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        jd_ProgramarCita objd_ProCita = new jd_ProgramarCita(this, true); 
+        Jd_ProgramarCita objd_ProCita = new Jd_ProgramarCita(this, true); 
         objd_ProCita.setLocationRelativeTo(this);
         objd_ProCita.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        jd_ModificarCita objdMC = new jd_ModificarCita(this, true); 
+        Jd_ModificarCita objdMC = new Jd_ModificarCita(this, true); 
         objdMC.setLocationRelativeTo(this);
         objdMC.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       jd_CancelarCita objdCC = new jd_CancelarCita(this, true); 
+       Jd_CancelarCita objdCC = new Jd_CancelarCita(this, true); 
        objdCC.setLocationRelativeTo(this);
        objdCC.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        jd_ConsultarCita_Paciente objdCCP = new jd_ConsultarCita_Paciente(this, true); 
+        Jd_ConsultarCita_Paciente objdCCP = new Jd_ConsultarCita_Paciente(this, true); 
         objdCCP.setLocationRelativeTo(this);
         objdCCP.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-       jd_ConsultarCita_Doctor objdCCD = new jd_ConsultarCita_Doctor(this,true); 
+       Jd_ConsultarCita_Doctor objdCCD = new Jd_ConsultarCita_Doctor(this,true); 
        objdCCD.setLocationRelativeTo(this);
        objdCCD.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
@@ -321,7 +334,7 @@ public class Frm_PRec extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        jd_EditarPerfil objdUsu = new jd_EditarPerfil(this, true);
+        Jd_EditarPerfil objdUsu = new Jd_EditarPerfil(this, true);
         objdUsu.setLocationRelativeTo(this);
         objdUsu.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -333,19 +346,19 @@ public class Frm_PRec extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        jd_RegistrarPa objdRP = new jd_RegistrarPa(this, true); 
+        Jd_RegistrarPa objdRP = new Jd_RegistrarPa(this, true); 
         objdRP.setLocationRelativeTo(this);
         objdRP.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        jd_RegistrarPa_Doctor objRPD = new jd_RegistrarPa_Doctor(this, true); 
+        Jd_RegistrarPa_Doctor objRPD = new Jd_RegistrarPa_Doctor(this, true); 
         objRPD.setLocationRelativeTo(this);
         objRPD.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-       jd_AtencionPacientesPendientes objdAPP = new jd_AtencionPacientesPendientes(this,true); 
+       Jd_AtencionPacientesPendientes objdAPP = new Jd_AtencionPacientesPendientes(this,true); 
        objdAPP.setLocationRelativeTo(this);
        objdAPP.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
