@@ -8,10 +8,10 @@ package capaPresentacion;
  *
  * @author Antonio
  */
-public class JdIniciarSesion extends javax.swing.JDialog {
+public class Jd_IniciarSesion extends javax.swing.JDialog {
 
      
-    public JdIniciarSesion(java.awt.Frame parent, boolean modal) {
+    public Jd_IniciarSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
