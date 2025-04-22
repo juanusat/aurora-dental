@@ -54,29 +54,29 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel3.setText("Correo:");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel4.setText("Apellido:");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("Dni:");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel6.setText("Sexo:");
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel8.setText("Fecha Nac.:");
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel9.setText("Telefono:");
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel10.setText("Direccion:");
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         jTextField1.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -88,11 +88,11 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
 
         jTextField4.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButton1.setText("Masculino");
+        jRadioButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jRadioButton2.setText("Femenino");
+        jRadioButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jButton1.setText("Registrar");
 
