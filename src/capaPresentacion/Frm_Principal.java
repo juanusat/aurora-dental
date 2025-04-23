@@ -56,7 +56,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
@@ -232,15 +231,6 @@ public class Frm_Principal extends javax.swing.JFrame {
             }
         });
         jMenu5.add(jMenuItem6);
-
-        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-minus-solid.png"))); // NOI18N
-        jMenuItem7.setText("Anular");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
-            }
-        });
-        jMenu5.add(jMenuItem7);
         jMenu5.add(jSeparator1);
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
@@ -290,6 +280,11 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuItem20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/clipboard-list-solid.png"))); // NOI18N
         jMenuItem20.setText("Tratamientos");
+        jMenuItem20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem20ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem20);
 
         jMenuBar1.add(jMenu4);
@@ -331,12 +326,6 @@ public class Frm_Principal extends javax.swing.JFrame {
         objdMC.setLocationRelativeTo(this);
         objdMC.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-        Jd_CancelarCita objdCC = new Jd_CancelarCita(this, true);
-        objdCC.setLocationRelativeTo(this);
-        objdCC.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         Jd_ConsultarCita_Paciente objdCCP = new Jd_ConsultarCita_Paciente(this, true);
@@ -395,6 +384,10 @@ public class Frm_Principal extends javax.swing.JFrame {
         lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " +Jd_IniciarSesion.cargo);
     }//GEN-LAST:event_formWindowOpened
 
+    private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem20ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -420,7 +413,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
