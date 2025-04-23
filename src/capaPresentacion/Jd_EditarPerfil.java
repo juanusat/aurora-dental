@@ -4,67 +4,70 @@
  */
 package capaPresentacion;
 
+import capaNegocio.clsUsuario;
+import capaNegocio.cls_Persona;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Antonio
  */
 public class Jd_EditarPerfil extends javax.swing.JDialog {
 
-  
-  
+    cls_Persona objP = new cls_Persona();
+    clsUsuario objU = new clsUsuario();
+
     public Jd_EditarPerfil(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         txtCorreo.setEnabled(false);
         txtContra.setEnabled(false);
-        txtNuevaContra.setEnabled(false); 
+        txtConfirContra.setEnabled(false);
     }
-
-   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
-        txtContra = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         chkCorreo = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         chkContra = new javax.swing.JCheckBox();
         jLabel5 = new javax.swing.JLabel();
-        txtNuevaContra = new javax.swing.JTextField();
+        txtContra = new javax.swing.JPasswordField();
+        txtConfirContra = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Editar Perfil");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Contraseña:");
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel2.setText("Contraseña:");
 
-        jLabel4.setText("Correo:");
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel4.setText("Correo:");
 
         txtCorreo.setPreferredSize(new java.awt.Dimension(71, 24));
 
@@ -86,10 +89,8 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
             }
         });
 
-        jLabel5.setText("Confirmar contraseña:");
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-
-        txtNuevaContra.setMinimumSize(new java.awt.Dimension(64, 24));
+        jLabel5.setText("Confirmar contraseña:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,9 +100,9 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(btnCancelar))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -122,10 +123,10 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNuevaContra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtContra))))))
+                                    .addComponent(txtContra)
+                                    .addComponent(txtConfirContra))))))
                 .addGap(0, 31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -150,13 +151,13 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(txtNuevaContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtConfirContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
+                            .addComponent(btnModificar)
+                            .addComponent(btnCancelar))
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(chkContra)
@@ -177,13 +178,54 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        try {
+            if (chkCorreo.isSelected()) {
+                if (txtCorreo.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Complete el campo");
+                } else {
+                    int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quiere cambiar su Correo?", "Cambio de correo", JOptionPane.YES_NO_OPTION);
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        objP.modificarCorreo(txtCorreo.getText(), Jd_IniciarSesion.username);
+                        JOptionPane.showMessageDialog(this, "Correo actualizado");
+                        txtCorreo.setText("");
+                        chkCorreo.setSelected(false);
+                        txtCorreo.setEnabled(false);
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Cambio cancelado");
+                    }
+                }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+            }
+
+            if (chkContra.isSelected()) {
+                if (txtContra.getText().equals("") || txtConfirContra.getText().equals("")) {
+                    JOptionPane.showMessageDialog(this, "Complete los campos");
+                } else {
+                    if (txtContra.getText().equals(txtConfirContra.getText())) {
+                        int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quiere cambiar su Contraseña?", "Cambio de contraseña", JOptionPane.YES_NO_OPTION);
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            objU.actualizarPassword(Jd_IniciarSesion.username, txtContra.getText());
+                            JOptionPane.showMessageDialog(this, "Password actualizado");
+                            txtContra.setText("");
+                            txtConfirContra.setText("");
+                            chkContra.setSelected(false);
+                            txtContra.setEnabled(false);
+                            txtConfirContra.setEnabled(false);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No coinciden contraseñas");
+                    }
+                }
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void chkCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkCorreoActionPerformed
         txtCorreo.setEnabled(chkCorreo.isSelected());
@@ -191,16 +233,15 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
 
     private void chkContraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkContraActionPerformed
         txtContra.setEnabled(chkContra.isSelected());
-        txtNuevaContra.setEnabled(chkContra.isSelected());
+        txtConfirContra.setEnabled(chkContra.isSelected());
     }//GEN-LAST:event_chkContraActionPerformed
 
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JCheckBox chkContra;
     private javax.swing.JCheckBox chkCorreo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -208,8 +249,8 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField txtContra;
+    private javax.swing.JPasswordField txtConfirContra;
+    private javax.swing.JPasswordField txtContra;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtNuevaContra;
     // End of variables declaration//GEN-END:variables
 }

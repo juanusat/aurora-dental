@@ -8,6 +8,7 @@ import java.util.Date;
 import capaDatos.clsJDBC;
 import java.sql.ResultSet;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -67,6 +68,33 @@ public class cls_Persona {
         } catch (Exception e) {
             throw new Exception("Error al actualizar persona " +e.getMessage());
         }
-    }
+    } 
+    
+    public String obtenerCorreo(String usu) throws Exception{
+        strSQL="Select P.email from persona P " 
+                +"inner join trabajador T on P.persona_id = T.persona_id "
+                +"inner join usuario U on T.usuario_id = U.usuario_id where U.username='"+usu+"'";
+        try {
+            rs=objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                return rs.getString("email");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener correo " + e.getMessage());
+        }
+        
+        return ""; 
+    } 
+    
+    public int modificarCorreo(String correo, String usu) throws Exception{
+        strSQL="Update persona set email='"+correo+"' where email='"+obtenerCorreo(usu)+"'";
+        int r;
+        try {
+            r=objBD.ejecutarBD(strSQL); 
+            return r;
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar correo :" + e.getMessage()); 
+        }
+    } 
 
 }

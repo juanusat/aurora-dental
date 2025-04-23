@@ -54,5 +54,24 @@ public class clsUsuario {
         }
         return 0; 
     }
+    public void actualizarPassword(String usu,String password) throws Exception{
+        strSQL="Update usuario set password_hash = encode(digest(? || ? || 'DENTAL', 'sha256'), 'hex') "
+                +"where username='"+usu+"'";
+        try {
+            Connection con=null;
+            objBD.conectar();
+            con=objBD.getCon(); 
+            PreparedStatement sp = con.prepareStatement(strSQL); 
+            
+            sp.setString(1, usu);
+            sp.setString(2,password);
+            
+            sp.executeUpdate();
+            
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar password" + e.getMessage());
+        }
+    }
+    
 
 }
