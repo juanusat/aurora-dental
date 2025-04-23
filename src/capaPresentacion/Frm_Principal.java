@@ -4,6 +4,7 @@
  */
 package capaPresentacion;
 
+import capaNegocio.cls_Trabajador;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -39,7 +40,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblnombreCargo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -75,6 +76,9 @@ public class Frm_Principal extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -100,8 +104,8 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(138, 241, 248));
 
-        jLabel2.setForeground(new java.awt.Color(1, 124, 155));
-        jLabel2.setText("NOMBRE / CARGO");
+        lblnombreCargo.setForeground(new java.awt.Color(1, 124, 155));
+        lblnombreCargo.setText("NOMBRE / CARGO");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 124, 155));
@@ -121,7 +125,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblnombreCargo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -132,7 +136,7 @@ public class Frm_Principal extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
+                    .addComponent(lblnombreCargo)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -385,10 +389,16 @@ public class Frm_Principal extends javax.swing.JFrame {
         objF.setVisible(true);
     }//GEN-LAST:event_jLabel4MouseClicked
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true); 
+        objIS.setLocationRelativeTo(this);
+        objIS.setVisible(true);
+        lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " +Jd_IniciarSesion.cargo);
+    }//GEN-LAST:event_formWindowOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
@@ -418,5 +428,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JLabel lblnombreCargo;
     // End of variables declaration//GEN-END:variables
 }

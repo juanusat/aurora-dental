@@ -16,7 +16,11 @@ public class clsJDBC {
     private String driver, url, user, password;
     private Connection con;
     private Statement sent = null;
-
+    
+     public Connection getCon() {
+        return con;
+    }
+    
     //Constructor
     public clsJDBC() {
         Dotenv dotenv = Dotenv.load();
