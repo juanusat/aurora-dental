@@ -28,7 +28,39 @@ public class cls_Trabajador {
         } catch (Exception e) {
             throw new Exception("Error al listarDoctores" + e.getMessage());  
         } 
-    }
+    } 
+    
+    public String nombreCompleto (String usu)throws Exception{
+        strSQL="Select P.nombre ||' '|| P.apellido as nombre_completo from persona P " 
+                +"inner join trabajador T on P.persona_id=T.persona_id "
+                +"inner join usuario U on T.usuario_id=U.usuario_id where U.username='"+usu+"'";
+        String nombre="";
+        try {
+            rs=objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                nombre= rs.getString("nombre_completo");
+                return nombre;
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener nombre completo " +e.getMessage());
+        }
+        return ""; 
+    } 
+    public String obtenerCargo (String usu)throws Exception{
+        strSQL= "Select CA.nombre_cargo from cargo CA "
+                +"inner join trabajador T on CA.cargo_id = T.cargo_id "
+                +"inner join usuario U on T.usuario_id = U.usuario_id where U.username='"+usu+"'" ;
+        try {
+            rs=objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                String cargo = rs.getString("nombre_cargo");
+                return cargo;
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener cargo" +e.getMessage());
+        }
+        return ""; 
+    } 
  
     
 }

@@ -35,7 +35,7 @@ public class AppAuroraDental {
         if (1 == 1) {
             objPRc.setLocationRelativeTo(null);
         }
-        objPRc.setVisible(true);
+        objPRc.setVisible(true); 
     }
     
 }
