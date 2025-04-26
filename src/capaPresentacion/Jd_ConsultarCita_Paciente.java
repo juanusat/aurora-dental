@@ -117,7 +117,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         Jd_SeleccionarCliente objS = new Jd_SeleccionarCliente(null, true); 
+        Jd_SeleccionarCliente objS = new Jd_SeleccionarCliente(null, true); 
         objS.setLocationRelativeTo(this);
         objS.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
