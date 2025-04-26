@@ -38,7 +38,7 @@ public class clsJDBC {
             Class.forName(driver);
             con = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException | SQLException ex) {
-            throw new Exception("Error al conectar a la BD");
+            throw new Exception("Error al conectar a la BD"+ex.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class clsJDBC {
         try {
             con.close();
         } catch (SQLException ex) {
-            throw new Exception("Error al desconectar la bd!");
+            throw new Exception("Error al desconectar la bd!"+ex.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class clsJDBC {
             rs = sent.executeQuery(srtSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al ejecutar consulta ");
+            throw new Exception("Error al ejecutar consulta "+e.getMessage());
         } finally {
             if (con != null) {
                 desconectar();
