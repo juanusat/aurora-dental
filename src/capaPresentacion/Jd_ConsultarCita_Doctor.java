@@ -4,11 +4,21 @@
  */
 package capaPresentacion;
 
+import capaNegocio.cls_Cita;
+import capaNegocio.cls_Trabajador;
+import java.sql.ResultSet;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Antonio
  */
 public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
+
+    cls_Trabajador objT = new cls_Trabajador();
+    cls_Cita objC = new cls_Cita();
 
     /**
      * Creates new form jd_ConsultarCita_Doctor
@@ -16,6 +26,8 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
     public Jd_ConsultarCita_Doctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listarDoctores();
+
     }
 
     /**
@@ -29,11 +41,11 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxDoctor = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Lista = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        btnConsultar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Citas por Doctor");
@@ -44,10 +56,10 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel1.setText("Doctor:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(72, 24));
+        cbxDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxDoctor.setMinimumSize(new java.awt.Dimension(72, 24));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Lista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -58,12 +70,12 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
                 "Cliente", "DNI", "Tratamiento", "Fecha-Hora", "Estado", "Reagendado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(Lista);
 
-        jButton1.setText("Consultar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConsultarActionPerformed(evt);
             }
         });
 
@@ -71,23 +83,21 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(84, 84, 84)
+                        .addComponent(btnConsultar)
+                        .addGap(132, 132, 132))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(jButton1)
-                                .addGap(15, 15, 15))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,43 +105,118 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConsultar))
                 .addGap(30, 30, 30)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        listarCitas();
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
+    private void listarDoctores() {
+        ResultSet rsDoc = null;
+        DefaultComboBoxModel modeloMar = new DefaultComboBoxModel();
+        cbxDoctor.setModel(modeloMar);
+        try {
+            rsDoc = objT.listarDoctores();
+            while (rsDoc.next()) {
+                modeloMar.addElement(rsDoc.getString("nombre"));
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al listar doctores " + e.getMessage());
+        }
+    }
+
+    private void listarCitas() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Cliente");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Tratamiento");
+        modelo.addColumn("Fecha_Hora");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Reagendado");
+        Lista.setModel(modelo);
+
+        try {
+            String nombreD = cbxDoctor.getSelectedItem().toString();
+            ResultSet rs = objC.buscarTodasCitasDoctor(nombreD);
+
+            // Asegúrate de mover el cursor a la primera fila antes de hacer cualquier operación
+            while (rs.next()) {
+                // Solo después de rs.next(), puedes acceder a los datos del ResultSet
+
+                // Verificamos si "estado" es "reagendada", y si es así, tomamos la fecha de "reagendada"
+                if (rs.getString("estado").equals("reagendada")) {
+
+                    String fechaHora = rs.getString("reagendada");
+                    modelo.addRow(new Object[]{
+                        rs.getString("Nombre_C"),
+                        rs.getString("DNI"),
+                        rs.getString("Nombre_T"),
+                        fechaHora,
+                        rs.getString("estado"),
+                        rs.getString("reagendado")
+                    });
+                } else {
+                    String fechaHora = rs.getString("fecha_hora");
+                    modelo.addRow(new Object[]{
+                        rs.getString("Nombre_C"),
+                        rs.getString("DNI"),
+                        rs.getString("Nombre_T"),
+                        fechaHora,
+                        rs.getString("estado"),
+                        rs.getString("reagendado")
+                    });
+                }
+
+                // Agregamos una nueva fila con los valores del ResultSet
+            }
+
+            // Actualizamos el modelo de la tabla con los nuevos datos
+            Lista.setModel(modelo);
+            System.out.println(modelo.getRowCount());
+
+            // Si no hay filas, mostramos un mensaje de advertencia
+            if (modelo.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "El doctor no tiene ninguna cita.");
+            }
+
+            // Cerramos el ResultSet
+            rs.close();
+        } catch (Exception e) {
+            // Si ocurre un error, mostramos un mensaje
+            JOptionPane.showMessageDialog(this, "Error al listar citas del doctor " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTable Lista;
+    private javax.swing.JButton btnConsultar;
+    private javax.swing.JComboBox<String> cbxDoctor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

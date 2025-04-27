@@ -123,7 +123,7 @@
                     <Column editable="true" title="Tratamiento" type="java.lang.Object"/>
                     <Column editable="true" title="Doctor" type="java.lang.Object"/>
                     <Column editable="true" title="Fecha_hora" type="java.lang.Object"/>
-                    <Column editable="true" title="Csoto" type="java.lang.Object"/>
+                    <Column editable="true" title="Costo" type="java.lang.Object"/>
                     <Column editable="true" title="Reagendado" type="java.lang.Object"/>
                     <Column editable="true" title="Estado" type="java.lang.Object"/>
                   </Table>
