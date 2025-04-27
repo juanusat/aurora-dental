@@ -95,6 +95,18 @@ public class cls_Persona {
         } catch (Exception e) {
             throw new Exception("Error al actualizar correo :" + e.getMessage()); 
         }
-    } 
+    }  
+    public int buscarCliente_id (String nombre)throws Exception{
+        strSQL="Select c.cliente_id from cliente c inner join persona p on c.persona_id = p.persona_id where p.nombre='"+nombre+"'"; 
+        try {
+             rs =objBD.ConsultarBD(strSQL);
+             while (rs.next()) {                
+                return rs.getInt("cliente_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar cliente_id por nombre de persona " + e.getMessage()); 
+        }
+        return 0;
+    }
 
 }

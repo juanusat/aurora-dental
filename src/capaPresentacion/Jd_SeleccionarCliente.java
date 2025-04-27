@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
     cls_Cliente objCliente = new cls_Cliente();
-    
+    DefaultListModel<String> modelo = new DefaultListModel<>();
     private Jd_ProgramarCita formularioProgramarCita;
 
     /**
@@ -146,7 +146,6 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        DefaultListModel<String> modelo = new DefaultListModel<>();
         ResultSet rsCliente = null;
         modelo.clear(); //limpia lista anterior
         list1.setModel(modelo); //llena lista
@@ -158,12 +157,12 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             } else {
 
                 rsCliente = objCliente.buscarCliente2(txtNombre.getText(), txtDni.getText());
-                System.out.println(rsCliente);
+               
                 
                 while (rsCliente.next()) {
-                    System.out.println("paso al while");
+              
                     String cliente = rsCliente.getString("nombre") + " " + rsCliente.getString("apellido");
-                    System.out.println("Cliente es: "+cliente);
+                   
                     modelo.addElement(cliente);
                 }
                 list1.setModel(modelo);
@@ -179,11 +178,10 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-        DefaultListModel<String> modelo = new DefaultListModel<>();
+
         if (evt.getClickCount() == 2) {
             int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            System.out.println("Cliente seleccionado: " + clienteSeleccionado); //solo para ver el cliente
             if (formularioProgramarCita != null) {
                 formularioProgramarCita.setClienteSeleccionado(clienteSeleccionado);
             }

@@ -4,58 +4,53 @@
  */
 package capaNegocio;
 
+import capaDatos.clsJDBC;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Antonio
  */
-public class cls_Tratamiento {
-    private int tratamiento_id; 
-    private String nombre;
-    private String descripcion; 
-    private int duracion; 
-    private float costo; 
+public class cls_Tratamiento { 
+    clsJDBC objBD = new clsJDBC();
+    ResultSet rs = null;
+    String strSQL;
 
     public cls_Tratamiento() {
     }
 
-    public int getTratamiento_id() {
-        return tratamiento_id;
+    public ResultSet listarTratamientos() throws Exception{
+        strSQL= "Select nombre from tratamiento"; 
+        try {
+            rs= objBD.ConsultarBD(strSQL); 
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al listar tratamientos " +e.getMessage()); 
+        }
     }
-
-    public void setTratamiento_id(int tratamiento_id) {
-        this.tratamiento_id = tratamiento_id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public int getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(int duracion) {
-        this.duracion = duracion;
-    }
-
-    public float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(float costo) {
-        this.costo = costo;
+    public int buscarTratamiento_id(String nomTra) throws Exception{
+        strSQL="Select tratamiento_id from tratamiento where nombre ='"+nomTra+"'";
+        try {
+            rs=objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                return rs.getInt("tratamiento_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar tratamiento_id por nombre " + e.getMessage()); 
+        }
+        return 0;
+    } 
+    public int precioTratamiento(String nombre) throws Exception{
+        strSQL="Select costo from tratamiento where nombre='"+nombre+"'"; 
+        try {
+            rs =objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                return rs.getInt("costo");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener precio de tratamiento " +e.getMessage());
+        }
+        return 0;
     }
     
     

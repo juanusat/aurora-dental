@@ -20,13 +20,16 @@ public class cls_Trabajador {
     String strSQL;
 
     public ResultSet listarDoctores() throws Exception {
-        strSQL = "Select p.nombre from trabajador t inner join persona p on t.persona_id = p.persona_id outer join cliente c on t.persona_id = c.persona_id where c.persona_id=null ";
+        strSQL = "Select p.nombre from trabajador t "
+                + "inner join persona p on t.persona_id = p.persona_id "
+                + "inner join cargo cg on t.cargo_id = cg.cargo_id "
+                + "where cg.cargo_id = 1";
        
         try {
             rs=objBD.ConsultarBD(strSQL); 
             return rs; 
         } catch (Exception e) {
-            throw new Exception("Error al listarDoctores" + e.getMessage());  
+            throw new Exception("Error al listar Doctores" + e.getMessage());  
         } 
     } 
     
@@ -61,6 +64,17 @@ public class cls_Trabajador {
         }
         return ""; 
     } 
- 
+    public int buscarID_Doctor(String nomDoc) throws Exception{
+        strSQL="Select t.trabajador_id from trabajador t inner join cargo cg on t.cargo_id= cg.cargo_id where cg.cargo_id=1";
+        try {
+            rs= objBD.ConsultarBD(strSQL); 
+            while (rs.next()) {                
+                return rs.getInt("trabajador_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar id de Doctor " +e.getMessage()); 
+        }
+        return 0;
+    }
     
 }
