@@ -25,7 +25,6 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     cls_Tratamiento objTR = new cls_Tratamiento();
     cls_Cita objC = new cls_Cita();
     cls_Persona objP = new cls_Persona();
-    
 
     public Jd_ProgramarCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -241,8 +240,8 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         try {
-            String [] partes =txtCliente.getText().split(" ");
-            objC.insertCita(objP.buscarCliente_id(partes[0]), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString()),Jd_IniciarSesion.id_usuario , DTPfechahora.getDateTimeStrict(),Integer.parseInt(txtPrecio.getText())); 
+            String[] partes = txtCliente.getText().split(" ");
+            objC.insertCita(objP.buscarCliente_id(partes[0]), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString()), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Integer.parseInt(txtPrecio.getText()));
             JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
             txtCliente.setText("");
             cbxDoctor.setSelectedIndex(-1);
@@ -250,7 +249,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
             txtPrecio.setText("");
             DTPfechahora.setDateTimePermissive(LocalDateTime.now());
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this,"Error al insertar cita " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al insertar cita " + e.getMessage());
         }
     }//GEN-LAST:event_btnProgramarActionPerformed
 

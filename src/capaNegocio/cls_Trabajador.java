@@ -14,7 +14,7 @@ import capaDatos.clsJDBC;
 import java.sql.ResultSet;
 
 public class cls_Trabajador {
-   
+
     clsJDBC objBD = new clsJDBC();
     ResultSet rs = null;
     String strSQL;
@@ -24,57 +24,78 @@ public class cls_Trabajador {
                 + "inner join persona p on t.persona_id = p.persona_id "
                 + "inner join cargo cg on t.cargo_id = cg.cargo_id "
                 + "where cg.cargo_id = 1";
-       
+
         try {
-            rs=objBD.ConsultarBD(strSQL); 
-            return rs; 
+            rs = objBD.ConsultarBD(strSQL);
+            return rs;
         } catch (Exception e) {
-            throw new Exception("Error al listar Doctores" + e.getMessage());  
-        } 
-    } 
-    
-    public String nombreCompleto (String usu)throws Exception{
-        strSQL="Select P.nombre ||' '|| P.apellido as nombre_completo from persona P " 
-                +"inner join trabajador T on P.persona_id=T.persona_id "
-                +"inner join usuario U on T.usuario_id=U.usuario_id where U.username='"+usu+"'";
-        String nombre="";
+            throw new Exception("Error al listar Doctores" + e.getMessage());
+        }
+    }
+
+    public String nombreCompleto(String usu) throws Exception {
+        strSQL = "Select P.nombre ||' '|| P.apellido as nombre_completo from persona P "
+                + "inner join trabajador T on P.persona_id=T.persona_id "
+                + "inner join usuario U on T.usuario_id=U.usuario_id where U.username='" + usu + "'";
+        String nombre = "";
         try {
-            rs=objBD.ConsultarBD(strSQL); 
-            while (rs.next()) {                
-                nombre= rs.getString("nombre_completo");
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
+                nombre = rs.getString("nombre_completo");
                 return nombre;
             }
         } catch (Exception e) {
-            throw new Exception("Error al obtener nombre completo " +e.getMessage());
+            throw new Exception("Error al obtener nombre completo " + e.getMessage());
         }
-        return ""; 
-    } 
-    public String obtenerCargo (String usu)throws Exception{
-        strSQL= "Select CA.nombre_cargo from cargo CA "
-                +"inner join trabajador T on CA.cargo_id = T.cargo_id "
-                +"inner join usuario U on T.usuario_id = U.usuario_id where U.username='"+usu+"'" ;
+        return "";
+    }
+
+    public String obtenerCargo(String usu) throws Exception {
+        strSQL = "Select CA.nombre_cargo from cargo CA "
+                + "inner join trabajador T on CA.cargo_id = T.cargo_id "
+                + "inner join usuario U on T.usuario_id = U.usuario_id where U.username='" + usu + "'";
         try {
-            rs=objBD.ConsultarBD(strSQL); 
-            while (rs.next()) {                
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
                 String cargo = rs.getString("nombre_cargo");
                 return cargo;
             }
         } catch (Exception e) {
-            throw new Exception("Error al obtener cargo" +e.getMessage());
+            throw new Exception("Error al obtener cargo" + e.getMessage());
         }
-        return ""; 
-    } 
-    public int buscarID_Doctor(String nomDoc) throws Exception{
-        strSQL="Select t.trabajador_id from trabajador t inner join cargo cg on t.cargo_id= cg.cargo_id where cg.cargo_id=1";
+        return "";
+    }
+
+    public int buscarID_Doctor(String nomDoc) throws Exception {
+        strSQL = "Select t.trabajador_id from trabajador t "
+                + "inner join cargo cg on t.cargo_id= cg.cargo_id "
+                + "inner join persona p on t.persona_id = p.persona_id "
+                + "where cg.cargo_id=1 and p.nombre ='"+nomDoc+"'";
         try {
-            rs= objBD.ConsultarBD(strSQL); 
-            while (rs.next()) {                
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
                 return rs.getInt("trabajador_id");
             }
         } catch (Exception e) {
-            throw new Exception("Error al buscar id de Doctor " +e.getMessage()); 
+            throw new Exception("Error al buscar id de Doctor " + e.getMessage());
         }
         return 0;
     }
-    
+
+    public int buscarID_Recepcionista(String nomRec) throws Exception {
+        strSQL = "Select t.trabajador_id from trabajador t "
+                + "inner join cargo cg on t.cargo_id= cg.cargo_id "
+                + "inner join persona p on t.persona_id = p.persona_id "
+                + "where cg.cargo_id=2 and p.nombre ='"+nomRec+"'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
+                return rs.getInt("trabajador_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar id de Recepcionista " + e.getMessage());
+        }
+        return 0;
+    }
+
 }
