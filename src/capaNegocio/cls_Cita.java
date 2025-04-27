@@ -109,34 +109,29 @@ public class cls_Cita {
                 + "where p.nombre ='" + nombre + "'and p.apellido='" + apellido + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
-            while (rs.next()) {
-                return rs;
-            }
-
+            return rs;
         } catch (Exception e) {
             throw new Exception("Error al buscar todas citas de paciente " + e.getMessage());
         }
-        return rs = null;
+
     }
-    
+
     public ResultSet buscarTodasCitasDoctor(String nombre) throws Exception {
         strSQL = "Select p.nombre as Nombre_C ,p.documento as DNI ,t.nombre as Nombre_T, c.fecha_hora, c.reagendada, c.estado, CASE WHEN c.estado = 'reagendada' THEN 'Sí' ELSE 'No' END AS Reagendado from cita c "
-            + "inner join cliente cl on c.cliente_id = cl.cliente_id "
-            +  "inner join persona p on cl.persona_id = p.persona_id "
-               + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
-               + "inner join trabajador d on c.medico_id = d.trabajador_id "
-               + "inner join persona p2 on d.persona_id = p2.persona_id "
-               + "where p2.nombre ='" +nombre + "'";
+                + "inner join cliente cl on c.cliente_id = cl.cliente_id "
+                + "inner join persona p on cl.persona_id = p.persona_id "
+                + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
+                + "inner join trabajador d on c.medico_id = d.trabajador_id "
+                + "inner join persona p2 on d.persona_id = p2.persona_id "
+                + "where p2.nombre ='" + nombre + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
-            while (rs.next()) {
-                return rs;
-            }
+            return rs;
 
         } catch (Exception e) {
             throw new Exception("Error al buscar todas citas del doctor " + e.getMessage());
         }
-        return rs = null;
+
     }
 
 }
