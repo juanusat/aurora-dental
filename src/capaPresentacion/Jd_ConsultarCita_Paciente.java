@@ -64,7 +64,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Tratamiento", "Doctor", "Fecha_hora", "Csoto", "Reagendado", "Estado"
+                "Tratamiento", "Doctor", "Fecha_hora", "Costo", "Reagendado", "Estado"
             }
         ));
         jScrollPane1.setViewportView(Lista);
