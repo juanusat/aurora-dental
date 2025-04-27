@@ -162,11 +162,7 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
             String nombreD = cbxDoctor.getSelectedItem().toString();
             ResultSet rs = objC.buscarTodasCitasDoctor(nombreD);
 
-            // Asegúrate de mover el cursor a la primera fila antes de hacer cualquier operación
             while (rs.next()) {
-                // Solo después de rs.next(), puedes acceder a los datos del ResultSet
-
-                // Verificamos si "estado" es "reagendada", y si es así, tomamos la fecha de "reagendada"
                 if (rs.getString("estado").equals("reagendada")) {
 
                     String fechaHora = rs.getString("reagendada");
@@ -190,22 +186,14 @@ public class Jd_ConsultarCita_Doctor extends javax.swing.JDialog {
                     });
                 }
 
-                // Agregamos una nueva fila con los valores del ResultSet
             }
-
-            // Actualizamos el modelo de la tabla con los nuevos datos
             Lista.setModel(modelo);
-            System.out.println(modelo.getRowCount());
-
-            // Si no hay filas, mostramos un mensaje de advertencia
             if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "El doctor no tiene ninguna cita.");
             }
-
-            // Cerramos el ResultSet
             rs.close();
         } catch (Exception e) {
-            // Si ocurre un error, mostramos un mensaje
+
             JOptionPane.showMessageDialog(this, "Error al listar citas del doctor " + e.getMessage());
         }
     }

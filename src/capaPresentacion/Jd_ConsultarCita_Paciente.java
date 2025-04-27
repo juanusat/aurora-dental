@@ -21,7 +21,6 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     }
 
     public void setClienteSeleccionado(String cliente) {
-        System.out.println("cliente : " + cliente);
         txtnombre.setText(cliente);
         listarCitas();
     }
