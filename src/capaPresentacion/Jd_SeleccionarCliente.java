@@ -19,6 +19,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private Jd_ProgramarCita formularioProgramarCita;
     private Jd_ModificarCita formularioModificarCita;
+    private Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente;
 
     public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ProgramarCita formularioProgramarCita) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
@@ -29,6 +30,12 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ModificarCita formularioModificarCita) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
         this.formularioModificarCita = formularioModificarCita; // Guardamos la referencia
+        initComponents();
+    }
+
+    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente) {
+        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
+        this.formularioConsultarCitaPaciente = formularioConsultarCitaPaciente; // Guardamos la referencia
         initComponents();
     }
 
@@ -198,6 +205,15 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
             if (formularioModificarCita != null) {
                 formularioModificarCita.setClienteSeleccionado(clienteSeleccionado);
+            }
+
+            dispose();
+        }
+        if (evt.getClickCount() == 2) {
+            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+            if (formularioConsultarCitaPaciente != null) {
+                formularioConsultarCitaPaciente.setClienteSeleccionado(clienteSeleccionado);
             }
 
             dispose();
