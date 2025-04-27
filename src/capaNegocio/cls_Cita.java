@@ -67,7 +67,7 @@ public class cls_Cita {
     }
 
     public int modificarCitaSF(int cita_id, int doctor_id, int tratamiento_id, int agendor_id) throws Exception {
-        strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "' "
+        strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "',estado='reagendada' "
                 + "where cita_id='" + cita_id + "'";
         try {
             int i = objBD.ejecutarBD(strSQL);
@@ -78,7 +78,7 @@ public class cls_Cita {
     }
 
     public int modificarCita(int cita_id, int doctor_id, int tratamiento_id, int agendor_id, LocalDateTime fecha_Hora) throws Exception {
-        strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "',fecha_hora='" + fecha_Hora.format(formatter) + "',estado='reagendada' "
+        strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "',reagendada='" + fecha_Hora.format(formatter) + "',estado='reagendada' "
                 + "where cita_id='" + cita_id + "'";
         try {
             int i = objBD.ejecutarBD(strSQL);
@@ -97,6 +97,26 @@ public class cls_Cita {
         } catch (Exception e) {
             throw new Exception("Error al modificar cita " + e.getMessage());
         }
+    }
+    
+        public ResultSet buscarTodasCitasPaciente(String nombre, String apellido) throws Exception {
+        strSQL = "Select t.nombre as Nombre_T ,p2.nombre as Nombre_D ,c.fecha_hora, c.costo, c.reagendada, c.estado from cita c "
+                + "inner join cliente cl on c.cliente_id = cl.cliente_id "
+                + "inner join persona p on cl.persona_id = p.persona_id "
+                + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
+                + "inner join trabajador d on c.medico_id=d.trabajador_id "
+                + "inner join persona p2 on d.persona_id = p2.persona_id "
+                + "where p.nombre ='" + nombre + "'and p.apellido='"+apellido+"'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {                
+                return rs;
+            }
+            
+        } catch (Exception e) {
+            throw new Exception("Error al buscar todas citas de paciente " + e.getMessage());
+        }
+        return rs=null;
     }
     
 }

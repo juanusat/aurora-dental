@@ -39,6 +39,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         initComponents();
         listarDoctores();
         listarTratamientos();
+        DTPFechaHora.setEnabled(false);
     }
 
     public void setClienteSeleccionado(String cliente) {
@@ -120,6 +121,11 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         });
 
         chkReprogramar.setText("Reprogramar");
+        chkReprogramar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkReprogramarActionPerformed(evt);
+            }
+        });
 
         Lista.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -245,7 +251,6 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             int agendor_id = objT.buscarID_Recepcionista(NomRec[0]);
 
             if (chkReprogramar.isSelected()) {
-                DTPFechaHora.setEnabled(true);
                 int rpta = JOptionPane.showConfirmDialog(this, "¿Estas seguro que deseas modificar tu cita?", "Panel de confirmarcion", JOptionPane.YES_NO_CANCEL_OPTION);
                 if (rpta == JOptionPane.YES_OPTION) {
                     objC.modificarCita(cita_id, doctor_id, tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
@@ -276,7 +281,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
 
             int rpta = JOptionPane.showConfirmDialog(this, "¿Estas seguro que deseas anular tu cita?", "Panel de confirmarcion", JOptionPane.YES_NO_CANCEL_OPTION);
             if (rpta == JOptionPane.YES_OPTION) {
-                objC.anularCita(cita_id); 
+                objC.anularCita(cita_id);
                 JOptionPane.showMessageDialog(this, "Cita Anulada");
                 listarCitas();
             } else {
@@ -285,6 +290,14 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_btnAnularActionPerformed
+
+    private void chkReprogramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkReprogramarActionPerformed
+        if (chkReprogramar.isSelected()) {
+            DTPFechaHora.setEnabled(true);
+        } else {
+            DTPFechaHora.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkReprogramarActionPerformed
     private void listarDoctores() {
         ResultSet rsDoc = null;
         DefaultComboBoxModel modeloMar = new DefaultComboBoxModel();
