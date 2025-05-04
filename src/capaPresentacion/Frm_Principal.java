@@ -395,7 +395,9 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-        // TODO add your handling code here:
+        Jd_Gestion_Tratamiento objGT = new Jd_Gestion_Tratamiento(this, true);
+        objGT.setLocationRelativeTo(this);
+        objGT.setVisible(true);
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
