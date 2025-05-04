@@ -109,17 +109,6 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         jTextField7.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
         jScrollPane2.setViewportView(jTable1);
 
         jButton2.setText("Nuevo");
