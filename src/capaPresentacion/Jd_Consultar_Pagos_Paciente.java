@@ -40,6 +40,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         tbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consultar Pagos de Paciente");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
