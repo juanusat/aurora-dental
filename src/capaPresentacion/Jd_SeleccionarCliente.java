@@ -20,6 +20,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     private Jd_ProgramarCita formularioProgramarCita;
     private Jd_ModificarCita formularioModificarCita;
     private Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente;
+    private Jd_RegistrarPago formularioRegistrarPago;
+    private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes;
 
     public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ProgramarCita formularioProgramarCita) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
@@ -36,6 +38,18 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
         this.formularioConsultarCitaPaciente = formularioConsultarCitaPaciente; // Guardamos la referencia
+        initComponents();
+    }
+
+    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_RegistrarPago formularioRegistrarPago) {
+        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
+        this.formularioRegistrarPago = formularioRegistrarPago; // Guardamos la referencia
+        initComponents();
+    }
+    
+      public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes) {
+        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
+        this.formularioConsultarPagosPacientes = formularioConsultarPagosPacientes; // Guardamos la referencia
         initComponents();
     }
 
@@ -214,6 +228,25 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
             if (formularioConsultarCitaPaciente != null) {
                 formularioConsultarCitaPaciente.setClienteSeleccionado(clienteSeleccionado);
+            }
+
+            dispose();
+        }
+        if (evt.getClickCount() == 2) {
+            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+            if (formularioRegistrarPago != null) {
+                formularioRegistrarPago.setClienteSeleccionado(clienteSeleccionado);
+            }
+
+            dispose();
+        }
+        
+             if (evt.getClickCount() == 2) {
+            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+            if (formularioConsultarPagosPacientes != null) {
+                formularioConsultarPagosPacientes.setClienteSeleccionado(clienteSeleccionado);
             }
 
             dispose();
