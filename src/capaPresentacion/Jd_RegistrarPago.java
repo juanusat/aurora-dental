@@ -31,6 +31,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         btnG.add(rbtnDebito);
         btnG.add(rbtnEfectivo);
         btnG.add(rbtnTransferencia);
+        txtNombre.setEnabled(false);
     }
 
     public void setClienteSeleccionado(String cliente) {

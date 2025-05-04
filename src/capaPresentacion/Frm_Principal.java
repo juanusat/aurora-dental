@@ -267,6 +267,11 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuItem22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/file-invoice-solid.png"))); // NOI18N
         jMenuItem22.setText("Consultar por paciente");
+        jMenuItem22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem22ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem22);
 
         jMenuBar1.add(jMenu8);
@@ -398,6 +403,12 @@ public class Frm_Principal extends javax.swing.JFrame {
         objP.setLocationRelativeTo(this);
         objP.setVisible(true);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
+
+    private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
+        Jd_Consultar_Pagos_Paciente objCPP = new Jd_Consultar_Pagos_Paciente(this,true); 
+        objCPP.setLocationRelativeTo(this);
+        objCPP.setVisible(true);
+    }//GEN-LAST:event_jMenuItem22ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

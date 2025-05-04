@@ -52,5 +52,21 @@ public class cls_Pago {
             throw new Exception("Error al registrar pago de cita " +e.getMessage()); 
         }
     }
+    
+    public ResultSet listarPagosCitasCliente (String nombre, String apellido) throws Exception{
+        strSQL="Select tr.nombre as tratamiento , p.emisor as emisor, p.fecha_hora as fecha_hora, p.monto as monto, p.metodo as metodo, p.estado as estado "
+                + "from pago p "
+                + "inner join cita c on p.cita_id=c.cita_id "
+                + "inner join tratamiento tr on c.tratamiento_id =tr.tratamiento_id "
+                + "inner join cliente cl on c.cliente_id=cl.cliente_id "
+                + "inner join persona per on cl.persona_id = per.persona_id "
+                + "where per.nombre ='"+nombre+"' and apellido='"+apellido+"'"; 
+        try {
+            rs=objBD.ConsultarBD(strSQL); 
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al listar pagos de citas de cliente " +e.getMessage()); 
+        }
+    }
 
 }
