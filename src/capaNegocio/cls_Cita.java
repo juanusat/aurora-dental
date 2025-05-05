@@ -133,5 +133,34 @@ public class cls_Cita {
         }
 
     }
-    
+
+    public ResultSet buscarCitasDeHoy() throws Exception {
+
+        strSQL = "Select * from cita c "
+                + "inner join cliente cl on c.cliente_id=cl.cliente_id "
+                + "inner join persona per on cl.persona_id=per.persona_id "
+                + "where CAST(c.fecha_hora AS date)= CURRENT_DATE";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar citas de hoy " + e.getMessage());
+        }
+    }
+
+    public ResultSet buscarInfoCitasDni(String dni) throws Exception {
+
+        strSQL = "Select per_cl.apellido as Ape_cliente, per_cl.nombre as Nom_cliente,  per_cl.fecha_nacimiento, per_cl.sexo, per_cl.telefono, per_tra.nombre as nom_medico, c.fecha_hora, c.reagendada from cita c "
+                + "inner join cliente cl on c.cliente_id=cl.cliente_id "
+                + "inner join persona per_cl on cl.persona_id=per_cl.persona_id "
+                + "inner join trabajador tra on c.medico_id=tra.trabajador_id "
+                + "inner join persona per_tra on tra.persona_id=per_tra.persona_id "
+                + "where per_cl.documento= '" + dni + "'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar citas de hoy " + e.getMessage());
+        }
+    }
 }

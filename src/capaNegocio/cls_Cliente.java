@@ -19,7 +19,7 @@ public class cls_Cliente {
     String strSQL;
 
     public void registrarPaciente(int persona_id) throws Exception {
-        strSQL = "Insert into cliente values(" + persona_id + ")";
+        strSQL = "Insert into cliente (persona_id) values(" + persona_id + ")";
         try {
             objBD.ejecutarBD(strSQL);
         } catch (Exception e) {
