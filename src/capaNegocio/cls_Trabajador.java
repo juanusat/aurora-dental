@@ -97,5 +97,29 @@ public class cls_Trabajador {
         }
         return 0;
     }
+    public ResultSet listarTrabajadores() throws Exception {
+        strSQL = "Select p.nombre from trabajador t "
+                + "inner join persona p on t.persona_id = p.persona_id";
 
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al listar trabajadores" + e.getMessage());
+        }
+    }
+    public int buscarID_Persona(String nomTra) throws Exception {
+        strSQL = "Select t.persona_id from trabajador t "
+                + "inner join persona p on t.persona_id = p.persona_id "
+                + "where p.nombre ='"+nomTra+"'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
+                return rs.getInt("persona_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar id de Doctor " + e.getMessage());
+        }
+        return 0;
+    }
 }
