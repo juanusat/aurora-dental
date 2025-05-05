@@ -99,6 +99,7 @@ public class cls_Trabajador {
         }
         return 0;
     }
+
     
     public ResultSet listarOdontologos() throws Exception {
         strSQL = "select t.trabajador_id, p.nombre, p.apellido, p.documento, p.sexo, p.email, p.telefono, "
@@ -180,4 +181,4 @@ public class cls_Trabajador {
         }
     }
 
-}
+  

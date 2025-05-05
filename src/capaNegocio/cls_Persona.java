@@ -20,8 +20,8 @@ public class cls_Persona {
     ResultSet rs = null;
     String strSQL;
 
-    public void registrarPersona(String nombre, String apellido, String dni, boolean sexo, String correo, String telefono, Date fecha_nac, String direccion) throws Exception {
-        strSQL = "Insert into persona values('" + nombre + "','" + apellido + "','" + dni + "','" + correo + "','" + telefono + "','" + fecha_nac + "','" + direccion + "')";
+    public void registrarPersona(String nombre, String apellido, String dni, String correo, String telefono, String fecha_nac, String direccion, String sexo) throws Exception {
+        strSQL = "Insert into persona(nombre, apellido, documento, email, telefono, fecha_nacimiento, direccion, sexo) values('" + nombre + "','" + apellido + "','" + dni + "','" + correo + "','" + telefono + "','" + fecha_nac + "','" + direccion + "','" + sexo + "')";
         try {
             objBD.ejecutarBD(strSQL);
         } catch (Exception e) {
@@ -44,9 +44,11 @@ public class cls_Persona {
     }
 
     public int buscarPersona(String dni) throws Exception {
-        strSQL = "Select*from persona where documento=" + dni;
+        strSQL = "Select*from persona where documento= '" + dni + "'";
         try {
+            System.out.println("si");
             rs = objBD.ConsultarBD(strSQL);
+            System.out.println("consulta hecha");
             while (rs.next()) {
                 return rs.getInt("persona_id");
             }
@@ -67,7 +69,7 @@ public class cls_Persona {
     }
 
     public ResultSet buscarPersonaCompleto(String dni) throws Exception {
-        strSQL = "Select*from persona where documento=" + dni;
+        strSQL = "Select*from persona where documento= '" + dni + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
            return rs;
@@ -75,8 +77,8 @@ public class cls_Persona {
             throw new Exception("Error al buscar persona por dni" + e.getMessage());
         }
     }
-    public void actualizarPersona(String nombre, String apellido, String dni, boolean sexo, String correo, String telefono, Date fecha_nac, String direccion, int persona_id) throws Exception{
-        strSQL = "update persona set nombre='" +nombre+"',apellido='"+apellido+"',documento="+dni+",sexo='"+sexo+"',email='"+correo+"',telefono='"+telefono+"',fecha_nacimiento='"+fecha_nac+"',direccion='"+direccion+"' where persona_id ="+persona_id; 
+    public void actualizarPersona(String nombre, String apellido, String dni, String sexo, String correo, String telefono, Date fecha_nac, String direccion) throws Exception{
+        strSQL = "update persona set nombre='" +nombre+"',apellido='"+apellido+"',documento="+dni+",sexo='"+sexo+"',email='"+correo+"',telefono='"+telefono+"',fecha_nacimiento='"+fecha_nac+"',direccion='"+direccion+"' where documento = '"+dni + "'"; 
         try {
             objBD.ejecutarBD(strSQL);
         } catch (Exception e) {
@@ -122,5 +124,16 @@ public class cls_Persona {
         }
         return 0;
     }
-
+    public Integer generarNuevoCodigoPaciente() throws Exception{
+        strSQL = "Select COALESCE(Max(persona_id), 0) + 1 as codigo from persona";
+        try {
+             rs =objBD.ConsultarBD(strSQL);
+             while (rs.next()) {                
+                return rs.getInt("codigo");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar cliente_id por nombre de persona " + e.getMessage()); 
+        }
+        return 0;
+    }
 }
