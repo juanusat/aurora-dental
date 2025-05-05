@@ -100,7 +100,6 @@ public class cls_Trabajador {
         return 0;
     }
 
-    
     public ResultSet listarOdontologos() throws Exception {
         strSQL = "select t.trabajador_id, p.nombre, p.apellido, p.documento, p.sexo, p.email, p.telefono, "
                 + "p.fecha_nacimiento, p.direccion, t.especialidad, t.numero_licencia "
@@ -166,11 +165,11 @@ public class cls_Trabajador {
             Integer personaId = per.registrarPersona2(nombre, apellido, documento,
                     sexo, email, telefono,
                     fechaNacimiento, direccion);
-            
+
             String sqlTrab = "insert into trabajador(persona_id, cargo_id, usuario_id, numero_licencia, especialidad, creado_en) "
                     + "values (" + personaId + "," + codCargo + "," + usuarioId + ",'"
                     + numeroLicencia + "','" + especialidad + "','" + fechaIngreso + "') returning trabajador_id";
-             rs = objBD.ConsultarBD(sqlTrab);
+            rs = objBD.ConsultarBD(sqlTrab);
             if (rs.next()) {
                 return rs.getInt("trabajador_id");
             } else {
@@ -180,5 +179,4 @@ public class cls_Trabajador {
             throw new Exception("Error al registrar odontólogo completo: " + e.getMessage());
         }
     }
-
-  
+}
