@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package capaNegocio;
 
 import capaDatos.clsJDBC;
-import java.sql.ResultSet;
+import java.sql.*;
 
 /**
  *
@@ -19,18 +16,18 @@ public class cls_Tratamiento {
     public cls_Tratamiento() {
     }
 
-    public ResultSet listarTratamientos() throws Exception{
-        strSQL= "Select nombre from tratamiento"; 
+    public ResultSet listarTratamientos() throws Exception {
+        strSQL = "select * from tratamiento";
         try {
-            rs= objBD.ConsultarBD(strSQL); 
+            rs = objBD.ConsultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al listar tratamientos " +e.getMessage()); 
+            throw new Exception("Error al listar tratamientos: " + e.getMessage());
         }
     }
     public int buscarTratamiento_id(String nomTra) throws Exception{
         strSQL="Select tratamiento_id from tratamiento where nombre ='"+nomTra+"'";
-        try {
+        try { 
             rs=objBD.ConsultarBD(strSQL); 
             while (rs.next()) {                
                 return rs.getInt("tratamiento_id");

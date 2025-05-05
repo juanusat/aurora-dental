@@ -285,6 +285,11 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
         jMenuItem19.setText("Odontológos");
+        jMenuItem19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem19ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem19);
         jMenu4.add(jSeparator4);
 
@@ -411,6 +416,12 @@ public class Frm_Principal extends javax.swing.JFrame {
         objCPP.setLocationRelativeTo(this);
         objCPP.setVisible(true);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
+
+    private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
+        Jd_Gestion_Odontologo objGO = new Jd_Gestion_Odontologo(this,true);
+        objGO.setLocationRelativeTo(this);
+        objGO.setVisible(true);
+    }//GEN-LAST:event_jMenuItem19ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

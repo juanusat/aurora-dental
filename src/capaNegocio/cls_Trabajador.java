@@ -18,6 +18,8 @@ public class cls_Trabajador {
     clsJDBC objBD = new clsJDBC();
     ResultSet rs = null;
     String strSQL;
+    cls_Persona per = new cls_Persona();
+    clsUsuario usr = new clsUsuario();
 
     public ResultSet listarDoctores() throws Exception {
         strSQL = "Select p.nombre from trabajador t "
@@ -70,7 +72,7 @@ public class cls_Trabajador {
         strSQL = "Select t.trabajador_id from trabajador t "
                 + "inner join cargo cg on t.cargo_id= cg.cargo_id "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where cg.cargo_id=1 and p.nombre ='"+nomDoc+"'";
+                + "where cg.cargo_id=1 and p.nombre ='" + nomDoc + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
@@ -86,7 +88,7 @@ public class cls_Trabajador {
         strSQL = "Select t.trabajador_id from trabajador t "
                 + "inner join cargo cg on t.cargo_id= cg.cargo_id "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where cg.cargo_id=2 and p.nombre ='"+nomRec+"'";
+                + "where cg.cargo_id=2 and p.nombre ='" + nomRec + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
@@ -96,6 +98,86 @@ public class cls_Trabajador {
             throw new Exception("Error al buscar id de Recepcionista " + e.getMessage());
         }
         return 0;
+    }
+    
+    public ResultSet listarOdontologos() throws Exception {
+        strSQL = "select t.trabajador_id, p.nombre, p.apellido, p.documento, p.sexo, p.email, p.telefono, "
+                + "p.fecha_nacimiento, p.direccion, t.especialidad, t.numero_licencia "
+                + "from trabajador t "
+                + "join persona p on t.persona_id = p.persona_id "
+                + "where t.cargo_id = (select cargo_id from cargo where nombre_cargo = 'Odontologo')";
+        try {
+            return objBD.ConsultarBD(strSQL);
+        } catch (Exception e) {
+            throw new Exception("Error al listar odontólogos: " + e.getMessage());
+        }
+    }
+
+    public void modificarOdontologo(Integer trabajadorId, Integer personaId, String nombre, String apellido, String documento, String sexo,
+            String email, String telefono, String fechaNacimiento, String direccion, String especialidad, String numeroLicencia) throws Exception {
+        try {
+            // Actualizar persona
+            String sqlPersona = "update persona set nombre='" + nombre + "', apellido='" + apellido + "', documento='" + documento + "', "
+                    + "sexo='" + sexo + "', email='" + email + "', telefono='" + telefono + "', fecha_nacimiento='" + fechaNacimiento + "', "
+                    + "direccion='" + direccion + "' where persona_id=" + personaId;
+            objBD.ejecutarBD(sqlPersona);
+
+            // Actualizar trabajador (especialidad y licencia)
+            String sqlTrabajador = "update trabajador set especialidad='" + especialidad + "', numero_licencia='" + numeroLicencia + "' "
+                    + "where trabajador_id=" + trabajadorId;
+            objBD.ejecutarBD(sqlTrabajador);
+        } catch (Exception e) {
+            throw new Exception("Error al modificar odontólogo: " + e.getMessage());
+        }
+    }
+
+    public void eliminarOdontologo(Integer trabajadorId) throws Exception {
+        try {
+            String sql = "delete from trabajador where trabajador_id=" + trabajadorId;
+            objBD.ejecutarBD(sql);
+        } catch (Exception e) {
+            throw new Exception("Error al eliminar odontólogo: " + e.getMessage());
+        }
+    }
+
+    public Integer obtenerPersonaIdPorTrabajadorId(Integer trabajadorId) throws Exception {
+        strSQL = "select persona_id from trabajador where trabajador_id = " + trabajadorId;
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            if (rs.next()) {
+                return rs.getInt("persona_id");
+            } else {
+                throw new Exception("No se encontró persona con ese trabajador_id.");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al obtener persona_id: " + e.getMessage());
+        }
+    }
+
+    public Integer registrarOdontologoCompleto(String nombre, String apellido, String documento,
+            String sexo, String email, String telefono, String fechaNacimiento,
+            String direccion, String username, String passwordHash,
+            Integer codCargo, String numeroLicencia, String especialidad,
+            String fechaIngreso) throws Exception {
+        try {
+            Integer usuarioId = usr.registrarUsuario(username, passwordHash);
+
+            Integer personaId = per.registrarPersona2(nombre, apellido, documento,
+                    sexo, email, telefono,
+                    fechaNacimiento, direccion);
+            
+            String sqlTrab = "insert into trabajador(persona_id, cargo_id, usuario_id, numero_licencia, especialidad, creado_en) "
+                    + "values (" + personaId + "," + codCargo + "," + usuarioId + ",'"
+                    + numeroLicencia + "','" + especialidad + "','" + fechaIngreso + "') returning trabajador_id";
+             rs = objBD.ConsultarBD(sqlTrab);
+            if (rs.next()) {
+                return rs.getInt("trabajador_id");
+            } else {
+                throw new Exception("No se obtuvo trabajador_id al insertar trabajador.");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al registrar odontólogo completo: " + e.getMessage());
+        }
     }
 
 }
