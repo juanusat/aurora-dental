@@ -4,18 +4,25 @@
  */
 package capaPresentacion;
 
+import capaNegocio.*;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Antonio
  */
 public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
-
+    
+    cls_Trabajador objTra = new cls_Trabajador();
     /**
      * Creates new form jd_Gestion_Odontologo
      */
     public Jd_Gestion_Odontologo(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarTablaOdontologos();
     }
 
     /**
@@ -31,93 +38,131 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        rbM = new javax.swing.JRadioButton();
+        rbF = new javax.swing.JRadioButton();
+        txtCorreo = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        txtEspecialidad = new javax.swing.JTextField();
+        txtLicencia = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jTextField8 = new javax.swing.JTextField();
-        datePicker2 = new com.github.lgooddatepicker.components.DatePicker();
+        tblOdontologos = new javax.swing.JTable();
+        btnNuevo = new javax.swing.JButton();
+        btnDarBaja = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        txtDireccion = new javax.swing.JTextField();
+        dateN = new com.toedter.calendar.JDateChooser();
+        btnBuscar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Nombre:");
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel2.setText("Nombre:");
 
-        jLabel4.setText("Apellido:");
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel4.setText("Apellido:");
 
-        jLabel5.setText("Dni:");
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel5.setText("Dni:");
 
-        jTextField1.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jTextField2.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtApellido.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jTextField3.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setText("Sexo:");
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel6.setText("Sexo:");
 
-        jLabel7.setText("Correo:");
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel7.setText("Correo:");
 
-        jLabel9.setText("Telefono:");
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel9.setText("Telefono:");
 
-        jRadioButton1.setText("Masculino");
+        rbM.setText("Masculino");
 
-        jRadioButton2.setText("Femenino");
+        rbF.setText("Femenino");
 
-        jTextField4.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtCorreo.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jTextField5.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtTelefono.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel3.setText("Fecha Nac.");
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel3.setText("Fecha Nac.");
 
-        jLabel8.setText("Direccion:");
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel8.setText("Direccion:");
 
-        jLabel10.setText("Especialidad:");
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel10.setText("Especialidad:");
 
-        jLabel11.setText("Numero Licencia:");
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel11.setText("Numero Licencia:");
 
-        jTextField6.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtEspecialidad.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jTextField7.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtLicencia.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jScrollPane2.setViewportView(jTable1);
+        tblOdontologos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblOdontologosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblOdontologos);
 
-        jButton2.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Dar Baja");
+        btnDarBaja.setText("Dar Baja");
 
-        jButton4.setText("Modificar");
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Limpiar");
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,66 +172,71 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton5)
+                        .addComponent(btnLimpiar)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField8))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(jRadioButton1)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(jRadioButton2))
-                                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGap(30, 30, 30)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jSeparator2)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGap(15, 15, 15)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addGap(26, 26, 26)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(52, 52, 52))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGap(14, 14, 14)))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(4, 4, 4)
-                                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 2, Short.MAX_VALUE)))
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                                        .addComponent(rbM)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(rbF))
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtDireccion)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(15, 15, 15)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(52, 52, 52))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtEspecialidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(14, 14, 14)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtLicencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane2)
+                            .addComponent(jSeparator2))
+                        .addGap(12, 12, 12))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDarBaja)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnModificar)
+                .addGap(18, 18, 18)
+                .addComponent(btnSalir)
+                .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,10 +247,12 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -208,38 +260,40 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbM)
+                    .addComponent(rbF)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5))
-                .addGap(24, 24, 24)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnLimpiar))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
+                    .addComponent(btnModificar)
+                    .addComponent(btnDarBaja)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnSalir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -256,56 +310,225 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Jd_Gestion_Odontologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Jd_Gestion_Odontologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Jd_Gestion_Odontologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Jd_Gestion_Odontologo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Jd_Gestion_Odontologo dialog = new Jd_Gestion_Odontologo(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+    
+    private void limpiarControles() {
+        txtNombre.setText("");
+        txtApellido.setText("");
+        txtDni.setText("");
+        rbM.setSelected(false);
+        rbF.setSelected(false);
+        txtCorreo.setText("");
+        txtTelefono.setText("");
+        dateN.setDate(null);
+        txtDireccion.setText("");
+        txtEspecialidad.setText("");
+        txtLicencia.setText("");
+        cargarTablaOdontologos();
     }
 
+    private void cargarTablaOdontologos() {
+        try {
+            ResultSet rs = objTra.listarOdontologos();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido");
+            modelo.addColumn("Documento");
+            modelo.addColumn("Sexo");
+            modelo.addColumn("Correo");
+            modelo.addColumn("Teléfono");
+            modelo.addColumn("Fecha Nac.");
+            modelo.addColumn("Dirección");
+            modelo.addColumn("Especialidad");
+            modelo.addColumn("Licencia");
+            tblOdontologos.setModel(modelo);
+            while (rs.next()) {
+                modelo.addRow(new Object[]{
+                    rs.getInt("trabajador_id"),
+                    rs.getString("nombre"),
+                    rs.getString("apellido"),
+                    rs.getString("documento"),
+                    rs.getString("sexo"),
+                    rs.getString("email"),
+                    rs.getString("telefono"),
+                    rs.getDate("fecha_nacimiento"),
+                    rs.getString("direccion"),
+                    rs.getString("especialidad"),
+                    rs.getString("numero_licencia")
+                });
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar odontólogos: " + e.getMessage());
+        }
+    }
+
+    
+    private void tblOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOdontologosMouseClicked
+        int filaSeleccionada = tblOdontologos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            txtNombre.setText(tblOdontologos.getValueAt(filaSeleccionada, 1).toString());
+            txtApellido.setText(tblOdontologos.getValueAt(filaSeleccionada, 2).toString());
+            txtDni.setText(tblOdontologos.getValueAt(filaSeleccionada, 3).toString());
+            String sexo = tblOdontologos.getValueAt(filaSeleccionada, 4).toString();
+            if (sexo.equals("m")) {
+                rbM.setSelected(true);
+            } else {
+                rbF.setSelected(true);
+            }
+
+            txtCorreo.setText(tblOdontologos.getValueAt(filaSeleccionada, 5).toString());
+            txtTelefono.setText(tblOdontologos.getValueAt(filaSeleccionada, 6).toString());
+            dateN.setDate((java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7));
+            txtDireccion.setText(tblOdontologos.getValueAt(filaSeleccionada, 8).toString());
+            txtEspecialidad.setText(tblOdontologos.getValueAt(filaSeleccionada, 9).toString());
+            txtLicencia.setText(tblOdontologos.getValueAt(filaSeleccionada, 10).toString());
+        }
+    }//GEN-LAST:event_tblOdontologosMouseClicked
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        try {
+            if (btnNuevo.getText().equals("Nuevo")) {
+                btnNuevo.setText("Guardar");
+                limpiarControles();
+                txtNombre.requestFocus();
+            } else {
+                btnNuevo.setText("Nuevo");
+
+                if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
+                    || txtDni.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
+                    return;
+                }
+                String nombre = txtNombre.getText();
+                String apellido = txtApellido.getText();
+                String documento = txtDni.getText();
+                String sexo = rbM.isSelected() ? "m" : "f";
+                String email = txtCorreo.getText();
+                String telefono = txtTelefono.getText();
+                String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
+                String direccion = txtDireccion.getText();
+                String especialidad = txtEspecialidad.getText();
+                String numeroLicencia = txtLicencia.getText();
+                String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+                
+                String username = "";
+                String passwordHash = "";
+
+                Integer codCargo = 1; 
+
+                Integer trabajadorId = objTra.registrarOdontologoCompleto(
+                    nombre, apellido, documento, sexo, email, telefono,
+                    fechaNacimiento, direccion, username, passwordHash,
+                    codCargo, numeroLicencia, especialidad, fechaIngreso
+                );
+
+                limpiarControles();
+                cargarTablaOdontologos();
+                JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        try {
+            int fila = tblOdontologos.getSelectedRow();
+            if (fila != -1) {
+                Integer trabajadorId = Integer.parseInt(tblOdontologos.getValueAt(fila, 0).toString());
+                Integer personaId = objTra.obtenerPersonaIdPorTrabajadorId(trabajadorId); // → Debes implementar este método
+
+                String nombre = txtNombre.getText();
+                String apellido = txtApellido.getText();
+                String documento = txtDni.getText();
+                String sexo = rbM.isSelected() ? "M" : "F";
+                String email = txtCorreo.getText();
+                String telefono = txtTelefono.getText();
+                String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
+                String direccion = txtDireccion.getText();
+                String especialidad = txtEspecialidad.getText();
+                String numeroLicencia = txtLicencia.getText();
+
+                objTra.modificarOdontologo(trabajadorId, personaId, nombre, apellido, documento, sexo, email, telefono,
+                    fechaNacimiento, direccion, especialidad, numeroLicencia);
+                limpiarControles();
+                cargarTablaOdontologos();
+                JOptionPane.showMessageDialog(this, "Odontólogo modificado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un odontólogo de la tabla para modificar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al modificar odontólogo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarControles();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        try {
+            String documento = txtDni.getText().trim();
+            if (!documento.isEmpty()) {
+                ResultSet rs = objTra.listarOdontologos();
+                while (rs.next()) {
+                    if (rs.getString("documento").equals(documento)) {
+                        txtNombre.setText(rs.getString("nombre"));
+                        txtApellido.setText(rs.getString("apellido"));
+                        if (rs.getString("sexo").equals("M")) {
+                            rbM.setSelected(true);
+                        } else {
+                            rbF.setSelected(true);
+                        }
+                        txtCorreo.setText(rs.getString("email"));
+                        txtTelefono.setText(rs.getString("telefono"));
+                        dateN.setDate(rs.getDate("fecha_nacimiento"));
+                        txtDireccion.setText(rs.getString("direccion"));
+                        txtEspecialidad.setText(rs.getString("especialidad"));
+                        txtLicencia.setText(rs.getString("numero_licencia"));
+                        return;
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "No se encontró odontólogo con ese documento.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Ingrese un documento para buscar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar odontólogo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        try {
+            int fila = tblOdontologos.getSelectedRow();
+            if (fila != -1) {
+                Integer trabajadorId = Integer.parseInt(tblOdontologos.getValueAt(fila, 0).toString());
+                int confirm = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este odontólogo?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    objTra.eliminarOdontologo(trabajadorId);
+                    limpiarControles();
+                    cargarTablaOdontologos();
+                    JOptionPane.showMessageDialog(this, "Odontólogo eliminado correctamente.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione un odontólogo de la tabla para eliminar.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al eliminar odontólogo: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.github.lgooddatepicker.components.DatePicker datePicker2;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDarBaja;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
+    private com.toedter.calendar.JDateChooser dateN;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -317,18 +540,18 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
+    private javax.swing.JRadioButton rbF;
+    private javax.swing.JRadioButton rbM;
+    private javax.swing.JTable tblOdontologos;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtDni;
+    private javax.swing.JTextField txtEspecialidad;
+    private javax.swing.JTextField txtLicencia;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

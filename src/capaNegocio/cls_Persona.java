@@ -28,6 +28,20 @@ public class cls_Persona {
             throw new Exception("Error al registrar Persona" + e.getMessage());
         }
     }
+    
+    public Integer registrarPersona2(String nombre, String apellido, String documento,
+            String sexo, String email, String telefono, String fechaNacimiento,
+            String direccion) throws Exception {
+        String sql = "insert into persona(nombre, apellido, documento, sexo, email, telefono, fecha_nacimiento, direccion) "
+                + "values ('" + nombre + "','" + apellido + "','" + documento + "','" + sexo + "','" + email + "','"
+                + telefono + "','" + fechaNacimiento + "','" + direccion + "') returning persona_id";
+         rs = objBD.ConsultarBD(sql);
+        if (rs.next()) {
+            return rs.getInt("persona_id");
+        } else {
+            throw new Exception("No se obtuvo persona_id al insertar persona.");
+        }
+    }
 
     public int buscarPersona(String dni) throws Exception {
         strSQL = "Select*from persona where documento= '" + dni + "'";

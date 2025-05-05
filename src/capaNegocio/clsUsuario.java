@@ -42,36 +42,47 @@ public class clsUsuario {
         }
         return "";
     }
-    
-    public int obtenerIdUsu(String usu) throws Exception{
-        strSQL="Select usuario_id from usuario where username='"+usu+"'"; 
+
+    public int obtenerIdUsu(String usu) throws Exception {
+        strSQL = "Select usuario_id from usuario where username='" + usu + "'";
         try {
-            rs=objBD.ConsultarBD(strSQL); 
-            while (rs.next()) {                
-                return rs.getInt("usuario_id"); 
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
+                return rs.getInt("usuario_id");
             }
         } catch (Exception e) {
         }
-        return 0; 
+        return 0;
     }
-    public void actualizarPassword(String usu,String password) throws Exception{
-        strSQL="Update usuario set password_hash = encode(digest(? || ? || 'DENTAL', 'sha256'), 'hex') "
-                +"where username='"+usu+"'";
+
+    public void actualizarPassword(String usu, String password) throws Exception {
+        strSQL = "Update usuario set password_hash = encode(digest(? || ? || 'DENTAL', 'sha256'), 'hex') "
+                + "where username='" + usu + "'";
         try {
-            Connection con=null;
+            Connection con = null;
             objBD.conectar();
-            con=objBD.getCon(); 
-            PreparedStatement sp = con.prepareStatement(strSQL); 
-            
+            con = objBD.getCon();
+            PreparedStatement sp = con.prepareStatement(strSQL);
+
             sp.setString(1, usu);
-            sp.setString(2,password);
-            
+            sp.setString(2, password);
+
             sp.executeUpdate();
-            
+
         } catch (Exception e) {
             throw new Exception("Error al actualizar password" + e.getMessage());
         }
     }
-    
+
+    public Integer registrarUsuario(String username, String passwordHash) throws Exception {
+        strSQL = "insert into usuario(username, password_hash) "
+                + "values ('" + username + "','" + passwordHash + "') returning usuario_id";
+        rs = objBD.ConsultarBD(strSQL);
+        if (rs.next()) {
+            return rs.getInt("usuario_id");
+        } else {
+            throw new Exception("No se obtuvo usuario_id al insertar usuario.");
+        }
+    }
 
 }
