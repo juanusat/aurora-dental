@@ -134,17 +134,23 @@ public class cls_Cita {
 
     }
 
-    public ResultSet buscarCitasDeHoy() throws Exception {
+    public ResultSet buscarCitasDeHoyPorUsuario(String usu) throws Exception {
 
-        strSQL = "Select * from cita c "
-                + "inner join cliente cl on c.cliente_id=cl.cliente_id "
-                + "inner join persona per on cl.persona_id=per.persona_id "
-                + "where CAST(c.fecha_hora AS date)= CURRENT_DATE";
+        strSQL = "Select c.cita_id, p.nombre as nom_cliente, p.apellido as ape_cliente, c.fecha_hora, c.reagendada, c.duracion, c.costo, c.estado, p2.nombre as nom_medico, p2.apellido as ape_medico, p.documento, ac_med.observaciones, p.telefono as telefono, p.sexo as sexo  from cita c "
+                + "inner join cliente cl on c.cliente_id = cl.cliente_id "
+                + "inner join persona p on cl.persona_id = p.persona_id "
+                + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
+                + "inner join trabajador d on c.medico_id = d.trabajador_id "
+                + "inner join persona p2 on d.persona_id = p2.persona_id "
+                + "inner join usuario usu on usu.usuario_id = d.usuario_id "
+                + "left join acto_medico ac_med on ac_med.cita_id = c.cita_id "
+                + "where CAST(c.fecha_hora AS date)= CURRENT_DATE and usu.username ='" + usu + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
+
         } catch (Exception e) {
-            throw new Exception("Error al buscar citas de hoy " + e.getMessage());
+            throw new Exception("Error al buscar todas citas del usuario " + e.getMessage());
         }
     }
 
@@ -155,6 +161,7 @@ public class cls_Cita {
                 + "inner join persona per_cl on cl.persona_id=per_cl.persona_id "
                 + "inner join trabajador tra on c.medico_id=tra.trabajador_id "
                 + "inner join persona per_tra on tra.persona_id=per_tra.persona_id "
+                + "inner join acto_medico ac_med on ac_med.cita_id = c.cita_id "
                 + "where per_cl.documento= '" + dni + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
@@ -163,4 +170,12 @@ public class cls_Cita {
             throw new Exception("Error al buscar citas de hoy " + e.getMessage());
         }
     }
+    public void actualizarObservacion(String observacion, String cita_id) throws Exception{
+        strSQL = "update acto_medico set observaciones='" +observacion+"' where cita_id = '"+cita_id + "'"; 
+        try {
+            objBD.ejecutarBD(strSQL);
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar persona " +e.getMessage());
+        }
+    } 
 }

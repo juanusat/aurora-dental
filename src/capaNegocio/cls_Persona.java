@@ -77,6 +77,15 @@ public class cls_Persona {
             throw new Exception("Error al buscar persona por dni" + e.getMessage());
         }
     }
+    public ResultSet buscarPersonaCompletoId(String id) throws Exception {
+        strSQL = "Select*from persona where persona_id= '" + id + "'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+           return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar persona por id" + e.getMessage());
+        }
+    }
     public void actualizarPersona(String nombre, String apellido, String dni, String sexo, String correo, String telefono, Date fecha_nac, String direccion) throws Exception{
         strSQL = "update persona set nombre='" +nombre+"',apellido='"+apellido+"',documento="+dni+",sexo='"+sexo+"',email='"+correo+"',telefono='"+telefono+"',fecha_nacimiento='"+fecha_nac+"',direccion='"+direccion+"' where documento = '"+dni + "'"; 
         try {

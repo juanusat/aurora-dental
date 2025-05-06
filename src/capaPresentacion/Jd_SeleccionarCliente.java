@@ -7,7 +7,10 @@ package capaPresentacion;
 import capaNegocio.cls_Cliente;
 import java.sql.ResultSet;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -22,6 +25,26 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     private Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente;
     private Jd_RegistrarPago formularioRegistrarPago;
     private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes;
+    private Jd_ActualizarPA formularioActualizarPaciente;
+    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+
+    public class Jd_Tercero extends JDialog {
+
+        private Jd_ActualizarPA dialogoSegundo;
+
+        public Jd_Tercero(Jd_ActualizarPA parent, boolean modal) {
+            super(parent, modal);
+            this.dialogoSegundo = parent;
+
+        }
+    }
+
+    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ActualizarPA formularioActualizarPaciente) {
+        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
+
+        this.formularioActualizarPaciente = formularioActualizarPaciente; // Guardamos la referencia
+        initComponents();
+    }
 
     public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ProgramarCita formularioProgramarCita) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
@@ -46,8 +69,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         this.formularioRegistrarPago = formularioRegistrarPago; // Guardamos la referencia
         initComponents();
     }
-    
-      public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes) {
+
+    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes) {
         super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
         this.formularioConsultarPagosPacientes = formularioConsultarPagosPacientes; // Guardamos la referencia
         initComponents();
@@ -69,7 +92,6 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         txtNombre = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         list1 = new javax.swing.JList<>();
 
@@ -95,8 +117,6 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-
         list1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 list1MouseClicked(evt);
@@ -120,9 +140,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                             .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCancelar)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,8 +160,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,7 +222,18 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-
+        if (evt.getClickCount() == 2) {
+            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
+            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+            System.out.println(clienteSeleccionado);
+            this.dispose();
+            if (formularioActualizarPaciente != null) {
+                formularioActualizarPaciente.setClienteSeleccionado(clienteSeleccionado);
+            }
+            dispose();
+        }
         if (evt.getClickCount() == 2) {
             int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
@@ -241,8 +269,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
             dispose();
         }
-        
-             if (evt.getClickCount() == 2) {
+
+        if (evt.getClickCount() == 2) {
             int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
             if (formularioConsultarPagosPacientes != null) {
@@ -256,7 +284,6 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
