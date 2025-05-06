@@ -179,4 +179,19 @@ public class cls_Trabajador {
             throw new Exception("Error al registrar odontólogo completo: " + e.getMessage());
         }
     }
+    
+    public int buscarID_Persona(String nomTra) throws Exception {
+        strSQL = "Select t.persona_id from trabajador t "
+                + "inner join persona p on t.persona_id = p.persona_id "
+                + "where p.nombre ='"+nomTra+"'";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            while (rs.next()) {
+                return rs.getInt("persona_id");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al buscar id de Doctor " + e.getMessage());
+        }
+        return 0;
+    }
 }
