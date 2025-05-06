@@ -256,12 +256,9 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         ResultSet rs = null;
         try {
-            System.out.println("si");
             rs = objPersona.buscarPersonaCompleto(txtDni.getText());
             rs.next();
-            System.out.println("no");
             txtApellido.setText(rs.getString("apellido"));
-            System.out.println("kk");
             txtCorreo.setText(rs.getString("email"));
             txtDni.setText(rs.getString("documento"));
             txtNombre.setText(rs.getString("nombre"));

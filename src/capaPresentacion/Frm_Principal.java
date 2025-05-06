@@ -7,6 +7,8 @@ package capaPresentacion;
 import capaNegocio.cls_Trabajador;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -381,9 +383,14 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Jd_AtencionPacientesPendientes objdAPP = new Jd_AtencionPacientesPendientes(this, true);
-        objdAPP.setLocationRelativeTo(this);
-        objdAPP.setVisible(true);
+        Jd_AtencionPacientesPendientes objdAPP;
+        try {
+            objdAPP = new Jd_AtencionPacientesPendientes(this, true);
+            objdAPP.setLocationRelativeTo(this);
+            objdAPP.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(Frm_Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -393,10 +400,10 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true); 
+        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
         objIS.setLocationRelativeTo(this);
         objIS.setVisible(true);
-        lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " +Jd_IniciarSesion.cargo);
+        lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " + Jd_IniciarSesion.cargo);
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
@@ -406,19 +413,19 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-        Jd_RegistrarPago objP = new Jd_RegistrarPago(this, true); 
+        Jd_RegistrarPago objP = new Jd_RegistrarPago(this, true);
         objP.setLocationRelativeTo(this);
         objP.setVisible(true);
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
-        Jd_Consultar_Pagos_Paciente objCPP = new Jd_Consultar_Pagos_Paciente(this,true); 
+        Jd_Consultar_Pagos_Paciente objCPP = new Jd_Consultar_Pagos_Paciente(this, true);
         objCPP.setLocationRelativeTo(this);
         objCPP.setVisible(true);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        Jd_Gestion_Odontologo objGO = new Jd_Gestion_Odontologo(this,true);
+        Jd_Gestion_Odontologo objGO = new Jd_Gestion_Odontologo(this, true);
         objGO.setLocationRelativeTo(this);
         objGO.setVisible(true);
     }//GEN-LAST:event_jMenuItem19ActionPerformed
