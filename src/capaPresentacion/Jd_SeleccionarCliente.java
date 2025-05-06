@@ -26,7 +26,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     private Jd_RegistrarPago formularioRegistrarPago;
     private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes;
     private Jd_ActualizarPA formularioActualizarPaciente;
-    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+//    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
 
     public class Jd_Tercero extends JDialog {
 
@@ -223,8 +223,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
         if (evt.getClickCount() == 2) {
-            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
+//            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+//            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
             int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
             String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
             System.out.println(clienteSeleccionado);
