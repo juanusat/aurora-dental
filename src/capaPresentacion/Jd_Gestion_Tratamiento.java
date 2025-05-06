@@ -2,17 +2,21 @@ package capaPresentacion;
 
 import capaNegocio.*;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
 
     cls_Tratamiento objTrat = new cls_Tratamiento();
+    String nombreOriginal = "";
 
     public Jd_Gestion_Tratamiento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         cargarTablaTratamientos();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -213,6 +217,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         txtDescripcion.setText("");
         txtDuracion.setText("");
         txtCosto.setText("");
+        nombreOriginal = "";  
         cargarTablaTratamientos();
     }
 
@@ -220,7 +225,6 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         try {
             ResultSet rs = objTrat.listarTratamientos();
             DefaultTableModel modelo = new DefaultTableModel();
-            modelo.addColumn("id");
             modelo.addColumn("Nombre");
             modelo.addColumn("Descripcion");
             modelo.addColumn("Duracion");
@@ -228,7 +232,6 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
             tblTratamientos.setModel(modelo);
             while (rs.next()) {
                 modelo.addRow(new Object[]{
-                    rs.getInt("tratamiento_id"),
                     rs.getString("nombre"),
                     rs.getString("descripcion"),
                     rs.getInt("duracion_estimada"),
@@ -244,7 +247,6 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         try {
             ResultSet rs = objTrat.buscarTratamientosPorNombre(nombre);
             DefaultTableModel modelo = new DefaultTableModel();
-            modelo.addColumn("id");
             modelo.addColumn("Nombre");
             modelo.addColumn("Descripcion");
             modelo.addColumn("Duracion");
@@ -252,7 +254,6 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
             tblTratamientos.setModel(modelo);
             while (rs.next()) {
                 modelo.addRow(new Object[]{
-                    rs.getInt("tratamiento_id"),
                     rs.getString("nombre"),
                     rs.getString("descripcion"),
                     rs.getInt("duracion_estimada"),
@@ -283,19 +284,35 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
-            if (btnNuevo.getText().equals("Nuevo")) {
-                btnNuevo.setText("Guardar");
-                limpiarControles();
-                txtNombre.requestFocus();
-            } else {
-                btnNuevo.setText("Nuevo");
+            if (txtNombre.getText().isEmpty() || txtDescripcion.getText().isEmpty()
+                    || txtDuracion.getText().isEmpty() || txtCosto.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Completa todos los campos antes de registrar.");
+                return;
+            }
+
+            int codExistente = objTrat.buscarTratamiento_id(txtNombre.getText().trim());
+            if (codExistente != 0) {
+                JOptionPane.showMessageDialog(this, "Ya existe un tratamiento con ese nombre.");
+                return;
+            }
+
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Quieres registrar un nuevo tratamiento?",
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
                 int cod = objTrat.generarCodigoTratamiento();
-                objTrat.registrar(cod, txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(txtDuracion.getText()), Double.parseDouble(txtCosto.getText()));
+                objTrat.registrar(cod,
+                        txtNombre.getText().trim(),
+                        txtDescripcion.getText().trim(),
+                        Integer.parseInt(txtDuracion.getText().trim()),
+                        Double.parseDouble(txtCosto.getText().trim()));
                 limpiarControles();
                 cargarTablaTratamientos();
+                JOptionPane.showMessageDialog(this, "Tratamiento registrado correctamente.");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar un tratamiento" + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al registrar un tratamiento: " + e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -306,22 +323,28 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
     private void tblTratamientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTratamientosMouseClicked
         int filaSeleccionada = tblTratamientos.getSelectedRow();
         if (filaSeleccionada != -1) {
-            txtNombre.setText(tblTratamientos.getValueAt(filaSeleccionada, 1).toString());
-            txtDescripcion.setText(tblTratamientos.getValueAt(filaSeleccionada, 2).toString());
-            txtDuracion.setText(tblTratamientos.getValueAt(filaSeleccionada, 3).toString());
-            txtCosto.setText(tblTratamientos.getValueAt(filaSeleccionada, 4).toString());
+            nombreOriginal = tblTratamientos.getValueAt(filaSeleccionada, 0).toString(); // <-- Guarda el nombre original aquí
+            txtNombre.setText(nombreOriginal);
+            txtDescripcion.setText(tblTratamientos.getValueAt(filaSeleccionada, 1).toString());
+            txtDuracion.setText(tblTratamientos.getValueAt(filaSeleccionada, 2).toString());
+            txtCosto.setText(tblTratamientos.getValueAt(filaSeleccionada, 3).toString());
         }
     }//GEN-LAST:event_tblTratamientosMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
         try {
             int filaSeleccionada = tblTratamientos.getSelectedRow();
             if (filaSeleccionada != -1) {
-                Integer cod = Integer.parseInt(tblTratamientos.getValueAt(filaSeleccionada, 0).toString());
-                objTrat.modificar(cod, txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(txtDuracion.getText()), Double.parseDouble(txtCosto.getText()));
+                String nombrenue = txtNombre.getText().trim();
+                int cod = objTrat.buscarTratamiento_id(nombreOriginal);  // <-- Usa el nombre original aquí
+                if (cod == 0) {
+                    JOptionPane.showMessageDialog(this, "Tratamiento no encontrado.");
+                    return; // Detener ejecución
+                }
+                objTrat.modificar(cod, nombrenue, txtDescripcion.getText(), Integer.parseInt(txtDuracion.getText()), Double.parseDouble(txtCosto.getText()));
                 limpiarControles();
                 cargarTablaTratamientos();
+                nombreOriginal = ""; // <-- Limpia la variable al terminar
                 JOptionPane.showMessageDialog(this, "Tratamiento modificado correctamente.");
             } else {
                 JOptionPane.showMessageDialog(this, "Seleccione un tratamiento de la tabla para modificar.");
@@ -332,22 +355,28 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try {
-            int filaSeleccionada = tblTratamientos.getSelectedRow();
-            if (filaSeleccionada != -1) {
-                Integer cod = Integer.parseInt(tblTratamientos.getValueAt(filaSeleccionada, 0).toString());
-                int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este tratamiento?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-                if (confirmacion == JOptionPane.YES_OPTION) {
-                    objTrat.eliminar(cod);
-                    limpiarControles();
-                    cargarTablaTratamientos();
-                    JOptionPane.showMessageDialog(this, "Tratamiento eliminado correctamente.");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleccione un tratamiento de la tabla para eliminar.");
+        int filaSeleccionada = tblTratamientos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            String nombreSeleccionado = tblTratamientos.getValueAt(filaSeleccionada, 0).toString();
+            Integer cod = null;
+            try {
+                cod = objTrat.buscarTratamiento_id(nombreSeleccionado);
+            } catch (Exception ex) {
+                Logger.getLogger(Jd_Gestion_Tratamiento.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al eliminar el tratamiento: " + e.getMessage());
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este tratamiento?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                try {
+                    objTrat.eliminar(cod);
+                } catch (Exception ex) {
+                    Logger.getLogger(Jd_Gestion_Tratamiento.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                limpiarControles();
+                cargarTablaTratamientos();
+                JOptionPane.showMessageDialog(this, "Tratamiento eliminado correctamente.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un tratamiento de la tabla para eliminar.");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

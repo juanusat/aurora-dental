@@ -113,24 +113,6 @@ public class cls_Trabajador {
         }
     }
 
-    public void modificarOdontologo(Integer trabajadorId, Integer personaId, String nombre, String apellido, String documento, String sexo,
-            String email, String telefono, String fechaNacimiento, String direccion, String especialidad, String numeroLicencia) throws Exception {
-        try {
-            // Actualizar persona
-            String sqlPersona = "update persona set nombre='" + nombre + "', apellido='" + apellido + "', documento='" + documento + "', "
-                    + "sexo='" + sexo + "', email='" + email + "', telefono='" + telefono + "', fecha_nacimiento='" + fechaNacimiento + "', "
-                    + "direccion='" + direccion + "' where persona_id=" + personaId;
-            objBD.ejecutarBD(sqlPersona);
-
-            // Actualizar trabajador (especialidad y licencia)
-            String sqlTrabajador = "update trabajador set especialidad='" + especialidad + "', numero_licencia='" + numeroLicencia + "' "
-                    + "where trabajador_id=" + trabajadorId;
-            objBD.ejecutarBD(sqlTrabajador);
-        } catch (Exception e) {
-            throw new Exception("Error al modificar odontólogo: " + e.getMessage());
-        }
-    }
-
     public void eliminarOdontologo(Integer trabajadorId) throws Exception {
         try {
             String sql = "delete from trabajador where trabajador_id=" + trabajadorId;
@@ -179,11 +161,36 @@ public class cls_Trabajador {
             throw new Exception("Error al registrar odontólogo completo: " + e.getMessage());
         }
     }
-    
+
+    public void modificarOdontologoCompleto(int trabajadorId, String nombre, String apellido, String documento,
+            String sexo, String email, String telefono, String fechaNacimiento,
+            String direccion, String username, String passwordHash,
+            Integer codCargo, String numeroLicencia, String especialidad,
+            String fechaIngreso) throws Exception {
+        try {
+            Integer personaId = per.obtenerIdPersonaPorTrabajador(trabajadorId); // Método para obtener persona_id de trabajador
+            per.modificarPersona(personaId, nombre, apellido, documento, email, telefono, fechaNacimiento, direccion, sexo.charAt(0));
+
+            Integer usuarioId = usr.obtenerIdUsuarioPorTrabajador(trabajadorId); // Método para obtener usuario_id de trabajador
+            usr.modificarUsuario(usuarioId, username, passwordHash);
+
+            String sqlTrab = "update trabajador set cargo_id = " + codCargo + ", numero_licencia = "
+                    + (numeroLicencia != null ? "'" + numeroLicencia + "'" : "null") + ", especialidad = "
+                    + (especialidad != null ? "'" + especialidad + "'" : "null") + ", creado_en = '" + fechaIngreso + "' "
+                    + "where trabajador_id = " + trabajadorId;
+            int filas = objBD.ejecutarBD(sqlTrab);
+            if (filas == 0) {
+                throw new Exception("No se pudo modificar el trabajador.");
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public int buscarID_Persona(String nomTra) throws Exception {
         strSQL = "Select t.persona_id from trabajador t "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where p.nombre ='"+nomTra+"'";
+                + "where p.nombre ='" + nomTra + "'";
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
