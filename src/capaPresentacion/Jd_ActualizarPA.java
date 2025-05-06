@@ -9,7 +9,9 @@ import capaNegocio.cls_Persona;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,10 +21,38 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
 
     cls_Persona objPersona = new cls_Persona();
     cls_Cliente objCliente = new cls_Cliente();
+    String paciente = "";
 
     public Jd_ActualizarPA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+
+    public void setClienteSeleccionado(String cliente) {
+        paciente = cliente;
+        ResultSet rs = null;
+        try {
+            String nombreCompleto = paciente;
+            String[] partes = nombreCompleto.split(" "); // Divide por espacios
+            String soloNombre = partes[0];
+            rs = objPersona.buscarPersonaCompletoId(String.valueOf(objPersona.buscarPersonaNom(soloNombre)));
+            rs.next();
+            txtDni.setText(rs.getString("documento"));
+            txtApellido.setText(rs.getString("apellido"));
+            txtCorreo.setText(rs.getString("email"));
+            txtDni.setText(rs.getString("documento"));
+            txtNombre.setText(rs.getString("nombre"));
+            txtTelefono.setText(rs.getString("telefono"));
+            txtaDireccion.setText(rs.getString("direccion"));
+            if (rs.getString("sexo").equalsIgnoreCase("f")) {
+                rbtFemenino.setSelected(true);
+            } else {
+                rbtMasculino.setSelected(true);
+            }
+            dateFechaNac.setDate(rs.getDate("fecha_nacimiento"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al buscar persona " + e.getMessage());
+        }
     }
 
     public void limpiarControles() {
@@ -250,29 +280,35 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+//        System.out.println(paciente);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        ResultSet rs = null;
-        try {
-            rs = objPersona.buscarPersonaCompleto(txtDni.getText());
-            rs.next();
-            txtApellido.setText(rs.getString("apellido"));
-            txtCorreo.setText(rs.getString("email"));
-            txtDni.setText(rs.getString("documento"));
-            txtNombre.setText(rs.getString("nombre"));
-            txtTelefono.setText(rs.getString("telefono"));
-            txtaDireccion.setText(rs.getString("direccion"));
-            if (rs.getString("sexo").equalsIgnoreCase("f")) {
-                rbtFemenino.setSelected(true);
-            } else {
-                rbtMasculino.setSelected(true);
-            }
-            dateFechaNac.setDate(rs.getDate("fecha_nacimiento"));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al buscar persona " + e.getMessage());
-        }
+        JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+        Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
+        objSeleccion.setLocationRelativeTo(this);
+        objSeleccion.setVisible(true);
+
+//        ResultSet rs = null;
+//        try {
+//            rs = objPersona.buscarPersonaCompleto(txtDni.getText());
+//            rs.next();
+//            txtApellido.setText(rs.getString("apellido"));
+//            txtCorreo.setText(rs.getString("email"));
+//            txtDni.setText(rs.getString("documento"));
+//            txtNombre.setText(rs.getString("nombre"));
+//            txtTelefono.setText(rs.getString("telefono"));
+//            txtaDireccion.setText(rs.getString("direccion"));
+//            if (rs.getString("sexo").equalsIgnoreCase("f")) {
+//                rbtFemenino.setSelected(true);
+//            } else {
+//                rbtMasculino.setSelected(true);
+//            }
+//            dateFechaNac.setDate(rs.getDate("fecha_nacimiento"));
+//        } catch (Exception e) {
+//            JOptionPane.showMessageDialog(this, "Error al buscar persona " + e.getMessage());
+//        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed

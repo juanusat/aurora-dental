@@ -7,6 +7,7 @@ package capaPresentacion;
 import capaNegocio.cls_Cita;
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
+import capaNegocio.cls_actoMedico;
 import javax.swing.JOptionPane;
 
 /**
@@ -27,16 +28,22 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
 
     cls_Cita objCita = new cls_Cita();
     cls_Persona objPersona = new cls_Persona();
+    cls_actoMedico objActo = new cls_actoMedico();
+    ResultSet rs = null;
+    ResultSet rs2 = null;
+    String usuario = Jd_IniciarSesion.username;
+    String cita_id = "";
 
     public Jd_AtencionPacientesPendientes(java.awt.Frame parent, boolean modal) throws SQLException, Exception {
         super(parent, modal);
         initComponents();
-        ResultSet rs = null;
-        rs = objCita.buscarCitasDeHoy();
-        String nombresApe = "";
+
+        rs = objCita.buscarCitasDeHoyPorUsuario(usuario);
+        String info = "";
         while (rs.next()) {
-            nombresApe = rs.getString("nombre") + " " + rs.getString("apellido") + " DNI: " + rs.getString("documento");
-            list1.add(nombresApe);
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            info = rs.getString("nom_cliente") + " " + rs.getString("ape_cliente") + " " + sdf.format(rs.getTimestamp("fecha_hora"));
+            list1.add(info);
         }
     }
 
@@ -68,17 +75,16 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
         txtMedico = new javax.swing.JLabel();
         txtFecha = new javax.swing.JLabel();
         txtHora = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        txtaObservacion = new javax.swing.JTextArea();
+        btnRegistrar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jLabel9 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        list2 = new java.awt.List();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtaObservacionAntigua = new javax.swing.JTextArea();
 
         jButton3.setText("jButton3");
 
@@ -134,29 +140,35 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
 
         txtHora.setText("...");
 
-        jScrollPane1.setViewportView(jList1);
-
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("Actos Medicos:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        txtaObservacion.setColumns(20);
+        txtaObservacion.setRows(5);
+        jScrollPane2.setViewportView(txtaObservacion);
 
-        jButton1.setText("Registrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel8.setText("Añadir Observacion:");
 
-        jScrollPane3.setViewportView(jList2);
-
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel9.setText("Observaciones antiguas:");
+
+        list2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list2MouseClicked(evt);
+            }
+        });
+
+        txtaObservacionAntigua.setColumns(20);
+        txtaObservacionAntigua.setRows(5);
+        jScrollPane3.setViewportView(txtaObservacionAntigua);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,38 +204,41 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel5)))
                                     .addComponent(jLabel2)))
-                            .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(list1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 31, Short.MAX_VALUE)
+                                .addComponent(jLabel9)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel14)
-                                                .addComponent(jLabel16))
-                                            .addGap(18, 18, 18)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel8)
+                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel14)
+                                                        .addComponent(jLabel16))
                                                     .addGap(18, 18, 18)
-                                                    .addComponent(jLabel15)
-                                                    .addGap(18, 18, 18)
-                                                    .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                .addGap(10, 10, 10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(txtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addGap(18, 18, 18)
+                                                            .addComponent(jLabel15)
+                                                            .addGap(18, 18, 18)
+                                                            .addComponent(txtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                        .addGap(10, 10, 10))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 692, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +256,7 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnRegistrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
@@ -281,9 +296,9 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
+                    .addComponent(list2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -304,14 +319,27 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
 
-        String texto = list1.getSelectedItem();
-        String[] partes = texto.split(" ");
-        String dni = partes[partes.length - 1];
-        ResultSet rs = null;
         String sexo = "";
         try {
-            rs = objCita.buscarInfoCitasDni(dni);
-            rs.next();
+            list2.removeAll();
+            boolean aux2 = false;
+            int aux = list1.getSelectedIndex() + 1;
+            rs = objCita.buscarCitasDeHoyPorUsuario(usuario);
+            while (aux != 0) {
+                rs.next();
+                aux--;
+                aux2 = true;
+            }
+            if (aux2 == true) {
+                cita_id = rs.getString("cita_id");
+                rs2 = objActo.consultarBd(cita_id);
+                while (rs2.next()) {
+                    String info2 = String.valueOf(rs2.getInt("cita_id")) + " " + rs2.getTimestamp("fecha_realizacion").toString();
+                    list2.add(info2);
+                }
+            }
+
+            txtaObservacion.setText(rs.getString("observaciones"));
             txtApellido.setText(rs.getString("ape_cliente"));
             if (rs.getDate("reagendada") == null) {
                 txtFecha.setText(rs.getDate("fecha_hora").toString());
@@ -341,13 +369,38 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
 
     }//GEN-LAST:event_list1MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        try {
+            objActo.insertarActoMedico(txtaObservacion.getText(), rs.getString("cita_id"));
+            System.out.println("texto: " + txtaObservacion.getText());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void list2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list2MouseClicked
+
+        try {
+            ResultSet rsAux = null;
+            rsAux = objActo.consultarBd(cita_id);
+            int aux = list2.getSelectedIndex() + 1;
+            while (aux != 0) {
+                rsAux.next();
+                aux--;
+            }
+            if (rsAux.getString("Observaciones") != null) {
+                txtaObservacionAntigua.setText(rsAux.getString("Observaciones"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_list2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
@@ -361,15 +414,12 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
     private java.awt.List list1;
+    private java.awt.List list2;
     private javax.swing.JLabel txtApellido;
     private javax.swing.JLabel txtFecha;
     private javax.swing.JLabel txtHora;
@@ -377,5 +427,7 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
     private javax.swing.JLabel txtNombre;
     private javax.swing.JLabel txtSexo;
     private javax.swing.JLabel txtTelefono;
+    private javax.swing.JTextArea txtaObservacion;
+    private javax.swing.JTextArea txtaObservacionAntigua;
     // End of variables declaration//GEN-END:variables
 }
