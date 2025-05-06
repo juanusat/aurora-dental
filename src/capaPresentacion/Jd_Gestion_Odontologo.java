@@ -9,13 +9,15 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Antonio
  */
 public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
-    
+
     cls_Trabajador objTra = new cls_Trabajador();
+
     /**
      * Creates new form jd_Gestion_Odontologo
      */
@@ -310,7 +312,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void limpiarControles() {
         txtNombre.setText("");
         txtApellido.setText("");
@@ -362,10 +364,20 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         }
     }
 
-    
-    private void tblOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOdontologosMouseClicked
-        int filaSeleccionada = tblOdontologos.getSelectedRow();
+    private int obtenerIdTrabajadorSeleccionado() {
+        // Suponiendo que tienes una JTable con los odontólogos listados
+        int filaSeleccionada = tblOdontologos.getSelectedRow(); // Obtiene la fila seleccionada
         if (filaSeleccionada != -1) {
+            // Obtiene el valor del trabajador_id de la tabla (suponiendo que está en la primera columna)
+            return (int) tblOdontologos.getValueAt(filaSeleccionada, 0); // Primer columna del trabajador_id
+        }
+        return -1; // Retorna -1 si no hay fila seleccionada
+    }
+
+    private void tblOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOdontologosMouseClicked
+       int filaSeleccionada = tblOdontologos.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            limpiarControles();
             txtNombre.setText(tblOdontologos.getValueAt(filaSeleccionada, 1).toString());
             txtApellido.setText(tblOdontologos.getValueAt(filaSeleccionada, 2).toString());
             txtDni.setText(tblOdontologos.getValueAt(filaSeleccionada, 3).toString());
@@ -375,7 +387,6 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             } else {
                 rbF.setSelected(true);
             }
-
             txtCorreo.setText(tblOdontologos.getValueAt(filaSeleccionada, 5).toString());
             txtTelefono.setText(tblOdontologos.getValueAt(filaSeleccionada, 6).toString());
             dateN.setDate((java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7));
@@ -387,75 +398,75 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         try {
-            if (btnNuevo.getText().equals("Nuevo")) {
-                btnNuevo.setText("Guardar");
-                limpiarControles();
-                txtNombre.requestFocus();
-            } else {
-                btnNuevo.setText("Nuevo");
-
-                if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
+            if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
                     || txtDni.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
-                    return;
-                }
-                String nombre = txtNombre.getText();
-                String apellido = txtApellido.getText();
-                String documento = txtDni.getText();
+                JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
+                return;
+            }
+            int confirmacion = JOptionPane.showConfirmDialog(this,
+                    "¿Quieres registrar este odontólogo?",
+                    "Confirmación",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                String nombre = txtNombre.getText().trim();
+                String apellido = txtApellido.getText().trim();
+                String documento = txtDni.getText().trim();
                 String sexo = rbM.isSelected() ? "m" : "f";
-                String email = txtCorreo.getText();
-                String telefono = txtTelefono.getText();
+                String email = txtCorreo.getText().trim();
+                String telefono = txtTelefono.getText().trim();
                 String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
-                String direccion = txtDireccion.getText();
-                String especialidad = txtEspecialidad.getText();
-                String numeroLicencia = txtLicencia.getText();
+                String direccion = txtDireccion.getText().trim();
+                String especialidad = txtEspecialidad.getText().trim();
+                String numeroLicencia = txtLicencia.getText().trim();
                 String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-                
-                String username = "";
-                String passwordHash = "";
-
-                Integer codCargo = 1; 
+                String username = "odonto_" + documento;
+                String passwordHash = "123456";
 
                 Integer trabajadorId = objTra.registrarOdontologoCompleto(
-                    nombre, apellido, documento, sexo, email, telefono,
-                    fechaNacimiento, direccion, username, passwordHash,
-                    codCargo, numeroLicencia, especialidad, fechaIngreso
+                        nombre, apellido, documento, sexo, email, telefono,
+                        fechaNacimiento, direccion, username, passwordHash, 1, numeroLicencia, especialidad, fechaIngreso
                 );
 
                 limpiarControles();
                 cargarTablaOdontologos();
+
                 JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
         }
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         try {
-            int fila = tblOdontologos.getSelectedRow();
-            if (fila != -1) {
-                Integer trabajadorId = Integer.parseInt(tblOdontologos.getValueAt(fila, 0).toString());
-                Integer personaId = objTra.obtenerPersonaIdPorTrabajadorId(trabajadorId); // → Debes implementar este método
-
-                String nombre = txtNombre.getText();
-                String apellido = txtApellido.getText();
-                String documento = txtDni.getText();
-                String sexo = rbM.isSelected() ? "M" : "F";
-                String email = txtCorreo.getText();
-                String telefono = txtTelefono.getText();
+            if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty() || txtDni.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
+                return;
+            }
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Quieres modificar este odontólogo?", "Confirmación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                int trabajadorId = obtenerIdTrabajadorSeleccionado(); 
+                String nombre = txtNombre.getText().trim();
+                String apellido = txtApellido.getText().trim();
+                String documento = txtDni.getText().trim();
+                String sexo = rbM.isSelected() ? "m" : "f";
+                String email = txtCorreo.getText().trim();
+                String telefono = txtTelefono.getText().trim();
                 String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
-                String direccion = txtDireccion.getText();
-                String especialidad = txtEspecialidad.getText();
-                String numeroLicencia = txtLicencia.getText();
-
-                objTra.modificarOdontologo(trabajadorId, personaId, nombre, apellido, documento, sexo, email, telefono,
-                    fechaNacimiento, direccion, especialidad, numeroLicencia);
+                String direccion = txtDireccion.getText().trim();
+                String especialidad = txtEspecialidad.getText().trim();
+                String numeroLicencia = txtLicencia.getText().trim();
+                String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+                String username = "odonto_" + documento;
+                String passwordHash = "123456";
+                objTra.modificarOdontologoCompleto(
+                        trabajadorId, nombre, apellido, documento, sexo, email, telefono, fechaNacimiento, direccion,
+                        username, passwordHash, 1, numeroLicencia, especialidad, fechaIngreso
+                );
                 limpiarControles();
-                cargarTablaOdontologos();
+                cargarTablaOdontologos(); 
                 JOptionPane.showMessageDialog(this, "Odontólogo modificado correctamente.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Seleccione un odontólogo de la tabla para modificar.");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al modificar odontólogo: " + e.getMessage());
@@ -467,7 +478,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try {
+       try {
             String documento = txtDni.getText().trim();
             if (!documento.isEmpty()) {
                 ResultSet rs = objTra.listarOdontologos();
@@ -518,7 +529,6 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

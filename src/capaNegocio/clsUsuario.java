@@ -84,5 +84,21 @@ public class clsUsuario {
             throw new Exception("No se obtuvo usuario_id al insertar usuario.");
         }
     }
+    
+    public void modificarUsuario(int usuarioId, String username, String passwordHash) throws Exception {
+        String sql = "update usuario set username = '" + username + "', password_hash = '" + passwordHash + "' where usuario_id = " + usuarioId;
+        int filas = objBD.ejecutarBD(sql);
+        if (filas == 0) {
+            throw new Exception("No se pudo modificar el usuario.");
+        }
+    }
 
+    public Integer obtenerIdUsuarioPorTrabajador(int trabajadorId) throws Exception {
+        String sql = "select usuario_id from trabajador where trabajador_id = " + trabajadorId;
+        ResultSet rs = objBD.ConsultarBD(sql);
+        if (rs.next()) {
+            return rs.getInt("usuario_id");
+        }
+        throw new Exception("No se encontró usuario_id para el trabajador.");
+    }
 }
