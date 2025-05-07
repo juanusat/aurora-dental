@@ -9,8 +9,11 @@ import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
 import capaNegocio.cls_Trabajador;
 import capaNegocio.cls_Tratamiento;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -203,6 +206,40 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                     .addComponent(jScrollPane1))
                 .addGap(36, 36, 36))
         );
+
+        DatePickerSettings dateSettings = DTPFechaHora.getDatePicker().getSettings();
+
+        // --- Configuración de FECHA ---
+        LocalDate hoy = LocalDate.now();
+
+        // 1. Veto para fechas pasadas (excluyendo hoy)
+        DTPFechaHora.getDatePicker().getSettings().setVetoPolicy(date -> {
+            boolean esPasada = date.isBefore(hoy);
+            System.out.println("[DEBUG] Fecha evaluada: " + date + " - ¿Vetada? " + esPasada);
+            return esPasada;
+        });
+
+        // 2. Rango visual en el calendario (opcional)
+        DTPFechaHora.getDatePicker().getSettings().setDateRangeLimits(hoy, null);
+
+        // --- Configuración de HORA (solo si la fecha es hoy) ---
+        DTPFechaHora.getTimePicker().addTimeChangeListener(e -> {
+            LocalDate fechaSeleccionada = DTPFechaHora.getDatePicker().getDate();
+            LocalTime horaSeleccionada = DTPFechaHora.getTimePicker().getTime();
+
+            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(hoy)) {
+                LocalTime ahora = LocalTime.now();
+                if (horaSeleccionada.isBefore(ahora)) {
+                    // Vetar hora pasada para hoy
+                    DTPFechaHora.getTimePicker().setTime(null); // Limpiar selección
+                    System.out.println("[DEBUG] Hora vetada: " + horaSeleccionada + " (Hora actual: " + ahora + ")");
+                    JOptionPane.showMessageDialog(null,
+                        "¡No puedes seleccionar horas pasadas para hoy!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -139,11 +139,12 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
                 } else {
                     if (validar.equals(txtusuario.getText())){
                         JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
+                        
                         nombreCompleto=objT.nombreCompleto(txtusuario.getText());                      
                         cargo=objT.obtenerCargo(txtusuario.getText());
                         username=txtusuario.getText();
                         id_usuario=objU.obtenerIdUsu(txtusuario.getText());  
-                        
+                                                
                         txtusuario.setText("");
                         txtcontraseña.setText("");
                         dispose();

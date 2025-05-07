@@ -48,7 +48,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        CerrarSesion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -156,14 +156,14 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/right-from-bracket-solid.png"))); // NOI18N
-        jMenuItem12.setText("Cerrar Sesión");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        CerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/right-from-bracket-solid.png"))); // NOI18N
+        CerrarSesion.setText("Cerrar Sesión");
+        CerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                CerrarSesionActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem12);
+        jMenu1.add(CerrarSesion);
 
         jMenuBar1.add(jMenu1);
 
@@ -319,7 +319,7 @@ public class Frm_Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -366,9 +366,12 @@ public class Frm_Principal extends javax.swing.JFrame {
         objdUsu.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
+        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
+        objIS.setLocationRelativeTo(this);
+        objIS.setVisible(true);
+       
+    }//GEN-LAST:event_CerrarSesionActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         Jd_RegistrarPa objdRP = new Jd_RegistrarPa(this, true);
@@ -404,6 +407,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         objIS.setLocationRelativeTo(this);
         objIS.setVisible(true);
         lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " + Jd_IniciarSesion.cargo);
+        
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
@@ -432,6 +436,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem CerrarSesion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -444,7 +449,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem18;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
