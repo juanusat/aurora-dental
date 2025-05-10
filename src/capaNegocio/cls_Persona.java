@@ -4,11 +4,9 @@
  */
 package capaNegocio;
 
-import java.util.Date;
 import capaDatos.clsJDBC;
 import java.sql.ResultSet;
-import java.util.Date;
-import javax.swing.JOptionPane;
+import java.time.LocalDate;
 
 /**
  *
@@ -20,7 +18,7 @@ public class cls_Persona {
     ResultSet rs = null;
     String strSQL;
 
-    public void registrarPersona(String nombre, String apellido, String dni, String correo, String telefono, String fecha_nac, String direccion, String sexo) throws Exception {
+    public void registrarPersona(String nombre, String apellido, String dni, String correo, String telefono, LocalDate fecha_nac, String direccion, String sexo) throws Exception {
         strSQL = "Insert into persona(nombre, apellido, documento, email, telefono, fecha_nacimiento, direccion, sexo) values('" + nombre + "','" + apellido + "','" + dni + "','" + correo + "','" + telefono + "','" + fecha_nac + "','" + direccion + "','" + sexo + "')";
         try {
             objBD.ejecutarBD(strSQL);
@@ -86,7 +84,7 @@ public class cls_Persona {
             throw new Exception("Error al buscar persona por id" + e.getMessage());
         }
     }
-    public void actualizarPersona(String nombre, String apellido, String dni, String sexo, String correo, String telefono, Date fecha_nac, String direccion) throws Exception{
+    public void actualizarPersona(String nombre, String apellido, String dni, String sexo, String correo, String telefono, LocalDate fecha_nac, String direccion) throws Exception{
         strSQL = "update persona set nombre='" +nombre+"',apellido='"+apellido+"',documento="+dni+",sexo='"+sexo+"',email='"+correo+"',telefono='"+telefono+"',fecha_nacimiento='"+fecha_nac+"',direccion='"+direccion+"' where documento = '"+dni + "'"; 
         try {
             objBD.ejecutarBD(strSQL);

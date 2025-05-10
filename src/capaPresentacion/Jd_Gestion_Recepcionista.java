@@ -4,6 +4,10 @@
  */
 package capaPresentacion;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
+import java.time.LocalDate;
+
 /**
  *
  * @author Antonio
@@ -244,6 +248,23 @@ public class Jd_Gestion_Recepcionista extends javax.swing.JDialog {
                     .addComponent(jButton5))
                 .addGap(10, 10, 10))
         );
+
+        DatePickerSettings settings = datePicker2.getSettings();
+
+        int anioActual = LocalDate.now().getYear();
+        int anioLimite = anioActual - 23;
+
+        // Fecha máxima permitida: 31 de diciembre del año anterior
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, 12, 31);
+
+        // Usar una clase anónima que implementa DateVetoPolicy correctamente
+        settings.setVetoPolicy(new DateVetoPolicy() {
+            @Override
+            public boolean isDateAllowed(LocalDate date) {
+                boolean permitido = date.isBefore(fechaMaxima) || date.isEqual(fechaMaxima);
+                return permitido;
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

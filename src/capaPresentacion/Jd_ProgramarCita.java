@@ -8,8 +8,13 @@ import capaNegocio.cls_Cita;
 import capaNegocio.cls_Persona;
 import capaNegocio.cls_Trabajador;
 import capaNegocio.cls_Tratamiento;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+
 import java.sql.ResultSet;
+import java.time.LocalDate;
+
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -31,6 +36,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         initComponents();
         listarDoctores();
         listarTratamientos();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -56,7 +62,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         txtPrecio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Programar Cita");
+        setTitle("Agendar Cita");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -117,8 +123,8 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel6.setText("Precio:");
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtPrecio.setEditable(false);
 
@@ -191,15 +197,48 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addContainerGap(65, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(DTPfechahora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnProgramar)
                             .addComponent(btnCancelar))
                         .addGap(16, 16, 16))))
         );
+
+        DatePickerSettings dateSettings = DTPfechahora.getDatePicker().getSettings();
+
+        // --- Configuración de FECHA ---
+        LocalDate hoy = LocalDate.now();
+
+        // 1. Veto para fechas pasadas (excluyendo hoy)
+        DTPfechahora.getDatePicker().getSettings().setVetoPolicy(date -> {
+            boolean esPasada = date.isBefore(hoy);
+            return esPasada;
+        });
+
+        // 2. Rango visual en el calendario (opcional)
+        DTPfechahora.getDatePicker().getSettings().setDateRangeLimits(hoy, null);
+
+        // --- Configuración de HORA (solo si la fecha es hoy) ---
+        DTPfechahora.getTimePicker().addTimeChangeListener(e -> {
+            LocalDate fechaSeleccionada = DTPfechahora.getDatePicker().getDate();
+            LocalTime horaSeleccionada = DTPfechahora.getTimePicker().getTime();
+
+            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(hoy)) {
+                LocalTime ahora = LocalTime.now();
+                if (horaSeleccionada.isBefore(ahora)) {
+                    // Vetar hora pasada para hoy
+                    DTPfechahora.getTimePicker().setTime(null); // Limpiar selección
+                    System.out.println("[DEBUG] Hora vetada: " + horaSeleccionada + " (Hora actual: " + ahora + ")");
+                    JOptionPane.showMessageDialog(null,
+                        "¡No puedes seleccionar horas pasadas para hoy!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,9 +248,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -220,7 +257,6 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     public void setClienteSeleccionado(String cliente) {
         txtCliente.setText(cliente);
     }
-
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
@@ -288,7 +324,9 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar tratamientos " + e.getMessage());
         }
-    }
+    } 
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DateTimePicker DTPfechahora;
