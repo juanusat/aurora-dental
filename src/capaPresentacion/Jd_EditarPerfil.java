@@ -184,7 +184,7 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
                 if (txtCorreo.getText().equals("")) {
                     JOptionPane.showMessageDialog(this, "Complete el campo");
                 } else {
-                    int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quiere cambiar su Correo?", "Cambio de correo", JOptionPane.YES_NO_OPTION);
+                    int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas editar tu correo?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
                     if (opcion == JOptionPane.YES_OPTION) {
                         objP.modificarCorreo(txtCorreo.getText(), Jd_IniciarSesion.username);
                         JOptionPane.showMessageDialog(this, "Correo actualizado");
@@ -204,7 +204,7 @@ public class Jd_EditarPerfil extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Complete los campos");
                 } else {
                     if (txtContra.getText().equals(txtConfirContra.getText())) {
-                        int opcion = JOptionPane.showConfirmDialog(null, "Estas seguro que quiere cambiar su Contraseña?", "Cambio de contraseña", JOptionPane.YES_NO_OPTION);
+                        int opcion = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas editar tu contraseña?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
                         if (opcion == JOptionPane.YES_OPTION) {
                             objU.actualizarPassword(Jd_IniciarSesion.username, txtContra.getText());
                             JOptionPane.showMessageDialog(this, "Password actualizado");
