@@ -283,6 +283,11 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
         jMenuItem18.setText("Recepcionistas");
+        jMenuItem18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem18ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem18);
 
         jMenuItem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/tooth-solid.png"))); // NOI18N
@@ -433,6 +438,12 @@ public class Frm_Principal extends javax.swing.JFrame {
         objGO.setLocationRelativeTo(this);
         objGO.setVisible(true);
     }//GEN-LAST:event_jMenuItem19ActionPerformed
+
+    private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
+        Jd_Gestion_Recepcionista objGR = new Jd_Gestion_Recepcionista(this, true); 
+        objGR.setLocationRelativeTo(this);
+        objGR.setVisible(true);
+    }//GEN-LAST:event_jMenuItem18ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

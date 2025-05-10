@@ -7,6 +7,8 @@ package capaPresentacion;
 import capaNegocio.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -71,14 +73,14 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel4.setText("Apellido:");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("Dni:");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -86,14 +88,14 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel6.setText("Sexo:");
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel7.setText("Correo:");
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel9.setText("Telefono:");
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         rbM.setText("Masculino");
 
@@ -103,17 +105,17 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtTelefono.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel3.setText("Fecha Nac.");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel8.setText("Direccion:");
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel10.setText("Especialidad:");
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel11.setText("Numero Licencia:");
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtEspecialidad.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -190,9 +192,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                                     .addComponent(dateN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDireccion)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,6 +296,24 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addComponent(btnSalir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        Calendar fechaMaxima = Calendar.getInstance();
+        fechaMaxima.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR) - 28);
+        fechaMaxima.set(Calendar.MONTH, Calendar.DECEMBER);
+        fechaMaxima.set(Calendar.DAY_OF_MONTH, 31);
+
+        // Listener para validar cada vez que se cambie la fecha
+        dateN.getDateEditor().addPropertyChangeListener("date", evt -> {
+            Date fechaSeleccionada = dateN.getDate();
+            if (fechaSeleccionada != null && fechaSeleccionada.after(fechaMaxima.getTime())) {
+                JOptionPane.showMessageDialog(null,
+                    "Solo se permiten fechas hasta el 31 de diciembre de " + (fechaMaxima.get(Calendar.YEAR)),
+                    "Fecha no permitida",
+                    JOptionPane.WARNING_MESSAGE
+                );
+                dateN.setDate(null); // Borrar la fecha no válida
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

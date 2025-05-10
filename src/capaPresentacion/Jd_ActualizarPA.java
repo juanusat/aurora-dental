@@ -6,9 +6,12 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -49,7 +52,11 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
             } else {
                 rbtMasculino.setSelected(true);
             }
-            dateFechaNac.setDate(rs.getDate("fecha_nacimiento"));
+            java.sql.Date fechaSQL = rs.getDate("fecha_nacimiento");
+            if (fechaSQL != null) {
+                dateFechaNac.setDate(fechaSQL.toLocalDate());
+            }
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al buscar persona " + e.getMessage());
         }
@@ -63,7 +70,7 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
         txtTelefono.setText("");
         txtaDireccion.setText("");
         grbtSexo.clearSelection();
-        dateFechaNac.cleanup();
+        dateFechaNac.clear();
     }
 
     /**
@@ -93,12 +100,12 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        dateFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaDireccion = new javax.swing.JTextArea();
         btnCambiar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        dateFechaNac = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Actualizar Paciente");
@@ -200,18 +207,20 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
                                 .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnCambiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)))
                             .addComponent(txtApellido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(dateFechaNac, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnCambiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE)))
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                                    .addComponent(dateFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -250,7 +259,7 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -264,6 +273,23 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
+
+        DatePickerSettings settings = dateFechaNac.getSettings();
+
+        int anioActual = LocalDate.now().getYear();
+        int anioLimite = anioActual - 1;
+
+        // Fecha máxima permitida: 31 de diciembre del año anterior
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, 12, 31);
+
+        // Usar una clase anónima que implementa DateVetoPolicy correctamente
+        settings.setVetoPolicy(new DateVetoPolicy() {
+            @Override
+            public boolean isDateAllowed(LocalDate date) {
+                boolean permitido = date.isBefore(fechaMaxima) || date.isEqual(fechaMaxima);
+                return permitido;
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,7 +356,7 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCambiar;
     private javax.swing.JButton btnSeleccionar;
-    private com.toedter.calendar.JDateChooser dateFechaNac;
+    private com.github.lgooddatepicker.components.DatePicker dateFechaNac;
     private javax.swing.ButtonGroup grbtSexo;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel10;

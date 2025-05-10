@@ -16,9 +16,9 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
 
     clsUsuario objU = new clsUsuario();
     cls_Trabajador objT = new cls_Trabajador();
-    public static String nombreCompleto=""; 
-    public static String cargo="";
-    public static String username=""; 
+    public static String nombreCompleto = "";
+    public static String cargo = "";
+    public static String username = "";
     public static int id_usuario;
 
     public Jd_IniciarSesion(java.awt.Frame parent, boolean modal) {
@@ -135,23 +135,18 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
             } else {
                 validar = objU.validarIngreso(txtusuario.getText(), txtcontraseña.getText());
                 if (validar.equals("")) {
-                    JOptionPane.showMessageDialog(this, "No se encontró usuario");
+                    JOptionPane.showMessageDialog(this, "Usuario y/o Contraseña incorrecto");
                 } else {
-                    if (validar.equals(txtusuario.getText())){
-                        JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
-                        
-                        nombreCompleto=objT.nombreCompleto(txtusuario.getText());                      
-                        cargo=objT.obtenerCargo(txtusuario.getText());
-                        username=txtusuario.getText();
-                        id_usuario=objU.obtenerIdUsu(txtusuario.getText());  
-                                                
-                        txtusuario.setText("");
-                        txtcontraseña.setText("");
-                        dispose();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "Usuario no es igual");
-                    }
 
+                    JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
+
+                    nombreCompleto = objT.nombreCompleto(txtusuario.getText());
+                    cargo = objT.obtenerCargo(txtusuario.getText());
+                    username = txtusuario.getText();
+                    id_usuario = objU.obtenerIdUsu(txtusuario.getText());
+                    txtusuario.setText("");
+                    txtcontraseña.setText("");
+                    dispose();
                 }
             }
         } catch (Exception e) {

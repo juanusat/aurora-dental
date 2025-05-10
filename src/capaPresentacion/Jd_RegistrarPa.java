@@ -6,8 +6,13 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  *
@@ -33,7 +38,7 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
         txtDni.setText("");
         txtNombre.setText("");
         txtTelefono.setText("");
-        txtaDireccion.setText("");
+        txtDireccion.setText("");
         grbtSexo.clearSelection();
         dateFechaNac.clear();
     }
@@ -66,7 +71,7 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
         btnRegistrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtaDireccion = new javax.swing.JTextArea();
+        txtDireccion = new javax.swing.JTextArea();
         dateFechaNac = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -128,9 +133,9 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
             }
         });
 
-        txtaDireccion.setColumns(20);
-        txtaDireccion.setRows(5);
-        jScrollPane1.setViewportView(txtaDireccion);
+        txtDireccion.setColumns(20);
+        txtDireccion.setRows(5);
+        jScrollPane1.setViewportView(txtDireccion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -223,6 +228,25 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        DatePickerSettings settings = dateFechaNac.getSettings();
+
+        int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int anioLimite = anioActual - 1;
+
+        // Fecha máxima permitida: 31 de diciembre del año anterior
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, mesActual, diaActual);
+
+        // Usar una clase anónima que implementa DateVetoPolicy correctamente
+        settings.setVetoPolicy(new DateVetoPolicy() {
+            @Override
+            public boolean isDateAllowed(LocalDate date) {
+                boolean permitido = date.isBefore(fechaMaxima) || date.isEqual(fechaMaxima);
+                return permitido;
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -242,7 +266,6 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        System.out.println("registrando");
         ResultSet rs = null;
         try {
             String sexo;
@@ -251,17 +274,16 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
             } else {
                 sexo = "m";
             }
-            
             objPersona.registrarPersona(
                 txtNombre.getText(),
                 txtApellido.getText(),
                 txtDni.getText(), 
                 txtCorreo.getText(),
                 txtTelefono.getText(),
-                dateFechaNac.getDate().toString(),
-                txtaDireccion.getText(), sexo);
-            
+                dateFechaNac.getDate(), 
+                txtDireccion.getText(), sexo);
             objCliente.registrarPaciente(objPersona.buscarPersona(txtDni.getText()));
+            JOptionPane.showMessageDialog(this, "Registro completo");
             limpiarControles();
             
         } catch (Exception e) {
@@ -289,9 +311,9 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbtMasculino;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextArea txtDireccion;
     private javax.swing.JTextField txtDni;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextArea txtaDireccion;
     // End of variables declaration//GEN-END:variables
 }

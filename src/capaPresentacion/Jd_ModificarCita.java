@@ -77,7 +77,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         jLabel7.setText("Fecha :");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Modificar Cita");
+        setTitle("Reagendar Cita");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -176,7 +176,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(38, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +215,6 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         // 1. Veto para fechas pasadas (excluyendo hoy)
         DTPFechaHora.getDatePicker().getSettings().setVetoPolicy(date -> {
             boolean esPasada = date.isBefore(hoy);
-            System.out.println("[DEBUG] Fecha evaluada: " + date + " - ¿Vetada? " + esPasada);
             return esPasada;
         });
 
@@ -249,7 +248,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -288,7 +287,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             int agendor_id = objT.buscarID_Recepcionista(NomRec[0]);
 
             if (chkReprogramar.isSelected()) {
-                int rpta = JOptionPane.showConfirmDialog(this, "¿Estas seguro que deseas modificar tu cita?", "Panel de confirmarcion", JOptionPane.YES_NO_CANCEL_OPTION);
+                int rpta =  JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
                 if (rpta == JOptionPane.YES_OPTION) {
                     objC.modificarCita(cita_id, doctor_id, tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
                     JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
@@ -296,7 +295,8 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Operacion Cancelada");
                 }
             } else {
-                int rpta = JOptionPane.showConfirmDialog(this, "¿Estas seguro que deseas modificar tu cita?", "Panel de confirmarcion", JOptionPane.YES_NO_CANCEL_OPTION);
+                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
+
                 if (rpta == JOptionPane.YES_OPTION) {
                     objC.modificarCitaSF(cita_id, doctor_id, tratamiento_id, agendor_id);
                     JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
@@ -316,7 +316,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             LocalDateTime fecha = LocalDateTime.parse(partes[3], formatter);
             int cita_id = objC.buscarCita_id(cliente_id, fecha);
 
-            int rpta = JOptionPane.showConfirmDialog(this, "¿Estas seguro que deseas anular tu cita?", "Panel de confirmarcion", JOptionPane.YES_NO_CANCEL_OPTION);
+            int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
             if (rpta == JOptionPane.YES_OPTION) {
                 objC.anularCita(cita_id);
                 JOptionPane.showMessageDialog(this, "Cita Anulada");
