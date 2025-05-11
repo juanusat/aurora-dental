@@ -24,21 +24,17 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
 
     cls_Persona objPersona = new cls_Persona();
     cls_Cliente objCliente = new cls_Cliente();
-    String paciente = "";
+    private String codCliente = "";
 
     public Jd_ActualizarPA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public void setClienteSeleccionado(String cliente) {
-        paciente = cliente;
+    public void setClienteSeleccionado() {
         ResultSet rs = null;
         try {
-            String nombreCompleto = paciente;
-            String[] partes = nombreCompleto.split(" "); // Divide por espacios
-            String soloNombre = partes[0];
-            rs = objPersona.buscarPersonaCompletoId(String.valueOf(objPersona.buscarPersonaNom(soloNombre)));
+            rs = objPersona.buscarPersonaCompletoId(codCliente);
             rs.next();
             txtDni.setText(rs.getString("documento"));
             txtApellido.setText(rs.getString("apellido"));
@@ -311,10 +307,10 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-        Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
-        objSeleccion.setLocationRelativeTo(this);
-        objSeleccion.setVisible(true);
+        Jd_ActualizarPA jdActualizarPaciente = this;
+        Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdActualizarPaciente);
+        jdSeleccionarCliente.setInterfazPadre("actualizarPaciente");
+        jdSeleccionarCliente.setVisible(true);
 
 //        ResultSet rs = null;
 //        try {
@@ -379,4 +375,12 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextArea txtaDireccion;
     // End of variables declaration//GEN-END:variables
+
+    public String getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(String codCliente) {
+        this.codCliente = codCliente;
+    }
 }

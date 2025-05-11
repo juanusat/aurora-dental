@@ -246,6 +246,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_RegistrarPago jdRegistrarPago = this;
         Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdRegistrarPago);
+        jdSeleccionar.setInterfazPadre("registrarPago");
         jdSeleccionar.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -270,7 +271,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Escoja una cita");
             } else {
                 if (cita == "") {
-                    
+
                     JOptionPane.showMessageDialog(this, "Completo el campo o el metodo");
                 } else {
                     String[] partes = cita.split(" / ");

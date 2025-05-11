@@ -6,6 +6,10 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -26,8 +30,19 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     private Jd_RegistrarPago formularioRegistrarPago;
     private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes;
     private Jd_ActualizarPA formularioActualizarPaciente;
-//    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+    private String interfazPadre = "";
+    private ArrayList<String> cliente_id_array = new ArrayList<>();
+    private String cliente_id;
 
+    public String getInterfazPadre() {
+        return interfazPadre;
+    }
+
+    public void setInterfazPadre(String interfazPadre) {
+        this.interfazPadre = interfazPadre;
+    }
+
+//    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
     public class Jd_Tercero extends JDialog {
 
         private Jd_ActualizarPA dialogoSegundo;
@@ -94,6 +109,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         list1 = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seleccionar Cliente");
@@ -124,6 +140,13 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(list1);
 
+        jButton1.setText("Seleccionar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,8 +162,13 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(29, 29, 29)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -160,7 +188,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,7 +215,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         ResultSet rsCliente = null;
         modelo.clear(); //limpia lista anterior
         list1.setModel(modelo); //llena lista
-
+        cliente_id_array.clear();
         try {
             if (txtDni.getText().equals("") && txtNombre.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un DNI o nombre para buscar");
@@ -196,6 +225,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                     while (rsCliente.next()) {
                         String cliente = rsCliente.getString("nombre") + " " + rsCliente.getString("apellido");
                         modelo.addElement(cliente);
+                        cliente_id_array.add(String.valueOf(rsCliente.getInt("cliente_id")));
                     }
                     list1.setModel(modelo);
                     if (modelo.isEmpty()) {
@@ -203,10 +233,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                     }
                     rsCliente.close();
                 } else {
-                    rsCliente = objCliente.buscarClientexNombre(txtNombre.getText());
+                    rsCliente = objCliente.buscarClientexNombre(txtNombre.getText().toLowerCase());
                     while (rsCliente.next()) {
                         String cliente = rsCliente.getString("nombre") + " " + rsCliente.getString("apellido");
                         modelo.addElement(cliente);
+                        cliente_id_array.add(String.valueOf(rsCliente.getInt("cliente_id")));
                     }
                     list1.setModel(modelo);
                     if (modelo.isEmpty()) {
@@ -222,68 +253,132 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-        if (evt.getClickCount() == 2) {
-//            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-//            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            System.out.println(clienteSeleccionado);
-            this.dispose();
-            if (formularioActualizarPaciente != null) {
-                formularioActualizarPaciente.setClienteSeleccionado(clienteSeleccionado);
-            }
-            dispose();
-        }
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            if (formularioProgramarCita != null) {
-                formularioProgramarCita.setClienteSeleccionado(clienteSeleccionado);
-            }
-            dispose();
-        }
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            if (formularioModificarCita != null) {
-                formularioModificarCita.setClienteSeleccionado(clienteSeleccionado);
-            }
-
-            dispose();
-        }
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            if (formularioConsultarCitaPaciente != null) {
-                formularioConsultarCitaPaciente.setClienteSeleccionado(clienteSeleccionado);
-            }
-
-            dispose();
-        }
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            if (formularioRegistrarPago != null) {
-                formularioRegistrarPago.setClienteSeleccionado(clienteSeleccionado);
-            }
-
-            dispose();
-        }
-
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            if (formularioConsultarPagosPacientes != null) {
-                formularioConsultarPagosPacientes.setClienteSeleccionado(clienteSeleccionado);
-            }
-
-            dispose();
-        }
+        cliente_id = cliente_id_array.get(list1.getSelectedIndex());
+//        if (evt.getClickCount() == 2) {
+    ////            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
+////            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            System.out.println(clienteSeleccionado);
+//            this.dispose();
+//            if (formularioActualizarPaciente != null) {
+//                formularioActualizarPaciente.setClienteSeleccionado();
+//            }
+//            dispose();
+//        }
+//        if (evt.getClickCount() == 2) {
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            if (formularioProgramarCita != null) {
+//                formularioProgramarCita.setClienteSeleccionado(clienteSeleccionado);
+//            }
+//            dispose();
+//        }
+//        if (evt.getClickCount() == 2) {
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            if (formularioModificarCita != null) {
+//                formularioModificarCita.setClienteSeleccionado(clienteSeleccionado);
+//            }
+//
+//            dispose();
+//        }
+//        if (evt.getClickCount() == 2) {
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            if (formularioConsultarCitaPaciente != null) {
+//                formularioConsultarCitaPaciente.setClienteSeleccionado(clienteSeleccionado);
+//            }
+//
+//            dispose();
+//        }
+//        if (evt.getClickCount() == 2) {
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            if (formularioRegistrarPago != null) {
+//                formularioRegistrarPago.setClienteSeleccionado(clienteSeleccionado);
+//            }
+//
+//            dispose();
+//        }
+//
+//        if (evt.getClickCount() == 2) {
+//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
+//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
+//            if (formularioConsultarPagosPacientes != null) {
+//                formularioConsultarPagosPacientes.setClienteSeleccionado(clienteSeleccionado);
+//            }
+//
+//            dispose();
+//        }
 
     }//GEN-LAST:event_list1MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+//    private Jd_ProgramarCita formularioProgramarCita; programarCita
+//    private Jd_ModificarCita formularioModificarCita; modificarCita
+//    private Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente; consultarCitaPaciente
+//    private Jd_RegistrarPago formularioRegistrarPago; RegistrarPago
+//    private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes; consultarPagosPacientes
+//    private Jd_ActualizarPA formularioActualizarPaciente; actualizarPaciente
+        if (list1.getModel().getSize() > 0) {
+            if (list1.isSelectionEmpty()) {
+                JOptionPane.showMessageDialog(this, "Seleccione un cliente");
+            } else {
+                if (getInterfazPadre().equalsIgnoreCase("programarCita")) {
+                    try {
+                        formularioProgramarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (getInterfazPadre().equalsIgnoreCase("modificarCita")) {
+                    try {
+                        formularioModificarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (getInterfazPadre().equalsIgnoreCase("consultarCitaPaciente")) {
+                    try {
+                        formularioConsultarCitaPaciente.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (getInterfazPadre().equalsIgnoreCase("RegistrarPago")) {
+                    try {
+                        formularioRegistrarPago.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (getInterfazPadre().equalsIgnoreCase("consultarPagosPacientes")) {
+                    try {
+                        formularioConsultarPagosPacientes.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+                        dispose();
+                    } catch (Exception ex) {
+                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (getInterfazPadre().equalsIgnoreCase("actualizarPaciente")) {
+                    formularioActualizarPaciente.setCodCliente(cliente_id);
+                    formularioActualizarPaciente.setClienteSeleccionado();
+                    dispose();
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error de carga de interfaz padre");
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Busque a algún cliente");
+        }
+
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

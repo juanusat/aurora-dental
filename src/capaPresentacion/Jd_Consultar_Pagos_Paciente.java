@@ -116,6 +116,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_Consultar_Pagos_Paciente jdConsultarPagosPacientes = this;
         Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdConsultarPagosPacientes);
+        jdSeleccionar.setInterfazPadre("consultarPagosPacientes");
         jdSeleccionar.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {

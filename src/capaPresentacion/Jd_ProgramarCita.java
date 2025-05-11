@@ -36,7 +36,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         initComponents();
         listarDoctores();
         listarTratamientos();
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -265,6 +265,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     private void btnSeleccionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarClienteActionPerformed
         Jd_ProgramarCita jdProgramarCita = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdProgramarCita);
+        jdSeleccionarCliente.setInterfazPadre("programarCita");
         jdSeleccionarCliente.setVisible(true);
 
     }//GEN-LAST:event_btnSeleccionarClienteActionPerformed
@@ -324,8 +325,7 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar tratamientos " + e.getMessage());
         }
-    } 
-    
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

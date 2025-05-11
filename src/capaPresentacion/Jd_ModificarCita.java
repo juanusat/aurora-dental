@@ -257,6 +257,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ModificarCita jdModificarCita = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdModificarCita);
+        jdSeleccionarCliente.setInterfazPadre("modificarCita");
         jdSeleccionarCliente.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
@@ -287,7 +288,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             int agendor_id = objT.buscarID_Recepcionista(NomRec[0]);
 
             if (chkReprogramar.isSelected()) {
-                int rpta =  JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
+                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
                 if (rpta == JOptionPane.YES_OPTION) {
                     objC.modificarCita(cita_id, doctor_id, tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
                     JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
@@ -295,7 +296,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Operacion Cancelada");
                 }
             } else {
-                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
+                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
 
                 if (rpta == JOptionPane.YES_OPTION) {
                     objC.modificarCitaSF(cita_id, doctor_id, tratamiento_id, agendor_id);
@@ -316,7 +317,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             LocalDateTime fecha = LocalDateTime.parse(partes[3], formatter);
             int cita_id = objC.buscarCita_id(cliente_id, fecha);
 
-            int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Sí", "No" }, "Sí");
+            int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
             if (rpta == JOptionPane.YES_OPTION) {
                 objC.anularCita(cita_id);
                 JOptionPane.showMessageDialog(this, "Cita Anulada");

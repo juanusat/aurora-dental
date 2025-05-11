@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Objects;
 
-
 public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
 
     cls_Cita objC = new cls_Cita();
@@ -119,6 +118,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ConsultarCita_Paciente jdConsultarCitaPaciente = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdConsultarCitaPaciente);
+        jdSeleccionarCliente.setInterfazPadre("consultarCitaPaciente");
         jdSeleccionarCliente.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
@@ -130,22 +130,22 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         modelo.addColumn("Reagendada");
         modelo.addColumn("Estado");
         Lista.setModel(modelo);
-        
+
         try {
             String[] partes = txtnombre.getText().split(" ");
             ResultSet rs = objC.buscarTodasCitasPaciente(partes[0], partes[1]);
-           
+
             while (rs.next()) {
                 if (rs.getString("estado").equals("reagendada")) {
                     String cita = rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("reagendada") + " / " + rs.getString("costo") + "Si" + rs.getString("estado");
-                    modelo.addRow(new Object[]{rs.getString("Nombre_T"),rs.getString("Nombre_D"),rs.getString("reagendada"),rs.getString("costo"),"SI",rs.getString("estado")});
+                    modelo.addRow(new Object[]{rs.getString("Nombre_T"), rs.getString("Nombre_D"), rs.getString("reagendada"), rs.getString("costo"), "SI", rs.getString("estado")});
                 } else {
                     String cita = rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("fecha_hora") + " / " + rs.getString("costo") + "No" + rs.getString("estado");
-                    modelo.addRow(new Object[]{rs.getString("Nombre_T"),rs.getString("Nombre_D"),rs.getString("fecha_hora"),rs.getString("costo"),"NO",rs.getString("estado")});
+                    modelo.addRow(new Object[]{rs.getString("Nombre_T"), rs.getString("Nombre_D"), rs.getString("fecha_hora"), rs.getString("costo"), "NO", rs.getString("estado")});
                 }
             }
             Lista.setModel(modelo);
-            if(modelo.getRowCount()==0){
+            if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "El paciente no tiene ninguna cita ");
             }
             rs.close();
