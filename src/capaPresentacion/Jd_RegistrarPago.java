@@ -249,19 +249,9 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_RegistrarPago jdRegistrarPago = this;
-        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdRegistrarPago);
-        jdSeleccionar.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionar.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
         jdSeleccionar.setVisible(true);
+        setClienteSeleccionado(jdSeleccionar.getCliente_id());
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void List1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_List1MouseClicked

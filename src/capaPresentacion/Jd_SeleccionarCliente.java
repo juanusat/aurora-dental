@@ -24,84 +24,21 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
     cls_Cliente objCliente = new cls_Cliente();
     DefaultListModel<String> modelo = new DefaultListModel<>();
-    private Jd_ProgramarCita formularioProgramarCita;
-    private Jd_ModificarCita formularioModificarCita;
-    private Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente;
-    private Jd_RegistrarPago formularioRegistrarPago;
-    private Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes;
-    private Jd_ActualizarPA formularioActualizarPaciente;
-    private String interfazPadre = "";
     private ArrayList<String> cliente_id_array = new ArrayList<>();
-    private String cliente_id;
-
-    public String getInterfazPadre() {
-        return interfazPadre;
-    }
-
-    public void setInterfazPadre(String interfazPadre) {
-        this.interfazPadre = interfazPadre;
-    }
+    private static String cliente_id = "";
 
     public String getCliente_id() {
         return cliente_id;
     }
 
     public void setCliente_id(String cliente_id) {
-        this.cliente_id = cliente_id;
-    }
-
-//    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-    public class Jd_Tercero extends JDialog {
-
-        private Jd_ActualizarPA dialogoSegundo;
-
-        public Jd_Tercero(Jd_ActualizarPA parent, boolean modal) {
-            super(parent, modal);
-            this.dialogoSegundo = parent;
-
-        }
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ActualizarPA formularioActualizarPaciente) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-
-        this.formularioActualizarPaciente = formularioActualizarPaciente; // Guardamos la referencia
-        initComponents();
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ProgramarCita formularioProgramarCita) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-        this.formularioProgramarCita = formularioProgramarCita; // Guardamos la referencia
-        initComponents();
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ModificarCita formularioModificarCita) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-        this.formularioModificarCita = formularioModificarCita; // Guardamos la referencia
-        initComponents();
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_ConsultarCita_Paciente formularioConsultarCitaPaciente) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-        this.formularioConsultarCitaPaciente = formularioConsultarCitaPaciente; // Guardamos la referencia
-        initComponents();
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_RegistrarPago formularioRegistrarPago) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-        this.formularioRegistrarPago = formularioRegistrarPago; // Guardamos la referencia
-        initComponents();
-    }
-
-    public Jd_SeleccionarCliente(java.awt.Dialog parent, boolean modal, Jd_Consultar_Pagos_Paciente formularioConsultarPagosPacientes) {
-        super(parent, modal); // Usamos el constructor de JDialog que acepta un Dialog
-        this.formularioConsultarPagosPacientes = formularioConsultarPagosPacientes; // Guardamos la referencia
-        initComponents();
+        Jd_SeleccionarCliente.cliente_id = cliente_id;
     }
 
     public Jd_SeleccionarCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setCliente_id("");
     }
 
     @SuppressWarnings("unchecked")
@@ -117,7 +54,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         list1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        btnSeleccionar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Seleccionar Cliente");
@@ -148,10 +85,10 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(list1);
 
-        jButton1.setText("Seleccionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSeleccionarActionPerformed(evt);
             }
         });
 
@@ -161,6 +98,9 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,14 +116,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))))
+                                .addComponent(btnSeleccionar))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,7 +134,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnSeleccionar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,11 +198,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-        cliente_id = cliente_id_array.get(list1.getSelectedIndex());
+        setCliente_id(cliente_id_array.get(list1.getSelectedIndex()));
 
     }//GEN-LAST:event_list1MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         if (list1.getModel().getSize() > 0) {
             if (list1.isSelectionEmpty()) {
                 JOptionPane.showMessageDialog(this, "Seleccione un cliente");
@@ -277,11 +214,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSeleccionar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
