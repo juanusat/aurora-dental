@@ -15,6 +15,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -29,7 +31,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     cls_Tratamiento objTR = new cls_Tratamiento();
     cls_Cita objC = new cls_Cita();
     cls_Persona objP = new cls_Persona();
-    cls_Cliente objCL = new cls_Cliente();
+    cls_Cliente objCliente = new cls_Cliente();
 
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private Jd_ModificarCita formularioModificarCita;
@@ -257,7 +259,17 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ModificarCita jdModificarCita = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdModificarCita);
-        jdSeleccionarCliente.setInterfazPadre("modificarCita");
+        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                try {
+                    // Esta función se ejecutará cuando se cierre el formulario 2
+                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionarCliente.getCliente_id())));
+                } catch (Exception ex) {
+                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         jdSeleccionarCliente.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

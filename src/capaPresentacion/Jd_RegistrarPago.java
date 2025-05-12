@@ -4,9 +4,12 @@
  */
 package capaPresentacion;
 
+import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Pago;
 import static capaPresentacion.Jd_ModificarCita.citaEscogida;
 import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
@@ -23,6 +26,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private Jd_RegistrarPago formularioRegistrarPago;
     cls_Pago objP = new cls_Pago();
+    cls_Cliente objCliente = new cls_Cliente();
 
     public Jd_RegistrarPago(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -246,7 +250,17 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_RegistrarPago jdRegistrarPago = this;
         Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdRegistrarPago);
-        jdSeleccionar.setInterfazPadre("registrarPago");
+        jdSeleccionar.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                try {
+                    // Esta función se ejecutará cuando se cierre el formulario 2
+                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionar.getCliente_id())));
+                } catch (Exception ex) {
+                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         jdSeleccionar.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
