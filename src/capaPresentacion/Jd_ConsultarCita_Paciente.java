@@ -5,15 +5,18 @@
 package capaPresentacion;
 
 import capaNegocio.cls_Cita;
+import capaNegocio.cls_Cliente;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
 
     cls_Cita objC = new cls_Cita();
-
+    cls_Cliente objCliente = new cls_Cliente();
     public Jd_ConsultarCita_Paciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -118,7 +121,17 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ConsultarCita_Paciente jdConsultarCitaPaciente = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdConsultarCitaPaciente);
-        jdSeleccionarCliente.setInterfazPadre("consultarCitaPaciente");
+        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                try {
+                    // Esta función se ejecutará cuando se cierre el formulario 2
+                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionarCliente.getCliente_id())));
+                } catch (Exception ex) {
+                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         jdSeleccionarCliente.setVisible(true);
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {

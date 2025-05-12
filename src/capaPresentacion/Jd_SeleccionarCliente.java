@@ -42,6 +42,14 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         this.interfazPadre = interfazPadre;
     }
 
+    public String getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(String cliente_id) {
+        this.cliente_id = cliente_id;
+    }
+
 //    JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
     public class Jd_Tercero extends JDialog {
 
@@ -254,63 +262,6 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
         cliente_id = cliente_id_array.get(list1.getSelectedIndex());
-//        if (evt.getClickCount() == 2) {
-    ////            JFrame framePrincipal = (JFrame) SwingUtilities.getWindowAncestor(this);
-////            Jd_SeleccionarCliente objSeleccion = new Jd_SeleccionarCliente(framePrincipal, true);
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            System.out.println(clienteSeleccionado);
-//            this.dispose();
-//            if (formularioActualizarPaciente != null) {
-//                formularioActualizarPaciente.setClienteSeleccionado();
-//            }
-//            dispose();
-//        }
-//        if (evt.getClickCount() == 2) {
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            if (formularioProgramarCita != null) {
-//                formularioProgramarCita.setClienteSeleccionado(clienteSeleccionado);
-//            }
-//            dispose();
-//        }
-//        if (evt.getClickCount() == 2) {
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            if (formularioModificarCita != null) {
-//                formularioModificarCita.setClienteSeleccionado(clienteSeleccionado);
-//            }
-//
-//            dispose();
-//        }
-//        if (evt.getClickCount() == 2) {
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            if (formularioConsultarCitaPaciente != null) {
-//                formularioConsultarCitaPaciente.setClienteSeleccionado(clienteSeleccionado);
-//            }
-//
-//            dispose();
-//        }
-//        if (evt.getClickCount() == 2) {
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            if (formularioRegistrarPago != null) {
-//                formularioRegistrarPago.setClienteSeleccionado(clienteSeleccionado);
-//            }
-//
-//            dispose();
-//        }
-//
-//        if (evt.getClickCount() == 2) {
-//            int indiceSeleccionado = list1.locationToIndex(evt.getPoint());
-//            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-//            if (formularioConsultarPagosPacientes != null) {
-//                formularioConsultarPagosPacientes.setClienteSeleccionado(clienteSeleccionado);
-//            }
-//
-//            dispose();
-//        }
 
     }//GEN-LAST:event_list1MouseClicked
 
@@ -325,49 +276,49 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             if (list1.isSelectionEmpty()) {
                 JOptionPane.showMessageDialog(this, "Seleccione un cliente");
             } else {
-                if (getInterfazPadre().equalsIgnoreCase("programarCita")) {
-                    try {
-                        formularioProgramarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
-                        dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (getInterfazPadre().equalsIgnoreCase("modificarCita")) {
-                    try {
-                        formularioModificarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
-                        dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (getInterfazPadre().equalsIgnoreCase("consultarCitaPaciente")) {
-                    try {
-                        formularioConsultarCitaPaciente.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
-                        dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (getInterfazPadre().equalsIgnoreCase("RegistrarPago")) {
-                    try {
-                        formularioRegistrarPago.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
-                        dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (getInterfazPadre().equalsIgnoreCase("consultarPagosPacientes")) {
-                    try {
-                        formularioConsultarPagosPacientes.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
-                        dispose();
-                    } catch (Exception ex) {
-                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else if (getInterfazPadre().equalsIgnoreCase("actualizarPaciente")) {
-                    formularioActualizarPaciente.setCodCliente(cliente_id);
-                    formularioActualizarPaciente.setClienteSeleccionado();
-                    dispose();
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error de carga de interfaz padre");
-                }
+                dispose();
+//                if (getInterfazPadre().equalsIgnoreCase("programarCita")) {
+//                    try {
+//                        formularioProgramarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+//                        dispose();
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                } else if (getInterfazPadre().equalsIgnoreCase("modificarCita")) {
+//                    try {
+//                        formularioModificarCita.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+//                        dispose();
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                } else if (getInterfazPadre().equalsIgnoreCase("consultarCitaPaciente")) {
+//                    try {
+//                        formularioConsultarCitaPaciente.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+//                        dispose();
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                } else if (getInterfazPadre().equalsIgnoreCase("RegistrarPago")) {
+//                    try {
+//                        formularioRegistrarPago.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+//                        dispose();
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                } else if (getInterfazPadre().equalsIgnoreCase("consultarPagosPacientes")) {
+//                    try {
+//                        formularioConsultarPagosPacientes.setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(cliente_id)));
+//                        dispose();
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Jd_SeleccionarCliente.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+////                } else if (getInterfazPadre().equalsIgnoreCase("actualizarPaciente")) {
+////                    formularioActualizarPaciente.setCodCliente(cliente_id);
+////                    formularioActualizarPaciente.setClienteSeleccionado();
+////                    dispose();
+//
+//                } else {
+//                }
             }
         } else {
             JOptionPane.showMessageDialog(this, "Busque a algún cliente");

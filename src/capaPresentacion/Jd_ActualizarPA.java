@@ -24,7 +24,7 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
 
     cls_Persona objPersona = new cls_Persona();
     cls_Cliente objCliente = new cls_Cliente();
-    private String codCliente = "";
+    private static String codCliente = "";
 
     public Jd_ActualizarPA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -309,7 +309,14 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ActualizarPA jdActualizarPaciente = this;
         Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdActualizarPaciente);
-        jdSeleccionarCliente.setInterfazPadre("actualizarPaciente");
+        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                // Esta función se ejecutará cuando se cierre el formulario 2
+                setCodCliente(jdSeleccionarCliente.getCliente_id());
+                setClienteSeleccionado();
+            }
+        });
         jdSeleccionarCliente.setVisible(true);
 
 //        ResultSet rs = null;
