@@ -6,6 +6,7 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Pago;
+import capaNegocio.cls_Persona;
 import static capaPresentacion.Jd_ModificarCita.citaEscogida;
 import java.sql.ResultSet;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     private Jd_RegistrarPago formularioRegistrarPago;
     cls_Pago objP = new cls_Pago();
     cls_Cliente objCliente = new cls_Cliente();
+    cls_Persona objPE = new cls_Persona();
 
     public Jd_RegistrarPago(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,8 +40,15 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         txtNombre.setEnabled(false);
     }
 
-    public void setClienteSeleccionado(String cliente) {
-        txtNombre.setText(cliente);
+    public void setClienteSeleccionado(String cliente) throws Exception {
+        ResultSet rs = objPE.buscarPersonaPorID(cliente);
+        try {
+            while (rs.next()) {
+                txtNombre.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        }
         listarCitas();
     }
 
@@ -48,8 +57,8 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         List1.setModel(modelo); //llena lista
 
         try {
-            String[] partes = txtNombre.getText().split(" ");
-            ResultSet rs = objP.buscarCitasconMontoPagado(partes[0], partes[1]);
+
+            ResultSet rs = objP.buscarCitasconMontoPagado(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
             System.out.println(rs);
             while (rs.next()) {
                 String cita = rs.getString("cita_id") + " / " + rs.getString("tratamiento") + " / " + rs.getString("doctor") + " / " + rs.getString("fecha") + " / " + rs.getString("costo") + " / " + rs.getString("estado") + " / " + rs.getString("monto_pagado");
@@ -249,19 +258,13 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_RegistrarPago jdRegistrarPago = this;
-        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdRegistrarPago);
-        jdSeleccionar.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionar.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
         jdSeleccionar.setVisible(true);
+        try {
+            setClienteSeleccionado(jdSeleccionar.getCliente_id());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_RegistrarPago.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void List1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_List1MouseClicked

@@ -6,7 +6,6 @@ package capaNegocio;
 
 import capaDatos.clsJDBC;
 import java.sql.ResultSet;
-import java.util.Date;
 
 /**
  *
@@ -38,13 +37,13 @@ public class cls_Cliente {
 
     public ResultSet buscarClientexNombre(String nombre) throws Exception {
         strSQL = "SELECT c.cliente_id, p.nombre, p.apellido, p.documento "
-                + "FROM cliente c inner join persona p ON p.persona_id = c.persona_id "
-                + "WHERE lower(p.nombre) ='" + nombre + "'";
+                + "FROM cliente c INNER JOIN persona p ON p.persona_id = c.persona_id "
+                + "WHERE p.nombre ILIKE '%" + nombre + "%'";
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
         } catch (Exception e) {
-            throw new Exception("Error al buscar cliente" + e.getMessage());
+            throw new Exception("Error al buscar cliente: " + e.getMessage(), e);
         }
     }
 
@@ -71,10 +70,11 @@ public class cls_Cliente {
             throw new Exception("Error al buscar cliente" + e.getMessage());
         }
     }
+
     public String buscarNombreClientexId(String id) throws Exception {
         strSQL = "SELECT c.cliente_id, p.nombre, p.apellido, p.documento "
                 + "FROM cliente c inner join persona p ON p.persona_id = c.persona_id "
-                + "WHERE c.cliente_id =" + id ;
+                + "WHERE c.cliente_id =" + id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             rs.next();

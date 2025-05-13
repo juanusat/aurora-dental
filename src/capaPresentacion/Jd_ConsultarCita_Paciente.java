@@ -6,6 +6,7 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cita;
 import capaNegocio.cls_Cliente;
+import capaNegocio.cls_Persona;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -17,13 +18,22 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
 
     cls_Cita objC = new cls_Cita();
     cls_Cliente objCliente = new cls_Cliente();
+    cls_Persona objPE = new cls_Persona();
+
     public Jd_ConsultarCita_Paciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public void setClienteSeleccionado(String cliente) {
-        txtnombre.setText(cliente);
+    public void setClienteSeleccionado(String cliente) throws Exception {
+        ResultSet rs = objPE.buscarPersonaPorID(cliente);
+        try {
+            while (rs.next()) {
+                txtnombre.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        }
         listarCitas();
     }
 
@@ -45,7 +55,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        jLabel1.setText("Nombre:");
+        jLabel1.setText("Cliente:");
 
         txtnombre.setEditable(false);
         txtnombre.setMinimumSize(new java.awt.Dimension(64, 24));
@@ -119,20 +129,14 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Jd_ConsultarCita_Paciente jdConsultarCitaPaciente = this;
-        Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdConsultarCitaPaciente);
-        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionarCliente.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        jdSeleccionarCliente.setVisible(true);
+        Jd_ConsultarCita_Paciente jdConsultarCitasP = this;
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
+        jdSeleccionar.setVisible(true);
+        try {
+            setClienteSeleccionado(jdSeleccionar.getCliente_id());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -145,9 +149,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         Lista.setModel(modelo);
 
         try {
-            String[] partes = txtnombre.getText().split(" ");
-            ResultSet rs = objC.buscarTodasCitasPaciente(partes[0], partes[1]);
-
+            ResultSet rs = objC.buscarTodasCitasPaciente(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
             while (rs.next()) {
                 if (rs.getString("estado").equals("reagendada")) {
                     String cita = rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("reagendada") + " / " + rs.getString("costo") + "Si" + rs.getString("estado");

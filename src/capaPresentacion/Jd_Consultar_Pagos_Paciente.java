@@ -6,6 +6,7 @@ package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Pago;
+import capaNegocio.cls_Persona;
 import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,14 +21,23 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
 
     cls_Pago objP = new cls_Pago();
     cls_Cliente objCliente = new cls_Cliente();
+    cls_Persona objPE = new cls_Persona(); 
+
     public Jd_Consultar_Pagos_Paciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         txtNombre.setEnabled(false);
     }
 
-    public void setClienteSeleccionado(String cliente) {
-        txtNombre.setText(cliente);
+    public void setClienteSeleccionado(String cliente) throws Exception {
+        ResultSet rs = objPE.buscarPersonaPorID(cliente);
+        try {
+            while (rs.next()) {
+                txtNombre.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        }
         listarCitas();
     }
 
@@ -49,6 +59,8 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setText("Cliente:");
+
+        txtNombre.setEditable(false);
 
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,18 +86,19 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnSeleccionar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(30, 30, 30)
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnSeleccionar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 805, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,20 +130,14 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Jd_Consultar_Pagos_Paciente jdConsultarPagosPacientes = this;
-        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(this, true, jdConsultarPagosPacientes);
-        jdSeleccionar.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionar.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+        Jd_Consultar_Pagos_Paciente jdConsultarPagosP = this;
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
         jdSeleccionar.setVisible(true);
+        try {
+            setClienteSeleccionado(jdSeleccionar.getCliente_id());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -143,8 +150,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         tbl.setModel(modelo);
 
         try {
-            String[] partes = txtNombre.getText().split(" ");
-            ResultSet rs = objP.listarPagosCitasCliente(partes[0], partes[1]);
+            ResultSet rs = objP.listarPagosCitasCliente(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString("tratamiento"), rs.getString("emisor"), rs.getString("fecha_hora"), rs.getString("monto"), rs.getString("metodo"), rs.getString("estado")});
