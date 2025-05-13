@@ -104,8 +104,8 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("DNI:");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtDni.setPreferredSize(new java.awt.Dimension(64, 24));
 
@@ -117,40 +117,40 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel4.setText("Apellido:");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtApellido.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel6.setText("Sexo:");
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        rbtMasculino.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtMasculino.setText("Masculino");
+        rbtMasculino.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        rbtFemenino.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtFemenino.setText("Femenino");
+        rbtFemenino.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel3.setText("Correo:");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtCorreo.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel9.setText("Telefono:");
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtTelefono.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel10.setText("Fecha Nac.:");
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel11.setText("Direccion:");
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtaDireccion.setColumns(20);
         txtaDireccion.setRows(5);
@@ -269,10 +269,12 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
         DatePickerSettings settings = dateFechaNac.getSettings();
 
         int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        int diaActual = LocalDate.now().getDayOfMonth();
         int anioLimite = anioActual - 1;
 
         // Fecha máxima permitida: 31 de diciembre del año anterior
-        LocalDate fechaMaxima = LocalDate.of(anioLimite, 12, 31);
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, mesActual, diaActual);
 
         // Usar una clase anónima que implementa DateVetoPolicy correctamente
         settings.setVetoPolicy(new DateVetoPolicy() {

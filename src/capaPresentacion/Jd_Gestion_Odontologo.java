@@ -5,10 +5,12 @@
 package capaPresentacion;
 
 import capaNegocio.*;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Calendar;
+import java.time.LocalDate;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -64,23 +66,23 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         btnModificar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         txtDireccion = new javax.swing.JTextField();
-        dateN = new com.toedter.calendar.JDateChooser();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
+        dateN = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Nombre:");
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel2.setText("Nombre:");
 
-        jLabel4.setText("Apellido:");
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel4.setText("Apellido:");
 
-        jLabel5.setText("Dni:");
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel5.setText("Dni:");
 
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -88,14 +90,14 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setText("Sexo:");
         jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel6.setText("Sexo:");
 
-        jLabel7.setText("Correo:");
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel7.setText("Correo:");
 
-        jLabel9.setText("Telefono:");
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel9.setText("Telefono:");
 
         rbM.setText("Masculino");
 
@@ -105,17 +107,17 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtTelefono.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel3.setText("Fecha Nac.");
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel3.setText("Fecha Nac.");
 
-        jLabel8.setText("Direccion:");
         jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel8.setText("Direccion:");
 
-        jLabel10.setText("Especialidad:");
         jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel10.setText("Especialidad:");
 
-        jLabel11.setText("Numero Licencia:");
         jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel11.setText("Numero Licencia:");
 
         txtEspecialidad.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -181,16 +183,20 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbM)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(rbF))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dateN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(30, 30, 30)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(rbM)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(rbF))
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(30, 30, 30))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(dateN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDireccion)))
@@ -269,7 +275,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jLabel8))
                 .addGap(12, 12, 12)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dateN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
@@ -297,21 +303,22 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Calendar fechaMaxima = Calendar.getInstance();
-        fechaMaxima.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR) - 28);
-        fechaMaxima.set(Calendar.MONTH, Calendar.DECEMBER);
-        fechaMaxima.set(Calendar.DAY_OF_MONTH, 31);
+        DatePickerSettings settings = dateN.getSettings();
 
-        // Listener para validar cada vez que se cambie la fecha
-        dateN.getDateEditor().addPropertyChangeListener("date", evt -> {
-            Date fechaSeleccionada = dateN.getDate();
-            if (fechaSeleccionada != null && fechaSeleccionada.after(fechaMaxima.getTime())) {
-                JOptionPane.showMessageDialog(null,
-                    "Solo se permiten fechas hasta el 31 de diciembre de " + (fechaMaxima.get(Calendar.YEAR)),
-                    "Fecha no permitida",
-                    JOptionPane.WARNING_MESSAGE
-                );
-                dateN.setDate(null); // Borrar la fecha no válida
+        int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        int diaActual = LocalDate.now().getDayOfMonth();
+        int anioLimite = anioActual - 27;
+
+        // Fecha máxima permitida: 31 de diciembre del año anterior
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, mesActual, diaActual);
+
+        // Usar una clase anónima que implementa DateVetoPolicy correctamente
+        settings.setVetoPolicy(new DateVetoPolicy() {
+            @Override
+            public boolean isDateAllowed(LocalDate date) {
+                boolean permitido = date.isBefore(fechaMaxima) || date.isEqual(fechaMaxima);
+                return permitido;
             }
         });
 
@@ -546,7 +553,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
-    private com.toedter.calendar.JDateChooser dateN;
+    private com.github.lgooddatepicker.components.DatePicker dateN;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

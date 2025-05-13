@@ -252,10 +252,12 @@ public class Jd_Gestion_Recepcionista extends javax.swing.JDialog {
         DatePickerSettings settings = datePicker2.getSettings();
 
         int anioActual = LocalDate.now().getYear();
+        int mesActual = LocalDate.now().getMonthValue();
+        int diaActual = LocalDate.now().getDayOfMonth();
         int anioLimite = anioActual - 23;
 
         // Fecha máxima permitida: 31 de diciembre del año anterior
-        LocalDate fechaMaxima = LocalDate.of(anioLimite, 12, 31);
+        LocalDate fechaMaxima = LocalDate.of(anioLimite, mesActual, diaActual);
 
         // Usar una clase anónima que implementa DateVetoPolicy correctamente
         settings.setVetoPolicy(new DateVetoPolicy() {
