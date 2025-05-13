@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,7 +23,8 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
 
     cls_Pago objP = new cls_Pago();
     cls_Cliente objCliente = new cls_Cliente();
-    cls_Persona objPE = new cls_Persona(); 
+    cls_Persona objPE = new cls_Persona();
+    private String cliente_id = "";
 
     public Jd_Consultar_Pagos_Paciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,8 +32,9 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         txtNombre.setEnabled(false);
     }
 
-    public void setClienteSeleccionado(String cliente) throws Exception {
-        ResultSet rs = objPE.buscarPersonaPorID(cliente);
+    public void setClienteSeleccionado(String cliente_id_obtenido) throws Exception {
+        cliente_id = cliente_id_obtenido;
+        ResultSet rs = objPE.buscarPersonaPorID(cliente_id_obtenido);
         try {
             while (rs.next()) {
                 txtNombre.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
@@ -77,7 +81,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Tratamiento", "Emisor", "Fecha_Hora", "Monto", "Metodo", "Estado"
+                "Tratamiento", "Emisor", "Fecha y hora", "Monto", "Metodo", "Estado"
             }
         ));
         jScrollPane1.setViewportView(tbl);
@@ -148,9 +152,11 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         modelo.addColumn("Metodo");
         modelo.addColumn("Estado");
         tbl.setModel(modelo);
-
+        DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        tbl.getColumnModel().getColumn(3).setCellRenderer(renderer);
         try {
-            ResultSet rs = objP.listarPagosCitasCliente(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
+            ResultSet rs = objP.listarPagosCitasCliente(cliente_id);
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString("tratamiento"), rs.getString("emisor"), rs.getString("fecha_hora"), rs.getString("monto"), rs.getString("metodo"), rs.getString("estado")});
