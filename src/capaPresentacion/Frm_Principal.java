@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +23,17 @@ public class Frm_Principal extends javax.swing.JFrame {
     public Frm_Principal() {
         initComponents();
         getIconImage();
+    }
+
+    private boolean validarAcceso(String cargosConPermiso) {
+        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
+        String cargoSesionActual = objIS.cargo.substring(0, 1).toLowerCase();
+        if (cargosConPermiso.contains(cargoSesionActual)) {
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No tienes permiso para acceder a este formulario", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     @Override
@@ -106,11 +118,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(138, 241, 248));
 
         lblnombreCargo.setForeground(new java.awt.Color(1, 124, 155));
-        lblnombreCargo.setText("NOMBRE / CARGO");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 124, 155));
-        jLabel1.setText("Usuario:");
 
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,9 +134,9 @@ public class Frm_Principal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblnombreCargo)
+                .addComponent(lblnombreCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -136,8 +146,8 @@ public class Frm_Principal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(lblnombreCargo)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblnombreCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
@@ -332,33 +342,43 @@ public class Frm_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-        Jd_ActualizarPA objdAP = new Jd_ActualizarPA(this, true);
-        objdAP.setLocationRelativeTo(this);
-        objdAP.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_ActualizarPA objdAP = new Jd_ActualizarPA(this, true);
+            objdAP.setLocationRelativeTo(this);
+            objdAP.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        Jd_ProgramarCita objd_ProCita = new Jd_ProgramarCita(this, true);
-        objd_ProCita.setLocationRelativeTo(this);
-        objd_ProCita.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_ProgramarCita objd_ProCita = new Jd_ProgramarCita(this, true);
+            objd_ProCita.setLocationRelativeTo(this);
+            objd_ProCita.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
-        Jd_ModificarCita objdMC = new Jd_ModificarCita(this, true);
-        objdMC.setLocationRelativeTo(this);
-        objdMC.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_ModificarCita objdMC = new Jd_ModificarCita(this, true);
+            objdMC.setLocationRelativeTo(this);
+            objdMC.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        Jd_ConsultarCita_Paciente objdCCP = new Jd_ConsultarCita_Paciente(this, true);
-        objdCCP.setLocationRelativeTo(this);
-        objdCCP.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_ConsultarCita_Paciente objdCCP = new Jd_ConsultarCita_Paciente(this, true);
+            objdCCP.setLocationRelativeTo(this);
+            objdCCP.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        Jd_ConsultarCita_Doctor objdCCD = new Jd_ConsultarCita_Doctor(this, true);
-        objdCCD.setLocationRelativeTo(this);
-        objdCCD.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_ConsultarCita_Doctor objdCCD = new Jd_ConsultarCita_Doctor(this, true);
+            objdCCD.setLocationRelativeTo(this);
+            objdCCD.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -366,83 +386,112 @@ public class Frm_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        Jd_EditarPerfil objdUsu = new Jd_EditarPerfil(this, true);
-        objdUsu.setLocationRelativeTo(this);
-        objdUsu.setVisible(true);
+        if (validarAcceso("gro")) {
+            Jd_EditarPerfil objdUsu = new Jd_EditarPerfil(this, true);
+            objdUsu.setLocationRelativeTo(this);
+            objdUsu.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void CerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CerrarSesionActionPerformed
-        Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
-        objIS.setLocationRelativeTo(this);
-        objIS.setVisible(true);
-       
+        if (validarAcceso("gro")) {
+            Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
+            objIS.nombreCompleto = "";
+            objIS.cargo = "";
+            objIS.username = "";
+            objIS.id_usuario = 0;
+            lblnombreCargo.setText("");
+            jLabel1.setText("");
+            objIS.setLocationRelativeTo(this);
+            objIS.setVisible(true);
+            jLabel1.setText("Usuario:");
+            lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " + Jd_IniciarSesion.cargo);
+        }
     }//GEN-LAST:event_CerrarSesionActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        Jd_RegistrarPa objdRP = new Jd_RegistrarPa(this, true);
-        objdRP.setLocationRelativeTo(this);
-        objdRP.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_RegistrarPa objdRP = new Jd_RegistrarPa(this, true);
+            objdRP.setLocationRelativeTo(this);
+            objdRP.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        Jd_RegistrarPa_Doctor objRPD = new Jd_RegistrarPa_Doctor(this, true);
-        objRPD.setLocationRelativeTo(this);
-        objRPD.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_RegistrarPa_Doctor objRPD = new Jd_RegistrarPa_Doctor(this, true);
+            objRPD.setLocationRelativeTo(this);
+            objRPD.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        Jd_AtencionPacientesPendientes objdAPP;
-        try {
-            objdAPP = new Jd_AtencionPacientesPendientes(this, true);
-            objdAPP.setLocationRelativeTo(this);
-            objdAPP.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(Frm_Principal.class.getName()).log(Level.SEVERE, null, ex);
+        if (validarAcceso("o")) {
+            Jd_AtencionPacientesPendientes objdAPP;
+            try {
+                objdAPP = new Jd_AtencionPacientesPendientes(this, true);
+                objdAPP.setLocationRelativeTo(this);
+                objdAPP.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(Frm_Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        FrmAppPlantillas objF = new FrmAppPlantillas();
-        objF.setLocationRelativeTo(this);
-        objF.setVisible(true);
+        if (validarAcceso("r")) {
+            FrmAppPlantillas objF = new FrmAppPlantillas();
+            objF.setLocationRelativeTo(this);
+            objF.setVisible(true);
+        }
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         Jd_IniciarSesion objIS = new Jd_IniciarSesion(this, true);
         objIS.setLocationRelativeTo(this);
         objIS.setVisible(true);
+        jLabel1.setText("Usuario:");
         lblnombreCargo.setText(Jd_IniciarSesion.nombreCompleto + " - " + Jd_IniciarSesion.cargo);
-        
     }//GEN-LAST:event_formWindowOpened
 
     private void jMenuItem20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem20ActionPerformed
-        Jd_Gestion_Tratamiento objGT = new Jd_Gestion_Tratamiento(this, true);
-        objGT.setLocationRelativeTo(this);
-        objGT.setVisible(true);
+        if (validarAcceso("g")) {
+            Jd_Gestion_Tratamiento objGT = new Jd_Gestion_Tratamiento(this, true);
+            objGT.setLocationRelativeTo(this);
+            objGT.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem20ActionPerformed
 
     private void jMenuItem21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem21ActionPerformed
-        Jd_RegistrarPago objP = new Jd_RegistrarPago(this, true);
-        objP.setLocationRelativeTo(this);
-        objP.setVisible(true);
+        if (validarAcceso("r")) {
+            Jd_RegistrarPago objP = new Jd_RegistrarPago(this, true);
+            objP.setLocationRelativeTo(this);
+            objP.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem21ActionPerformed
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
-        Jd_Consultar_Pagos_Paciente objCPP = new Jd_Consultar_Pagos_Paciente(this, true);
-        objCPP.setLocationRelativeTo(this);
-        objCPP.setVisible(true);
+        if (validarAcceso("g")) {
+            Jd_Consultar_Pagos_Paciente objCPP = new Jd_Consultar_Pagos_Paciente(this, true);
+            objCPP.setLocationRelativeTo(this);
+            objCPP.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem19ActionPerformed
-        Jd_Gestion_Odontologo objGO = new Jd_Gestion_Odontologo(this, true);
-        objGO.setLocationRelativeTo(this);
-        objGO.setVisible(true);
+        if (validarAcceso("g")) {
+            Jd_Gestion_Odontologo objGO = new Jd_Gestion_Odontologo(this, true);
+            objGO.setLocationRelativeTo(this);
+            objGO.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem19ActionPerformed
 
     private void jMenuItem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem18ActionPerformed
-        Jd_Gestion_Recepcionista objGR = new Jd_Gestion_Recepcionista(this, true); 
-        objGR.setLocationRelativeTo(this);
-        objGR.setVisible(true);
+        if (validarAcceso("g")) {
+            Jd_Gestion_Recepcionista objGR = new Jd_Gestion_Recepcionista(this, true);
+            objGR.setLocationRelativeTo(this);
+            objGR.setVisible(true);
+        }
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
 
