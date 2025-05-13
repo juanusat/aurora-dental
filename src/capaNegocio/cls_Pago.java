@@ -55,14 +55,14 @@ public class cls_Pago {
         }
     }
 
-    public ResultSet listarPagosCitasCliente(String nombre, String apellido) throws Exception {
+    public ResultSet listarPagosCitasCliente(String cliente_id) throws Exception {
         strSQL = "Select tr.nombre as tratamiento , p.emisor as emisor, p.fecha_hora as fecha_hora, p.monto as monto, p.metodo as metodo, p.estado as estado "
                 + "from pago p "
                 + "inner join cita c on p.cita_id=c.cita_id "
                 + "inner join tratamiento tr on c.tratamiento_id =tr.tratamiento_id "
                 + "inner join cliente cl on c.cliente_id=cl.cliente_id "
                 + "inner join persona per on cl.persona_id = per.persona_id "
-                + "where per.nombre ='" + nombre + "' and apellido='" + apellido + "'";
+                + "where cl.cliente_id = " + cliente_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
