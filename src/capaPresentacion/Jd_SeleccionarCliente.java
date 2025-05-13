@@ -26,6 +26,24 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private ArrayList<String> cliente_id_array = new ArrayList<>();
     private static String cliente_id = "";
+    private static String nombre="";
+    private static String apellido="";
+
+    public static String getNombre() {
+        return nombre;
+    }
+
+    public static void setNombre(String nombre) {
+        Jd_SeleccionarCliente.nombre = nombre;
+    }
+
+    public static String getApellido() {
+        return apellido;
+    }
+
+    public static void setApellido(String apellido) {
+        Jd_SeleccionarCliente.apellido = apellido;
+    }
 
     public String getCliente_id() {
         return cliente_id;
@@ -169,6 +187,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                     rsCliente = objCliente.buscarClientexDNI(txtDni.getText());
                     while (rsCliente.next()) {
                         String cliente = rsCliente.getString("nombre") + " " + rsCliente.getString("apellido");
+                        nombre = rsCliente.getString("nombre"); 
+                        apellido = rsCliente.getString("apellido");
                         modelo.addElement(cliente);
                         cliente_id_array.add(String.valueOf(rsCliente.getInt("cliente_id")));
                     }

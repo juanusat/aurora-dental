@@ -31,7 +31,8 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     cls_Tratamiento objTR = new cls_Tratamiento();
     cls_Cita objC = new cls_Cita();
     cls_Persona objP = new cls_Persona();
-    cls_Cliente objCliente = new cls_Cliente();
+    cls_Cliente objCliente = new cls_Cliente(); 
+    
     public Jd_ProgramarCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -214,25 +215,21 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         LocalDate hoy = LocalDate.now();
 
         // 1. Veto para fechas pasadas (excluyendo hoy)
-        DTPfechahora.getDatePicker().getSettings().setVetoPolicy(date -> {
-            boolean esPasada = date.isBefore(hoy);
-            return esPasada;
-        });
+        dateSettings.setVetoPolicy(date -> date.isBefore(hoy));
 
         // 2. Rango visual en el calendario (opcional)
-        DTPfechahora.getDatePicker().getSettings().setDateRangeLimits(hoy, null);
+        dateSettings.setDateRangeLimits(hoy, null);
 
         // --- Configuración de HORA (solo si la fecha es hoy) ---
         DTPfechahora.getTimePicker().addTimeChangeListener(e -> {
             LocalDate fechaSeleccionada = DTPfechahora.getDatePicker().getDate();
             LocalTime horaSeleccionada = DTPfechahora.getTimePicker().getTime();
 
-            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(hoy)) {
-                LocalTime ahora = LocalTime.now();
+            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(LocalDate.now())) {
+                // Hora actual redondeada a minutos
+                LocalTime ahora = LocalTime.now().withSecond(0).withNano(0);
                 if (horaSeleccionada.isBefore(ahora)) {
-                    // Vetar hora pasada para hoy
                     DTPfechahora.getTimePicker().setTime(null); // Limpiar selección
-                    System.out.println("[DEBUG] Hora vetada: " + horaSeleccionada + " (Hora actual: " + ahora + ")");
                     JOptionPane.showMessageDialog(null,
                         "¡No puedes seleccionar horas pasadas para hoy!",
                         "Error",
@@ -255,8 +252,16 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setClienteSeleccionado(String cliente) {
-        txtCliente.setText(cliente);
+    public void setClienteSeleccionado(String cliente) throws Exception {
+        ResultSet rs = objP.buscarPersonaPorID(cliente); 
+        
+        try {
+            while (rs.next()) {                
+                txtCliente.setText(rs.getString("nombre")+" "+rs.getString("apellido"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        }
     }
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -264,20 +269,14 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSeleccionarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarClienteActionPerformed
-        Jd_ProgramarCita jdProgramarCita = this;
-        Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdProgramarCita);
-        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionarCliente.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        jdSeleccionarCliente.setVisible(true);
+        Jd_ProgramarCita jdRogramarCita = this;
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
+        jdSeleccionar.setVisible(true);
+        try {
+            setClienteSeleccionado(jdSeleccionar.getCliente_id());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnSeleccionarClienteActionPerformed
 
@@ -288,8 +287,8 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         try {
-            String[] partes = txtCliente.getText().split(" ");
-            objC.insertCita(objP.buscarCliente_id(partes[0]), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString()), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Integer.parseInt(txtPrecio.getText()));
+            objC.insertCita(objP.buscarCliente_id(Jd_SeleccionarCliente.getNombre()), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString()), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Integer.parseInt(txtPrecio.getText()));
+            System.out.println(Jd_SeleccionarCliente.getNombre());
             JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
             txtCliente.setText("");
             cbxDoctor.setSelectedIndex(-1);

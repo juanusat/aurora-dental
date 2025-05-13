@@ -47,9 +47,15 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         DTPFechaHora.setEnabled(false);
     }
 
-    public void setClienteSeleccionado(String cliente) {
-        System.out.println("cliente : " + cliente);
-        txtnombre.setText(cliente);
+    public void setClienteSeleccionado(String cliente) throws Exception {
+        ResultSet rs = objP.buscarPersonaPorID(cliente);
+        try {
+            while (rs.next()) {
+                txtnombre.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
+        }
         listarCitas();
     }
 
@@ -83,7 +89,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Nombre:");
+        jLabel2.setText("Cliente:");
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtnombre.setEditable(false);
@@ -151,9 +157,9 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42)
                                 .addComponent(btnSeleccionar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,18 +178,18 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(cbxTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 59, Short.MAX_VALUE)))
+                        .addGap(0, 60, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
                     .addComponent(btnSeleccionar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -215,25 +221,21 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         LocalDate hoy = LocalDate.now();
 
         // 1. Veto para fechas pasadas (excluyendo hoy)
-        DTPFechaHora.getDatePicker().getSettings().setVetoPolicy(date -> {
-            boolean esPasada = date.isBefore(hoy);
-            return esPasada;
-        });
+        dateSettings.setVetoPolicy(date -> date.isBefore(hoy));
 
         // 2. Rango visual en el calendario (opcional)
-        DTPFechaHora.getDatePicker().getSettings().setDateRangeLimits(hoy, null);
+        dateSettings.setDateRangeLimits(hoy, null);
 
         // --- Configuración de HORA (solo si la fecha es hoy) ---
         DTPFechaHora.getTimePicker().addTimeChangeListener(e -> {
             LocalDate fechaSeleccionada = DTPFechaHora.getDatePicker().getDate();
             LocalTime horaSeleccionada = DTPFechaHora.getTimePicker().getTime();
 
-            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(hoy)) {
-                LocalTime ahora = LocalTime.now();
+            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(LocalDate.now())) {
+                // Hora actual redondeada a minutos
+                LocalTime ahora = LocalTime.now().withSecond(0).withNano(0);
                 if (horaSeleccionada.isBefore(ahora)) {
-                    // Vetar hora pasada para hoy
                     DTPFechaHora.getTimePicker().setTime(null); // Limpiar selección
-                    System.out.println("[DEBUG] Hora vetada: " + horaSeleccionada + " (Hora actual: " + ahora + ")");
                     JOptionPane.showMessageDialog(null,
                         "¡No puedes seleccionar horas pasadas para hoy!",
                         "Error",
@@ -250,7 +252,9 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -258,19 +262,13 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
         Jd_ModificarCita jdModificarCita = this;
-        Jd_SeleccionarCliente jdSeleccionarCliente = new Jd_SeleccionarCliente(this, true, jdModificarCita);
-        jdSeleccionarCliente.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosed(java.awt.event.WindowEvent e) {
-                try {
-                    // Esta función se ejecutará cuando se cierre el formulario 2
-                    setClienteSeleccionado(objCliente.buscarNombreClientexId(String.valueOf(jdSeleccionarCliente.getCliente_id())));
-                } catch (Exception ex) {
-                    Logger.getLogger(Jd_Consultar_Pagos_Paciente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-        jdSeleccionarCliente.setVisible(true);
+        Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
+        jdSeleccionar.setVisible(true);
+        try {
+            setClienteSeleccionado(jdSeleccionar.getCliente_id());
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void ListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseClicked
@@ -383,8 +381,8 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         Lista.setModel(modelo); //llena lista
 
         try {
-            String[] partes = txtnombre.getText().split(" ");
-            ResultSet rs = objC.buscarCitas(partes[0]);
+
+            ResultSet rs = objC.buscarCitas(Jd_SeleccionarCliente.getNombre());
             System.out.println(rs);
             while (rs.next()) {
                 String cita = rs.getString("Nombre_C") + " / " + rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("fecha_hora") + " / " + rs.getString("costo");
