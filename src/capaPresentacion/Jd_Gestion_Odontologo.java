@@ -303,7 +303,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                     .addComponent(btnDarBaja)
                     .addComponent(btnEliminar)
                     .addComponent(btnSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         DatePickerSettings settings = dateN.getSettings();
