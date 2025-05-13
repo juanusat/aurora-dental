@@ -10,16 +10,19 @@ import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Antonio
  */
 public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
-    
+
     cls_Trabajador objTra = new cls_Trabajador();
+
     /**
      * Creates new form jd_Gestion_Odontologo
      */
@@ -335,7 +338,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void limpiarControles() {
         txtNombre.setText("");
         txtApellido.setText("");
@@ -387,7 +390,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         }
     }
 
-    
+
     private void tblOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOdontologosMouseClicked
         int filaSeleccionada = tblOdontologos.getSelectedRow();
         if (filaSeleccionada != -1) {
@@ -403,7 +406,21 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
             txtCorreo.setText(tblOdontologos.getValueAt(filaSeleccionada, 5).toString());
             txtTelefono.setText(tblOdontologos.getValueAt(filaSeleccionada, 6).toString());
-            dateN.setDate((java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7));
+            java.util.Date date = (java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7);
+            if (date != null) {
+                if (date instanceof java.sql.Date) {
+                    LocalDate localDate = ((java.sql.Date) date).toLocalDate();
+                    dateN.setDate(localDate);
+                } else {
+                    LocalDate localDate = date.toInstant()
+                            .atZone(ZoneId.systemDefault())
+                            .toLocalDate();
+                    dateN.setDate(localDate);
+                }
+            } else {
+                dateN.setDate(null);
+            }
+
             txtDireccion.setText(tblOdontologos.getValueAt(filaSeleccionada, 8).toString());
             txtEspecialidad.setText(tblOdontologos.getValueAt(filaSeleccionada, 9).toString());
             txtLicencia.setText(tblOdontologos.getValueAt(filaSeleccionada, 10).toString());
@@ -420,7 +437,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                 btnNuevo.setText("Nuevo");
 
                 if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
-                    || txtDni.getText().trim().isEmpty()) {
+                        || txtDni.getText().trim().isEmpty()) {
                     JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
                     return;
                 }
@@ -435,16 +452,16 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                 String especialidad = txtEspecialidad.getText();
                 String numeroLicencia = txtLicencia.getText();
                 String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-                
+
                 String username = "";
                 String passwordHash = "";
 
-                Integer codCargo = 1; 
+                Integer codCargo = 1;
 
                 Integer trabajadorId = objTra.registrarOdontologoCompleto(
-                    nombre, apellido, documento, sexo, email, telefono,
-                    fechaNacimiento, direccion, username, passwordHash,
-                    codCargo, numeroLicencia, especialidad, fechaIngreso
+                        nombre, apellido, documento, sexo, email, telefono,
+                        fechaNacimiento, direccion, username, passwordHash,
+                        codCargo, numeroLicencia, especialidad, fechaIngreso
                 );
 
                 limpiarControles();
@@ -475,7 +492,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                 String numeroLicencia = txtLicencia.getText();
 
                 objTra.modificarOdontologo(trabajadorId, personaId, nombre, apellido, documento, sexo, email, telefono,
-                    fechaNacimiento, direccion, especialidad, numeroLicencia);
+                        fechaNacimiento, direccion, especialidad, numeroLicencia);
                 limpiarControles();
                 cargarTablaOdontologos();
                 JOptionPane.showMessageDialog(this, "Odontólogo modificado correctamente.");
@@ -507,7 +524,13 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                         }
                         txtCorreo.setText(rs.getString("email"));
                         txtTelefono.setText(rs.getString("telefono"));
-                        dateN.setDate(rs.getDate("fecha_nacimiento"));
+                        java.sql.Date sqlDate = rs.getDate("fecha_nacimiento");
+                        if (sqlDate != null) {
+                            dateN.setDate(sqlDate.toLocalDate());
+                        } else {
+                            dateN.setDate(null);
+                        }
+
                         txtDireccion.setText(rs.getString("direccion"));
                         txtEspecialidad.setText(rs.getString("especialidad"));
                         txtLicencia.setText(rs.getString("numero_licencia"));
@@ -543,7 +566,6 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
