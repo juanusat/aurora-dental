@@ -88,7 +88,7 @@ public class cls_Persona {
 
     public ResultSet buscarPersonaPorID(String id) throws Exception {
         strSQL = "Select p.* from persona p inner join cliente c on p.persona_id = c.persona_id "
-                + "where c.cliente_id="+id;
+                + "where c.cliente_id="+id+";";
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;

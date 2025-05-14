@@ -17,7 +17,7 @@ public class cls_Pago {
     ResultSet rs = null;
     String strSQL;
 
-    public ResultSet buscarCitasconMontoPagado(String nombre, String apellido) throws Exception {
+    public ResultSet buscarCitasconMontoPagado(String cliente_id) throws Exception {
         strSQL = "SELECT c.cita_id AS cita_id, tr.nombre AS tratamiento, per2.nombre||' '||per2.apellido AS doctor, c.costo AS costo, "
                 + "CASE "
                 + "WHEN c.reagendada IS NOT NULL THEN c.reagendada "
@@ -33,8 +33,8 @@ public class cls_Pago {
                 + "INNER JOIN persona per2 ON t.persona_id = per2.persona_id "
                 + "LEFT JOIN pago p ON c.cita_id = p.cita_id "
                 + "WHERE c.estado IN ('agendada', 'realizada', 'reagendada') "
-                + "AND per.nombre = '" + nombre + "' AND per.apellido = '" + apellido + "' "
-                + "GROUP BY c.cita_id, tr.nombre, per2.nombre, c.costo, "
+                + "AND cl.cliente_id ="+ cliente_id + " " 
+                + "GROUP BY c.cita_id, tr.nombre, per2.nombre, per2.apellido ,c.costo, "
                 + "CASE WHEN c.reagendada IS NOT NULL THEN c.reagendada ELSE c.fecha_hora END, c.estado";
 
         try {

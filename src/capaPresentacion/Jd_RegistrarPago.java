@@ -69,7 +69,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         modelo.addColumn("Estado");
         modelo.addColumn("Monto_pagado");
         try {
-            ResultSet rs = objP.buscarCitasconMontoPagado(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
+            ResultSet rs = objP.buscarCitasconMontoPagado(cliente_id);
 
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getString("cita_id"), rs.getString("tratamiento"), rs.getString("doctor"), rs.getString("fecha"), rs.getString("costo"), rs.getString("estado"), rs.getString("monto_pagado")});

@@ -34,13 +34,13 @@ public class cls_Cita {
     }
 
     public ResultSet buscarCitas(String cliente_id) throws Exception {
-        strSQL = "Select p.nombre as Nombre_C , t.nombre as Nombre_T ,p2.nombre ||' '|| p2.apellido as Nombre_D ,c.fecha_hora, c.costo from cita c "
+        strSQL = "Select c.cita_id,c.reagendada ,p.nombre as Nombre_C , d.trabajador_id ,t.nombre as Nombre_T ,p2.nombre ||' '|| p2.apellido as Nombre_D ,c.fecha_hora, c.costo from cita c "
                 + "inner join cliente cl on c.cliente_id = cl.cliente_id "
                 + "inner join persona p on cl.persona_id = p.persona_id "
                 + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
                 + "inner join trabajador d on c.medico_id=d.trabajador_id "
                 + "inner join persona p2 on d.persona_id = p2.persona_id "
-                + "where cl.cliente_id =" + cliente_id + " and c.estado in ('agendada', 'reagendada')";
+                + "where cl.cliente_id =" + cliente_id + " and c.estado in ('agendada', 'reagendada') and c.fecha_hora > CURRENT_TIMESTAMP ";
         try {
             rs = objBD.ConsultarBD(strSQL);
 
@@ -51,14 +51,16 @@ public class cls_Cita {
         }
     }
 
-    public int buscarCita_id(int cliente_id, LocalDateTime fechaHora) throws Exception {
+    public int buscarCita_id(int cita_id) throws Exception {
+        
         strSQL = "Select c.cita_id from cita c "
                 + "inner join cliente cl on c.cliente_id=cl.cliente_id "
-                + "where c.cliente_id='" + cliente_id + "' and c.fecha_hora='" + fechaHora.format(formatter) + "'";
+                + "where c.cita_id=" + cita_id ;
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
                 return rs.getInt("cita_id");
+                
             }
         } catch (Exception e) {
             throw new Exception("Error al buscar cita_id " + e.getMessage());
@@ -79,7 +81,9 @@ public class cls_Cita {
 
     public int modificarCita(int cita_id, int doctor_id, int tratamiento_id, int agendor_id, LocalDateTime fecha_Hora) throws Exception {
         strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "',reagendada='" + fecha_Hora.format(formatter) + "',estado='reagendada' "
-                + "where cita_id='" + cita_id + "'";
+                + "where cita_id=" + cita_id ;
+        System.out.println("S Format : " +fecha_Hora);
+        System.out.println("C Format : " +fecha_Hora.format(formatter));
         try {
             int i = objBD.ejecutarBD(strSQL);
             return i;
@@ -99,14 +103,14 @@ public class cls_Cita {
         }
     }
 
-    public ResultSet buscarTodasCitasPaciente(String nombre, String apellido) throws Exception {
+    public ResultSet buscarTodasCitasPaciente(String cliente_id) throws Exception {
         strSQL = "Select t.nombre as Nombre_T ,p2.nombre as Nombre_D ,c.fecha_hora, c.costo, c.reagendada, c.estado from cita c "
                 + "inner join cliente cl on c.cliente_id = cl.cliente_id "
                 + "inner join persona p on cl.persona_id = p.persona_id "
                 + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
                 + "inner join trabajador d on c.medico_id=d.trabajador_id "
                 + "inner join persona p2 on d.persona_id = p2.persona_id "
-                + "where p.nombre ='" + nombre + "'and p.apellido='" + apellido + "'";
+                + "where cl.cliente_id =" + cliente_id ;
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
