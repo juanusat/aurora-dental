@@ -33,14 +33,14 @@ public class cls_Cita {
         }
     }
 
-    public ResultSet buscarCitas(String nombre) throws Exception {
-        strSQL = "Select p.nombre as Nombre_C , t.nombre as Nombre_T ,p2.nombre as Nombre_D ,c.fecha_hora, c.costo from cita c "
+    public ResultSet buscarCitas(String cliente_id) throws Exception {
+        strSQL = "Select p.nombre as Nombre_C , t.nombre as Nombre_T ,p2.nombre ||' '|| p2.apellido as Nombre_D ,c.fecha_hora, c.costo from cita c "
                 + "inner join cliente cl on c.cliente_id = cl.cliente_id "
                 + "inner join persona p on cl.persona_id = p.persona_id "
                 + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
                 + "inner join trabajador d on c.medico_id=d.trabajador_id "
                 + "inner join persona p2 on d.persona_id = p2.persona_id "
-                + "where p.nombre ='" + nombre + "' and c.estado in ('agendada', 'reagendada')";
+                + "where cl.cliente_id =" + cliente_id + " and c.estado in ('agendada', 'reagendada')";
         try {
             rs = objBD.ConsultarBD(strSQL);
 

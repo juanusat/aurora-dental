@@ -9,6 +9,8 @@ import capaNegocio.cls_Pago;
 import capaNegocio.cls_Persona;
 import static capaPresentacion.Jd_ModificarCita.citaEscogida;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -29,6 +31,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     cls_Pago objP = new cls_Pago();
     cls_Cliente objCliente = new cls_Cliente();
     cls_Persona objPE = new cls_Persona();
+    private String cliente_id = "";
 
     public Jd_RegistrarPago(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,9 +41,11 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         btnG.add(rbtnEfectivo);
         btnG.add(rbtnTransferencia);
         txtNombre.setEnabled(false);
+        cliente_id = "";
     }
 
     public void setClienteSeleccionado(String cliente) throws Exception {
+        cliente_id = cliente;
         ResultSet rs = objPE.buscarPersonaPorID(cliente);
         try {
             while (rs.next()) {
@@ -49,26 +54,30 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         } catch (Exception e) {
             Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
-        listarCitas();
+        listarTabla();
     }
 
-    private void listarCitas() {
-        modelo.clear(); //limpia lista anterior
-        List1.setModel(modelo); //llena lista
 
+
+    private void listarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Cita_id");
+        modelo.addColumn("Tratamiento");
+        modelo.addColumn("NomDoctor");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Costo");
+        modelo.addColumn("Estado");
+        modelo.addColumn("Monto_pagado");
         try {
-
             ResultSet rs = objP.buscarCitasconMontoPagado(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
-            System.out.println(rs);
+
             while (rs.next()) {
-                String cita = rs.getString("cita_id") + " / " + rs.getString("tratamiento") + " / " + rs.getString("doctor") + " / " + rs.getString("fecha") + " / " + rs.getString("costo") + " / " + rs.getString("estado") + " / " + rs.getString("monto_pagado");
-                modelo.addElement(cita);
+                modelo.addRow(new Object[]{rs.getString("cita_id"), rs.getString("tratamiento"), rs.getString("doctor"), rs.getString("fecha"), rs.getString("costo"), rs.getString("estado"), rs.getString("monto_pagado")});
             }
-            List1.setModel(modelo);
-            if (modelo.isEmpty()) {
+            tbl.setModel(modelo);
+            if (tbl.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay citas para este paciente");
             }
-            rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
         }
@@ -83,8 +92,6 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         btnSeleccionar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        List1 = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtEmisor = new javax.swing.JTextField();
@@ -95,14 +102,16 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         rbtnEfectivo = new javax.swing.JRadioButton();
         btnPagar = new javax.swing.JButton();
         spinMonto = new javax.swing.JSpinner();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Pago");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setText("Cliente:");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
@@ -111,61 +120,72 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
-        List1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                List1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(List1);
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("Monto:");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Emisor:");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setText("Metodo de pago:");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
-        rbtnCredito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnCredito.setText("Credito");
+        rbtnCredito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCreditoActionPerformed(evt);
             }
         });
 
-        rbtnDebito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnDebito.setText("Debito");
+        rbtnDebito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnDebitoActionPerformed(evt);
             }
         });
 
-        rbtnTransferencia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnTransferencia.setText("Transferencia");
+        rbtnTransferencia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnTransferenciaActionPerformed(evt);
             }
         });
 
-        rbtnEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnEfectivo.setText("Efectivo");
+        rbtnEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         rbtnEfectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnEfectivoActionPerformed(evt);
             }
         });
 
-        btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPagar.setText("Pagar");
+        btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPagarActionPerformed(evt);
             }
         });
+
+        tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -173,17 +193,17 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,20 +213,22 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(rbtnEfectivo)
                                     .addComponent(rbtnDebito)))
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2))
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spinMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(52, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPagar)
-                        .addGap(37, 37, 37))))
+                            .addComponent(jLabel4))
+                        .addContainerGap(80, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(spinMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnPagar))
+                                    .addComponent(txtEmisor))
+                                .addGap(30, 30, 30))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,8 +239,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSeleccionar))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -237,16 +258,17 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rbtnTransferencia)
                             .addComponent(rbtnEfectivo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPagar)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGap(76, 76, 76)
+                        .addComponent(btnPagar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,35 +289,18 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void List1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_List1MouseClicked
-
-        if (evt.getClickCount() == 1) {
-            int indiceSeleccionado = List1.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            cita = clienteSeleccionado;
-            System.out.println(cita);
-            if (formularioRegistrarPago != null) {
-                formularioRegistrarPago.cita = cita;
-            }
-        }
-        calcularMaxPago();
-
-    }//GEN-LAST:event_List1MouseClicked
-
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
         try {
             if ("".equals(txtEmisor.getText()) || (!rbtnCredito.isSelected() && !rbtnDebito.isSelected() && !rbtnEfectivo.isSelected() && !rbtnTransferencia.isSelected())) {
                 JOptionPane.showMessageDialog(this, "Escoja una cita");
             } else {
                 if (cita == "") {
-
                     JOptionPane.showMessageDialog(this, "Completo el campo o el metodo");
                 } else {
-                    String[] partes = cita.split(" / ");
-                    objP.registrarPago(Integer.parseInt(partes[0]), txtEmisor.getText(), ((Number) spinMonto.getValue()).floatValue(), metodo);
+                    objP.registrarPago(Integer.parseInt(cita), txtEmisor.getText(), ((Number) spinMonto.getValue()).floatValue(), metodo);
                     JOptionPane.showMessageDialog(this, "Pago realizado con exito");
                     txtEmisor.setText("");
-                    listarCitas();
+                    listarTabla();
                 }
             }
         } catch (Exception e) {
@@ -327,10 +332,17 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             metodo = "efectivo";
         }
     }//GEN-LAST:event_rbtnEfectivoActionPerformed
-    public void calcularMaxPago() {
-        String[] partes = cita.split(" / ");
-        float costo = Float.parseFloat(partes[4]);
-        float monto_pagado = Float.parseFloat(partes[6]);
+
+    private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
+        int filaSeleccionada = tbl.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            cita= (String) tbl.getValueAt(filaSeleccionada, 0);
+            calcularMaxPago(filaSeleccionada);
+        }
+    }//GEN-LAST:event_tblMouseClicked
+    public void calcularMaxPago(int fila) {
+        float costo = Float.parseFloat((String) tbl.getValueAt(fila, 4));
+        float monto_pagado = Float.parseFloat((String)tbl.getValueAt(fila,6));
         float max = costo - monto_pagado;
 
         SpinnerNumberModel modelo;
@@ -354,7 +366,6 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> List1;
     private javax.swing.ButtonGroup btnG;
     private javax.swing.JButton btnPagar;
     private javax.swing.JButton btnSeleccionar;
@@ -363,12 +374,13 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton rbtnCredito;
     private javax.swing.JRadioButton rbtnDebito;
     private javax.swing.JRadioButton rbtnEfectivo;
     private javax.swing.JRadioButton rbtnTransferencia;
     private javax.swing.JSpinner spinMonto;
+    private javax.swing.JTable tbl;
     private javax.swing.JTextField txtEmisor;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

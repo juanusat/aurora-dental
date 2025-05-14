@@ -18,7 +18,7 @@ public class cls_Pago {
     String strSQL;
 
     public ResultSet buscarCitasconMontoPagado(String nombre, String apellido) throws Exception {
-        strSQL = "SELECT c.cita_id AS cita_id, tr.nombre AS tratamiento, per2.nombre AS doctor, c.costo AS costo, "
+        strSQL = "SELECT c.cita_id AS cita_id, tr.nombre AS tratamiento, per2.nombre||' '||per2.apellido AS doctor, c.costo AS costo, "
                 + "CASE "
                 + "WHEN c.reagendada IS NOT NULL THEN c.reagendada "
                 + "ELSE c.fecha_hora "

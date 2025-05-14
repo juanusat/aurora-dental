@@ -16,6 +16,7 @@ import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -31,14 +32,16 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     cls_Tratamiento objTR = new cls_Tratamiento();
     cls_Cita objC = new cls_Cita();
     cls_Persona objP = new cls_Persona();
-    cls_Cliente objCliente = new cls_Cliente(); 
-    
+    cls_Cliente objCliente = new cls_Cliente();
+    private ArrayList<String> doctor_id_array = new ArrayList<>();
+    private String cliente_id = "";
+
     public Jd_ProgramarCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         listarDoctores();
         listarTratamientos();
-
+        cliente_id = "";
     }
 
     @SuppressWarnings("unchecked")
@@ -253,11 +256,12 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void setClienteSeleccionado(String cliente) throws Exception {
-        ResultSet rs = objP.buscarPersonaPorID(cliente); 
-        
+        cliente_id = cliente;
+        ResultSet rs = objP.buscarPersonaPorID(cliente);
+
         try {
-            while (rs.next()) {                
-                txtCliente.setText(rs.getString("nombre")+" "+rs.getString("apellido"));
+            while (rs.next()) {
+                txtCliente.setText(rs.getString("nombre") + " " + rs.getString("apellido"));
             }
         } catch (Exception e) {
             Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
@@ -287,14 +291,13 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         try {
-            objC.insertCita(objP.buscarCliente_id(Jd_SeleccionarCliente.getNombre()), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString()), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Integer.parseInt(txtPrecio.getText()));
+            int posDoc = cbxDoctor.getSelectedIndex();
+            String id_Doc = doctor_id_array.get(posDoc);
+
+            objC.insertCita(Integer.parseInt(cliente_id), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), Integer.parseInt(id_Doc), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Float.parseFloat(txtPrecio.getText()));
             System.out.println(Jd_SeleccionarCliente.getNombre());
             JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
-            txtCliente.setText("");
-            cbxDoctor.setSelectedIndex(-1);
-            cbxTratamiento.setSelectedIndex(-1);
-            txtPrecio.setText("");
-            DTPfechahora.setDateTimePermissive(LocalDateTime.now());
+            limpiar();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al insertar cita " + e.getMessage());
         }
@@ -314,7 +317,8 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         try {
             rsDoc = objT.listarDoctores();
             while (rsDoc.next()) {
-                modeloMar.addElement(rsDoc.getString("nombre"));
+                modeloMar.addElement(rsDoc.getString("nombre") + " " + rsDoc.getString("apellido"));
+                doctor_id_array.add(rsDoc.getString("trabajador_id"));
 
             }
         } catch (Exception e) {
@@ -337,6 +341,13 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         }
     }
 
+    private void limpiar() {
+        txtCliente.setText("");
+        cbxDoctor.setSelectedIndex(-1);
+        cbxTratamiento.setSelectedIndex(-1);
+        txtPrecio.setText("");
+        DTPfechahora.setDateTimePermissive(LocalDateTime.now());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DateTimePicker DTPfechahora;

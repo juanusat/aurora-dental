@@ -22,7 +22,7 @@ public class cls_Trabajador {
     clsUsuario usr = new clsUsuario();
 
     public ResultSet listarDoctores() throws Exception {
-        strSQL = "Select p.nombre from trabajador t "
+        strSQL = "Select *  from trabajador t "
                 + "inner join persona p on t.persona_id = p.persona_id "
                 + "inner join cargo cg on t.cargo_id = cg.cargo_id "
                 + "where cg.cargo_id = 1";
@@ -68,11 +68,11 @@ public class cls_Trabajador {
         return "";
     }
 
-    public int buscarID_Doctor(String nomDoc) throws Exception {
+    public int buscarID_Doctor(String nomDoc, String apeDoc) throws Exception {
         strSQL = "Select t.trabajador_id from trabajador t "
                 + "inner join cargo cg on t.cargo_id= cg.cargo_id "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where cg.cargo_id=1 and p.nombre ='" + nomDoc + "'";
+                + "where cg.cargo_id=1 and p.nombre ='" + nomDoc + "', p.apellido='";
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
