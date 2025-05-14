@@ -24,7 +24,8 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
 
     cls_Persona objPersona = new cls_Persona();
     cls_Cliente objCliente = new cls_Cliente();
-    
+    private String cliente_id = "";
+    private String persona_id = "";
 
     public Jd_ActualizarPA(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,11 +33,16 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     }
 
     public void setClienteSeleccionado(String cliente) {
-        System.out.println(cliente);
+        cliente_id = cliente;
+        enviarValores();
+    }
+
+    public void enviarValores() {
         ResultSet rs = null;
         try {
-            rs = objPersona.buscarPersonaPorID(cliente);
+            rs = objPersona.buscarPersonaPorID(cliente_id);
             rs.next();
+            persona_id = rs.getString("persona_id");
             txtDni.setText(rs.getString("documento"));
             txtApellido.setText(rs.getString("apellido"));
             txtCorreo.setText(rs.getString("email"));
@@ -67,6 +73,8 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
         txtTelefono.setText("");
         txtaDireccion.setText("");
         grbtSexo.clearSelection();
+        rbtMasculino.setSelected(false);
+        rbtFemenino.setSelected(false);
         dateFechaNac.clear();
     }
 
@@ -316,15 +324,21 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-        String sexo;
-        if (rbtFemenino.isSelected()) {
-            sexo = "f";
-        } else {
-            sexo = "m";
-        }
         try {
-            objPersona.actualizarPersona(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), sexo, txtCorreo.getText(), txtTelefono.getText(), dateFechaNac.getDate(), txtaDireccion.getText());
-            limpiarControles();
+            int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar del cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+            if (rpta == JOptionPane.YES_OPTION) {
+                String sexo;
+                if (rbtFemenino.isSelected()) {
+                    sexo = "f";
+                } else {
+                    sexo = "m";
+                }
+                objPersona.actualizarPersona(persona_id, txtNombre.getText(), txtApellido.getText(), txtDni.getText(), sexo, txtCorreo.getText(), txtTelefono.getText(), dateFechaNac.getDate(), txtaDireccion.getText());
+                JOptionPane.showMessageDialog(this, "Datos modificados correctamente");
+                limpiarControles();
+            }else{
+                JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+            }
         } catch (Exception ex) {
             Logger.getLogger(Jd_ActualizarPA.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -180,10 +180,10 @@ public class cls_Trabajador {
         }
     }
     
-    public int buscarID_Persona(String nomTra) throws Exception {
+    public int buscarID_Persona(String t_id) throws Exception {
         strSQL = "Select t.persona_id from trabajador t "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where p.nombre ='"+nomTra+"'";
+                + "where t.trabajador_id ="+t_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {

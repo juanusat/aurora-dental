@@ -272,17 +272,16 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
                 sexo = "m";
             }
             objPersona.registrarPersona(
-                    txtNombre.getText(),
-                    txtApellido.getText(),
-                    txtDni.getText(),
-                    txtCorreo.getText(),
-                    txtTelefono.getText(),
-                    dateFechaNac.getDate(),
-                    txtDireccion.getText(), sexo);
-            objCliente.registrarPaciente(objPersona.buscarPersona(txtDni.getText()));
+            txtNombre.getText(),
+            txtApellido.getText(),
+            txtDni.getText(),
+            txtCorreo.getText(),
+            txtTelefono.getText(),
+            dateFechaNac.getDate(),
+            txtDireccion.getText(), sexo);
+            objCliente.registrarCliente(objPersona.buscarPersona(txtDni.getText()));
             JOptionPane.showMessageDialog(this, "Registro completo");
             limpiarControles();
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al registrar paciente " + e.getMessage());
         }

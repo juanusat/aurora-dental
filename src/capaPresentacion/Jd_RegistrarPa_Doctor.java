@@ -7,6 +7,7 @@ package capaPresentacion;
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Trabajador;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -20,6 +21,7 @@ public class Jd_RegistrarPa_Doctor extends javax.swing.JDialog {
 
     cls_Trabajador objTrabajador = new cls_Trabajador();
     cls_Cliente objCliente = new cls_Cliente();
+     private ArrayList<String> doctor_id_array = new ArrayList<>();
 
     public Jd_RegistrarPa_Doctor(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -33,8 +35,8 @@ public class Jd_RegistrarPa_Doctor extends javax.swing.JDialog {
         try {
             rsDoc = objTrabajador.listarDoctores();
             while (rsDoc.next()) {
-                modeloMar.addElement(rsDoc.getString("nombre"));
-
+                modeloMar.addElement(rsDoc.getString("nombre")+" "+rsDoc.getString("apellido"));
+                doctor_id_array.add(rsDoc.getString("trabajador_id"));
             }
            
         } catch (Exception e) {
@@ -136,7 +138,11 @@ public class Jd_RegistrarPa_Doctor extends javax.swing.JDialog {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
         try {
-            objCliente.registrarPaciente(objTrabajador.buscarID_Persona(cbxTrabajador.getSelectedItem().toString()));
+            int posC = cbxTrabajador.getSelectedIndex(); 
+            String posId = doctor_id_array.get(posC);
+            objCliente.registrarCliente(objTrabajador.buscarID_Persona(posId));
+            JOptionPane.showMessageDialog(this, "Doctor registrado correctamente como paciente ");
+            cbxTrabajador.setSelectedIndex(-1);
         } catch (Exception ex) {
             Logger.getLogger(Jd_RegistrarPa_Doctor.class.getName()).log(Level.SEVERE, null, ex);
         }
