@@ -113,6 +113,8 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         jLabel1.setText("Cliente:");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
 
+        txtNombre.setEditable(false);
+
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

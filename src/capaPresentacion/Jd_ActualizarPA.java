@@ -115,7 +115,6 @@ public class Jd_ActualizarPA extends javax.swing.JDialog {
         jLabel5.setText("DNI:");
         jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        txtDni.setEditable(false);
         txtDni.setPreferredSize(new java.awt.Dimension(64, 24));
 
         btnSeleccionar.setText("Seleccionar");
