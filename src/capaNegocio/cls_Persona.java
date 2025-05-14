@@ -88,7 +88,7 @@ public class cls_Persona {
 
     public ResultSet buscarPersonaPorID(String id) throws Exception {
         strSQL = "Select p.* from persona p inner join cliente c on p.persona_id = c.persona_id "
-                + "where c.cliente_id="+id;
+                + "where c.cliente_id="+id+";";
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
@@ -97,8 +97,8 @@ public class cls_Persona {
         }
     }
 
-    public void actualizarPersona(String nombre, String apellido, String dni, String sexo, String correo, String telefono, LocalDate fecha_nac, String direccion) throws Exception {
-        strSQL = "update persona set nombre='" + nombre + "',apellido='" + apellido + "',documento=" + dni + ",sexo='" + sexo + "',email='" + correo + "',telefono='" + telefono + "',fecha_nacimiento='" + fecha_nac + "',direccion='" + direccion + "' where documento = '" + dni + "'";
+    public void actualizarPersona(String persona_id,String nombre, String apellido, String dni, String sexo, String correo, String telefono, LocalDate fecha_nac, String direccion) throws Exception {
+        strSQL = "update persona set nombre='" + nombre + "',apellido='" + apellido + "',documento=" + dni + ",sexo='" + sexo + "',email='" + correo + "',telefono='" + telefono + "',fecha_nacimiento='" + fecha_nac + "',direccion='" + direccion + "' where persona_id ="+persona_id+";";
         try {
             objBD.ejecutarBD(strSQL);
         } catch (Exception e) {

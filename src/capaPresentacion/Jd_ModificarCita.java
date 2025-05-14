@@ -14,12 +14,15 @@ import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,9 +35,12 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     cls_Cita objC = new cls_Cita();
     cls_Persona objP = new cls_Persona();
     cls_Cliente objCliente = new cls_Cliente();
+    private ArrayList<String> doctor_id_array = new ArrayList<>();
+    private ArrayList<String> cita_id_array = new ArrayList<>();
 
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private Jd_ModificarCita formularioModificarCita;
+    private String cliente_id = "";
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static String citaEscogida = "";
@@ -45,9 +51,11 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         listarDoctores();
         listarTratamientos();
         DTPFechaHora.setEnabled(false);
+        cliente_id = "";
     }
 
     public void setClienteSeleccionado(String cliente) throws Exception {
+        cliente_id = cliente;
         ResultSet rs = objP.buscarPersonaPorID(cliente);
         try {
             while (rs.next()) {
@@ -56,7 +64,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         } catch (Exception e) {
             Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, e.getMessage());
         }
-        listarCitas();
+        listarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -78,8 +86,8 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         btnAnular = new javax.swing.JButton();
         DTPFechaHora = new com.github.lgooddatepicker.components.DateTimePicker();
         chkReprogramar = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Lista = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl = new javax.swing.JTable();
 
         jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel7.setText("Fecha :");
@@ -138,12 +146,23 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             }
         });
 
-        Lista.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ListaMouseClicked(evt);
+                tblMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(Lista);
+        jScrollPane2.setViewportView(tbl);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,7 +172,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,23 +181,23 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                                 .addGap(42, 42, 42)
                                 .addComponent(btnSeleccionar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(btnActualizar)
-                                        .addGap(18, 18, 18)
+                                        .addGap(86, 86, 86)
                                         .addComponent(btnAnular))
-                                    .addComponent(DTPFechaHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(chkReprogramar))
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbxTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(0, 60, Short.MAX_VALUE)))
+                                    .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbxTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DTPFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -189,17 +208,17 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(btnSeleccionar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(cbxTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -210,9 +229,11 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnActualizar)
-                            .addComponent(btnAnular)))
-                    .addComponent(jScrollPane1))
-                .addGap(36, 36, 36))
+                            .addComponent(btnAnular))
+                        .addGap(42, 42, 42))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         DatePickerSettings dateSettings = DTPFechaHora.getDatePicker().getSettings();
@@ -248,13 +269,13 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -271,49 +292,47 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
-    private void ListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListaMouseClicked
-        if (evt.getClickCount() == 2) {
-            int indiceSeleccionado = Lista.locationToIndex(evt.getPoint());
-            String clienteSeleccionado = modelo.getElementAt(indiceSeleccionado);
-            citaEscogida = clienteSeleccionado;
-            if (formularioModificarCita != null) {
-                formularioModificarCita.citaEscogida = citaEscogida;
-            }
-        }
-        System.out.println(citaEscogida);
-        enviarValores();
-
-    }//GEN-LAST:event_ListaMouseClicked
-
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        String[] partes = citaEscogida.split(" / ");
+
         try {
-            int cliente_id = objP.buscarCliente_id(partes[0]);
+            int cl_id = Integer.parseInt(cliente_id);
+            
             int tratamiento_id = objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString());
-            int doctor_id = objT.buscarID_Doctor(cbxDoctor.getSelectedItem().toString());
-            LocalDateTime fecha = LocalDateTime.parse(partes[3], formatter);
-            int cita_id = objC.buscarCita_id(cliente_id, fecha);
-            String nombreRec = Jd_IniciarSesion.nombreCompleto;
-            String[] NomRec = nombreRec.split(" ");
-            int agendor_id = objT.buscarID_Recepcionista(NomRec[0]);
+          
+            int posDoc = cbxDoctor.getSelectedIndex(); 
+            String id_Doc = doctor_id_array.get(posDoc); 
+         
+            //----------------------------------------
+            
+            LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
+            System.out.println(fecha);
+            //------------------------------
+            int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
+         
+            int agendor_id = Jd_IniciarSesion.id_usuario;
+       
 
             if (chkReprogramar.isSelected()) {
                 int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
                 if (rpta == JOptionPane.YES_OPTION) {
-                    objC.modificarCita(cita_id, doctor_id, tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
+                    objC.modificarCita(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
                     JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
                 } else {
                     JOptionPane.showMessageDialog(this, "Operacion Cancelada");
                 }
+                listarTabla();
+                limpiarValores();
             } else {
                 int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
 
                 if (rpta == JOptionPane.YES_OPTION) {
-                    objC.modificarCitaSF(cita_id, doctor_id, tratamiento_id, agendor_id);
+                    objC.modificarCitaSF(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id);
                     JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
                 } else {
                     JOptionPane.showMessageDialog(this, "Operacion Cancelada");
                 }
+                listarTabla();
+                limpiarValores();
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al actualizar cita " + e.getMessage());
@@ -321,17 +340,17 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-        String[] partes = citaEscogida.split(" / ");
-        try {
-            int cliente_id = objP.buscarCliente_id(partes[0]);
-            LocalDateTime fecha = LocalDateTime.parse(partes[3], formatter);
-            int cita_id = objC.buscarCita_id(cliente_id, fecha);
 
+        try {
+            int cl_id = Integer.parseInt(cliente_id);
+            LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
+            int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
             int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
             if (rpta == JOptionPane.YES_OPTION) {
                 objC.anularCita(cita_id);
                 JOptionPane.showMessageDialog(this, "Cita Anulada");
-                listarCitas();
+                listarTabla();
+                limpiarValores();
             } else {
                 JOptionPane.showMessageDialog(this, "Operacion Cancelada");
             }
@@ -346,15 +365,38 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             DTPFechaHora.setEnabled(false);
         }
     }//GEN-LAST:event_chkReprogramarActionPerformed
+
+    private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
+        int filaSeleccionada = tbl.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            
+            cbxDoctor.setSelectedItem(tbl.getValueAt(filaSeleccionada, 2).toString());
+            
+            cbxTratamiento.setSelectedItem(tbl.getValueAt(filaSeleccionada, 1).toString());
+            
+            String fecha_hora = String.valueOf(tbl.getValueAt(filaSeleccionada, 3));
+            
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            
+            LocalDateTime FH = LocalDateTime.parse(fecha_hora, formatter);
+            
+            DTPFechaHora.setDateTimeStrict(FH); 
+            
+            citaEscogida=cita_id_array.get(filaSeleccionada); 
+           
+        }
+    }//GEN-LAST:event_tblMouseClicked
+    
     private void listarDoctores() {
         ResultSet rsDoc = null;
         DefaultComboBoxModel modeloMar = new DefaultComboBoxModel();
         cbxDoctor.setModel(modeloMar);
+        doctor_id_array.clear();
         try {
             rsDoc = objT.listarDoctores();
             while (rsDoc.next()) {
-                modeloMar.addElement(rsDoc.getString("nombre"));
-
+                modeloMar.addElement(rsDoc.getString("nombre") + " " + rsDoc.getString("apellido"));
+                doctor_id_array.add(rsDoc.getString("trabajador_id"));
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar doctores " + e.getMessage());
@@ -376,41 +418,47 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         }
     }
 
-    private void listarCitas() {
-        modelo.clear(); //limpia lista anterior
-        Lista.setModel(modelo); //llena lista
+    private void listarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Cliente");
+        modelo.addColumn("Tratamiento");
+        modelo.addColumn("Doctor");
+        modelo.addColumn("Fecha-Hora");
+        modelo.addColumn("Costo");
+        
+        String fecha=""; 
 
         try {
-
-            ResultSet rs = objC.buscarCitas(Jd_SeleccionarCliente.getNombre());
-            System.out.println(rs);
+            ResultSet rs = objC.buscarCitas(cliente_id);
             while (rs.next()) {
-                String cita = rs.getString("Nombre_C") + " / " + rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("fecha_hora") + " / " + rs.getString("costo");
-                modelo.addElement(cita);
+                if (rs.getString("reagendada") == null) {
+                    fecha = rs.getString("fecha_hora");
+                }else{
+                    fecha = rs.getString("reagendada");
+                }
+                
+                modelo.addRow(new Object[]{rs.getString("Nombre_C"), rs.getString("Nombre_T"), rs.getString("Nombre_D"), fecha, rs.getString("costo")});
+              
+                cita_id_array.add(rs.getString("cita_id"));
             }
-            Lista.setModel(modelo);
-            if (modelo.isEmpty()) {
+            if (tbl.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay citas para este paciente");
             }
-            rs.close();
+            tbl.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
         }
     }
-
-    private void enviarValores() {
-        String[] partes = citaEscogida.split(" / ");
-
-        cbxTratamiento.setSelectedItem(partes[1]);
-        cbxDoctor.setSelectedItem(partes[2]);
-        LocalDateTime fecha = LocalDateTime.parse(partes[3], formatter);
-        DTPFechaHora.setDateTimePermissive(fecha);
-
+    
+    private void limpiarValores(){
+        cbxDoctor.setSelectedIndex(-1);
+        cbxTratamiento.setSelectedIndex(-1);
+        DTPFechaHora.setDateTimeStrict(LocalDateTime.now());
+        chkReprogramar.setSelected(false);
+        DTPFechaHora.setEnabled(false);
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DateTimePicker DTPFechaHora;
-    private javax.swing.JList<String> Lista;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnAnular;
     private javax.swing.JButton btnSeleccionar;
@@ -423,8 +471,9 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable tbl;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables
 }

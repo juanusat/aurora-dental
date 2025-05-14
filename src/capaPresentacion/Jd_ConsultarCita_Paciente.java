@@ -7,6 +7,7 @@ package capaPresentacion;
 import capaNegocio.cls_Cita;
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
+import capaPresentacion.Jd_SeleccionarCliente;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,11 +15,13 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
 
     cls_Cita objC = new cls_Cita();
     cls_Cliente objCliente = new cls_Cliente();
     cls_Persona objPE = new cls_Persona();
+    private String cliente_id ="";
 
     public Jd_ConsultarCita_Paciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -26,6 +29,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
     }
 
     public void setClienteSeleccionado(String cliente) throws Exception {
+        cliente_id = cliente;
         ResultSet rs = objPE.buscarPersonaPorID(cliente);
         try {
             while (rs.next()) {
@@ -134,8 +138,9 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         jdSeleccionar.setVisible(true);
         try {
             setClienteSeleccionado(jdSeleccionar.getCliente_id());
+            System.out.println("Cliente seleccionado es : " + jdSeleccionar.getCliente_id());
         } catch (Exception ex) {
-            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
@@ -147,17 +152,21 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         modelo.addColumn("Reagendada");
         modelo.addColumn("Estado");
         Lista.setModel(modelo);
+        String rpta = "";
+        String fecha="";
 
         try {
-            ResultSet rs = objC.buscarTodasCitasPaciente(Jd_SeleccionarCliente.getNombre(), Jd_SeleccionarCliente.getApellido());
+            ResultSet rs = objC.buscarTodasCitasPaciente(cliente_id);
             while (rs.next()) {
-                if (rs.getString("estado").equals("reagendada")) {
-                    String cita = rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("reagendada") + " / " + rs.getString("costo") + "Si" + rs.getString("estado");
-                    modelo.addRow(new Object[]{rs.getString("Nombre_T"), rs.getString("Nombre_D"), rs.getString("reagendada"), rs.getString("costo"), "SI", rs.getString("estado")});
+                if (rs.getString("reagendada") == null) {
+                    rpta = "No";
+                    fecha = rs.getString("fecha_hora");
                 } else {
-                    String cita = rs.getString("Nombre_T") + " / " + rs.getString("Nombre_D") + " / " + rs.getString("fecha_hora") + " / " + rs.getString("costo") + "No" + rs.getString("estado");
-                    modelo.addRow(new Object[]{rs.getString("Nombre_T"), rs.getString("Nombre_D"), rs.getString("fecha_hora"), rs.getString("costo"), "NO", rs.getString("estado")});
+                    rpta = "Sí";
+                    fecha=rs.getString("reagendada");
                 }
+                modelo.addRow(new Object[]{rs.getString("Nombre_T"), rs.getString("Nombre_D"), fecha, rs.getString("costo"), rpta, rs.getString("estado")});
+
             }
             Lista.setModel(modelo);
             if (modelo.getRowCount() == 0) {

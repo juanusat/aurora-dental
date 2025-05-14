@@ -17,7 +17,7 @@ public class cls_Cliente {
     ResultSet rs = null;
     String strSQL;
 
-    public void registrarPaciente(int persona_id) throws Exception {
+    public void registrarCliente(int persona_id) throws Exception {
         strSQL = "Insert into cliente (persona_id) values(" + persona_id + ")";
         try {
             objBD.ejecutarBD(strSQL);
@@ -83,4 +83,5 @@ public class cls_Cliente {
             throw new Exception("Error al buscar cliente" + e.getMessage());
         }
     }
+    
 }
