@@ -132,12 +132,12 @@ public class cls_Trabajador {
     }
 
     public void eliminarOdontologo(Integer trabajadorId) throws Exception {
-        try {
-            String sql = "delete from trabajador where trabajador_id=" + trabajadorId;
-            objBD.ejecutarBD(sql);
-        } catch (Exception e) {
-            throw new Exception("Error al eliminar odontólogo: " + e.getMessage());
+        if (tieneCitasLigadas(trabajadorId)) {
+            throw new Exception(
+                    "No se puede eliminar el odontólogo porque tiene citas registradas.");
         }
+        String sql = "DELETE FROM trabajador WHERE trabajador_id = " + trabajadorId;
+        objBD.ejecutarBD(sql);
     }
 
     public Integer obtenerPersonaIdPorTrabajadorId(Integer trabajadorId) throws Exception {
@@ -179,11 +179,11 @@ public class cls_Trabajador {
             throw new Exception("Error al registrar odontólogo completo: " + e.getMessage());
         }
     }
-    
+
     public int buscarID_Persona(String t_id) throws Exception {
         strSQL = "Select t.persona_id from trabajador t "
                 + "inner join persona p on t.persona_id = p.persona_id "
-                + "where t.trabajador_id ="+t_id;
+                + "where t.trabajador_id =" + t_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
@@ -193,5 +193,11 @@ public class cls_Trabajador {
             throw new Exception("Error al buscar id de Doctor " + e.getMessage());
         }
         return 0;
+    }
+
+    private boolean tieneCitasLigadas(int trabajadorId) throws Exception {
+        String sql = "select 1 from cita where medico_id = " + trabajadorId + " limit 1";
+        ResultSet rs = objBD.ConsultarBD(sql);
+        return rs.next();
     }
 }
