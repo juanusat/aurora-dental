@@ -564,6 +564,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al eliminar odontólogo: " + e.getMessage());
         }
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
