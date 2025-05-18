@@ -23,6 +23,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.sql.*;
 
 public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
 
@@ -42,7 +43,13 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
         String info = "";
         while (rs.next()) {
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-            info = rs.getString("nom_cliente") + " " + rs.getString("ape_cliente") + " " + sdf.format(rs.getTimestamp("fecha_hora"));
+            Timestamp hora;
+            if (rs.getTimestamp("reagendada") == null) {
+                hora = rs.getTimestamp("fecha_hora");
+            } else {
+                hora = rs.getTimestamp("reagendada");
+            }
+            info = rs.getString("nom_cliente") + " " + rs.getString("ape_cliente") + " " + sdf.format(hora);
             list1.add(info);
         }
     }
@@ -167,6 +174,7 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
         });
 
         txtaObservacionAntigua.setColumns(20);
+        txtaObservacionAntigua.setEditable(false);
         txtaObservacionAntigua.setRows(5);
         jScrollPane3.setViewportView(txtaObservacionAntigua);
 
@@ -318,81 +326,88 @@ public class Jd_AtencionPacientesPendientes extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void list1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list1MouseClicked
-
-        String sexo = "";
-        try {
-            list2.removeAll();
-            boolean aux2 = false;
-            int aux = list1.getSelectedIndex() + 1;
-            rs = objCita.buscarCitasDeHoyPorUsuario(usuario);
-            while (aux != 0) {
-                rs.next();
-                aux--;
-                aux2 = true;
-            }
-            if (aux2 == true) {
-                cita_id = rs.getString("cita_id");
-                rs2 = objActo.consultarBd(cita_id);
-                while (rs2.next()) {
-                    String info2 = String.valueOf(rs2.getInt("cita_id")) + " " + rs2.getTimestamp("fecha_realizacion").toString();
-                    list2.add(info2);
+        if (list1.getRows() != 0) {
+            String sexo = "";
+            try {
+                list2.removeAll();
+                boolean aux2 = false;
+                int aux = list1.getSelectedIndex() + 1;
+                rs = objCita.buscarCitasDeHoyPorUsuario(usuario);
+                while (aux != 0) {
+                    rs.next();
+                    aux--;
+                    aux2 = true;
                 }
-            }
+                if (aux2 == true) {
+                    cita_id = rs.getString("cita_id");
+                    rs2 = objActo.consultarBd(cita_id);
+                    while (rs2.next()) {
+                        String info2 = String.valueOf(rs2.getInt("cita_id")) + " " + rs2.getTimestamp("fecha_realizacion").toString();
+                        list2.add(info2);
+                    }
+                }
 
-            txtaObservacion.setText(rs.getString("observaciones"));
-            txtApellido.setText(rs.getString("ape_cliente"));
-            if (rs.getDate("reagendada") == null) {
-                txtFecha.setText(rs.getDate("fecha_hora").toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                String hora = sdf.format(rs.getDate("fecha_hora"));
-                txtHora.setText(hora);
-            } else {
-                txtFecha.setText(rs.getDate("reagendada").toString());
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                String hora = sdf.format(rs.getDate("reagendada"));
-                txtHora.setText(hora);
-            }
+                txtaObservacion.setText(rs.getString("observaciones"));
+                txtApellido.setText(rs.getString("ape_cliente"));
+                if (rs.getDate("reagendada") == null) {
+                    txtFecha.setText(rs.getDate("fecha_hora").toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    String hora = sdf.format(rs.getDate("fecha_hora"));
+                    txtHora.setText(hora);
+                } else {
+                    txtFecha.setText(rs.getDate("reagendada").toString());
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    String hora = sdf.format(rs.getDate("reagendada"));
+                    txtHora.setText(hora);
+                }
 
-            txtMedico.setText(rs.getString("nom_medico"));
-            txtNombre.setText(rs.getString("nom_cliente"));
-            if (rs.getString("sexo").equalsIgnoreCase("m")) {
-                sexo = "Masculino";
-            } else {
-                sexo = "Femenino";
-            }
-            txtSexo.setText(sexo);
-            txtTelefono.setText(rs.getString("telefono"));
+                txtMedico.setText(rs.getString("nom_medico"));
+                txtNombre.setText(rs.getString("nom_cliente"));
+                if (rs.getString("sexo").equalsIgnoreCase("m")) {
+                    sexo = "Masculino";
+                } else {
+                    sexo = "Femenino";
+                }
+                txtSexo.setText(sexo);
+                txtTelefono.setText(rs.getString("telefono"));
 
-        } catch (Exception ex) {
-            Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
         }
+
 
     }//GEN-LAST:event_list1MouseClicked
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        try {
-            objActo.insertarActoMedico(txtaObservacion.getText(), rs.getString("cita_id"));
-            System.out.println("texto: " + txtaObservacion.getText());
-        } catch (Exception ex) {
-            Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+        if (list1.getItemCount() != 0) {
+            try {
+                objActo.insertarActoMedico(txtaObservacion.getText(), cita_id);
+                JOptionPane.showMessageDialog(this, "Registro correcto");
+
+            } catch (Exception ex) {
+                Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void list2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list2MouseClicked
-
-        try {
-            ResultSet rsAux = null;
-            rsAux = objActo.consultarBd(cita_id);
-            int aux = list2.getSelectedIndex() + 1;
-            while (aux != 0) {
-                rsAux.next();
-                aux--;
+        if (list1.getItemCount() != 0) {
+            try {
+                ResultSet rsAux = null;
+                rsAux = objActo.consultarBd(cita_id);
+                int aux = list2.getSelectedIndex() + 1;
+                while (aux != 0) {
+                    rsAux.next();
+                    aux--;
+                }
+                if (rsAux.getString("Observaciones") != null) {
+                    txtaObservacionAntigua.setText(rsAux.getString("Observaciones"));
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (rsAux.getString("Observaciones") != null) {
-                txtaObservacionAntigua.setText(rsAux.getString("Observaciones"));
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(Jd_AtencionPacientesPendientes.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 

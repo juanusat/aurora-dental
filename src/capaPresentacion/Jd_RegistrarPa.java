@@ -8,6 +8,8 @@ import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -31,6 +33,38 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
         initComponents();
         grbtSexo.add(rbtFemenino);
         grbtSexo.add(rbtMasculino);
+        txtDni.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtDni.getText().length() >= 8) {
+                    e.consume();
+                }
+            }
+        });
+        txtTelefono.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtTelefono.getText().length() >= 9) {
+                    e.consume();
+                }
+            }
+        });
+        txtNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+        txtApellido.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     public void limpiarControles() {
@@ -264,27 +298,50 @@ public class Jd_RegistrarPa extends javax.swing.JDialog {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         ResultSet rs = null;
-        try {
-            String sexo;
-            if (rbtFemenino.isSelected()) {
-                sexo = "f";
+        if (txtApellido.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtDni.getText().isEmpty() || txtNombre.getText().isEmpty() || txtTelefono.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos");
+        } else {
+            if (txtDni.getText().length() != 8) {
+                JOptionPane.showMessageDialog(this, "Ingrese un DNI de 8 digitos");
             } else {
-                sexo = "m";
+                if ((txtCorreo.getText().contains("@gmail.com") || txtCorreo.getText().contains("@hotmail.com") || txtCorreo.getText().contains("@outlook.com")) && txtCorreo.getText().endsWith(".com")) {
+                    if (!rbtFemenino.isSelected() && !rbtMasculino.isSelected()) {
+                        JOptionPane.showMessageDialog(this, "Debe escoger un sexo");
+                    } else {
+                        if (dateFechaNac.getDate() != null) {
+                            try {
+                                String sexo;
+                                if (rbtFemenino.isSelected()) {
+                                    sexo = "f";
+                                } else {
+                                    sexo = "m";
+                                }
+                                objPersona.registrarPersona(
+                                        txtNombre.getText(),
+                                        txtApellido.getText(),
+                                        txtDni.getText(),
+                                        txtCorreo.getText(),
+                                        txtTelefono.getText(),
+                                        dateFechaNac.getDate(),
+                                        txtDireccion.getText(), sexo);
+                                objCliente.registrarCliente(objPersona.buscarPersona(txtDni.getText()));
+                                JOptionPane.showMessageDialog(this, "Registro completo");
+                                limpiarControles();
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(this, "Error al registrar paciente " + e.getMessage());
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Seleccione una fecha");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Introduzca un correo valido");
+
+                }
             }
-            objPersona.registrarPersona(
-            txtNombre.getText(),
-            txtApellido.getText(),
-            txtDni.getText(),
-            txtCorreo.getText(),
-            txtTelefono.getText(),
-            dateFechaNac.getDate(),
-            txtDireccion.getText(), sexo);
-            objCliente.registrarCliente(objPersona.buscarPersona(txtDni.getText()));
-            JOptionPane.showMessageDialog(this, "Registro completo");
-            limpiarControles();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar paciente " + e.getMessage());
         }
+
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
 

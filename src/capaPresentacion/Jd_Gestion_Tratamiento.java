@@ -1,6 +1,8 @@
 package capaPresentacion;
 
 import capaNegocio.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +15,30 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarTablaTratamientos();
+        txtCosto.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) && c != '.') {
+                    e.consume();
+                }
+            }
+        });
+        txtDuracion.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+        txtNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -293,6 +319,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                 objTrat.registrar(cod, txtNombre.getText(), txtDescripcion.getText(), Integer.parseInt(txtDuracion.getText()), Double.parseDouble(txtCosto.getText()));
                 limpiarControles();
                 cargarTablaTratamientos();
+                JOptionPane.showMessageDialog(this, "Guardado correctamente");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al registrar un tratamiento" + e.getMessage());

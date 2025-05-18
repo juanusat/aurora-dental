@@ -16,6 +16,8 @@ public class clsJDBC {
     private String driver, url, user, password;
     private Connection con;
     private Statement sent = null;
+    private Statement sent1 = null;
+    private Statement sent2 = null;
     
      public Connection getCon() {
         return con;
@@ -84,4 +86,22 @@ public class clsJDBC {
             }
         }
     }
+    public void ejecutarBDTransacciones(String strSQL1, String strSQL2) throws Exception {
+    try {
+        conectar();
+        con.setAutoCommit(false);
+        sent = con.createStatement();
+        sent.executeUpdate(strSQL1);
+        sent1 = con.createStatement();
+        sent1.executeUpdate(strSQL2);
+        con.commit();
+    } catch (Exception g) {
+        con.rollback();
+        throw new Exception("Error al ejecutar Transacción");
+    } finally {
+        if (con != null) {
+            desconectar();
+        }
+    }
+}
 }

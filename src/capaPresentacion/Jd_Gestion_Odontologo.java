@@ -7,6 +7,8 @@ package capaPresentacion;
 import capaNegocio.*;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,6 +32,38 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarTablaOdontologos();
+        txtDni.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtDni.getText().length() >= 8) {
+                    e.consume();
+                }
+            }
+        });
+        txtTelefono.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtTelefono.getText().length() >= 9) {
+                    e.consume();
+                }
+            }
+        });
+        txtNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
+        txtApellido.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     /**
@@ -78,14 +112,14 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel4.setText("Apellido:");
+        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("Dni:");
+        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -93,14 +127,14 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel6.setText("Sexo:");
+        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel7.setText("Correo:");
+        jLabel7.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel9.setText("Telefono:");
+        jLabel9.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         rbM.setText("Masculino");
 
@@ -110,22 +144,30 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
         txtTelefono.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel3.setText("Fecha Nac.");
+        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel8.setText("Direccion:");
+        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel10.setText("Especialidad:");
+        jLabel10.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel11.setText("Numero Licencia:");
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
 
         txtEspecialidad.setMinimumSize(new java.awt.Dimension(64, 24));
 
         txtLicencia.setMinimumSize(new java.awt.Dimension(64, 24));
 
+        tblOdontologos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
         tblOdontologos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblOdontologosMouseClicked(evt);
@@ -141,6 +183,11 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         });
 
         btnDarBaja.setText("Dar Baja");
+        btnDarBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDarBajaActionPerformed(evt);
+            }
+        });
 
         btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -392,84 +439,94 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
 
 
     private void tblOdontologosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOdontologosMouseClicked
-        int filaSeleccionada = tblOdontologos.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            txtNombre.setText(tblOdontologos.getValueAt(filaSeleccionada, 1).toString());
-            txtApellido.setText(tblOdontologos.getValueAt(filaSeleccionada, 2).toString());
-            txtDni.setText(tblOdontologos.getValueAt(filaSeleccionada, 3).toString());
-            String sexo = tblOdontologos.getValueAt(filaSeleccionada, 4).toString();
-            if (sexo.equals("m")) {
-                rbM.setSelected(true);
-            } else {
-                rbF.setSelected(true);
-            }
-
-            txtCorreo.setText(tblOdontologos.getValueAt(filaSeleccionada, 5).toString());
-            txtTelefono.setText(tblOdontologos.getValueAt(filaSeleccionada, 6).toString());
-            java.util.Date date = (java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7);
-            if (date != null) {
-                if (date instanceof java.sql.Date) {
-                    LocalDate localDate = ((java.sql.Date) date).toLocalDate();
-                    dateN.setDate(localDate);
+        if (tblOdontologos.getRowCount() != 0) {
+            int filaSeleccionada = tblOdontologos.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                txtNombre.setText(tblOdontologos.getValueAt(filaSeleccionada, 1).toString());
+                txtApellido.setText(tblOdontologos.getValueAt(filaSeleccionada, 2).toString());
+                txtDni.setText(tblOdontologos.getValueAt(filaSeleccionada, 3).toString());
+                String sexo = tblOdontologos.getValueAt(filaSeleccionada, 4).toString();
+                if (sexo.equals("m")) {
+                    rbM.setSelected(true);
                 } else {
-                    LocalDate localDate = date.toInstant()
-                            .atZone(ZoneId.systemDefault())
-                            .toLocalDate();
-                    dateN.setDate(localDate);
+                    rbF.setSelected(true);
                 }
-            } else {
-                dateN.setDate(null);
-            }
 
-            txtDireccion.setText(tblOdontologos.getValueAt(filaSeleccionada, 8).toString());
-            txtEspecialidad.setText(tblOdontologos.getValueAt(filaSeleccionada, 9).toString());
-            txtLicencia.setText(tblOdontologos.getValueAt(filaSeleccionada, 10).toString());
+                txtCorreo.setText(tblOdontologos.getValueAt(filaSeleccionada, 5).toString());
+                txtTelefono.setText(tblOdontologos.getValueAt(filaSeleccionada, 6).toString());
+                java.util.Date date = (java.util.Date) tblOdontologos.getValueAt(filaSeleccionada, 7);
+                if (date != null) {
+                    if (date instanceof java.sql.Date) {
+                        LocalDate localDate = ((java.sql.Date) date).toLocalDate();
+                        dateN.setDate(localDate);
+                    } else {
+                        LocalDate localDate = date.toInstant()
+                                .atZone(ZoneId.systemDefault())
+                                .toLocalDate();
+                        dateN.setDate(localDate);
+                    }
+                } else {
+                    dateN.setDate(null);
+                }
+
+                txtDireccion.setText(tblOdontologos.getValueAt(filaSeleccionada, 8).toString());
+                txtEspecialidad.setText(tblOdontologos.getValueAt(filaSeleccionada, 9).toString());
+                txtLicencia.setText(tblOdontologos.getValueAt(filaSeleccionada, 10).toString());
+            }
         }
+
     }//GEN-LAST:event_tblOdontologosMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        try {
-            if (btnNuevo.getText().equals("Nuevo")) {
-                btnNuevo.setText("Guardar");
-                limpiarControles();
-                txtNombre.requestFocus();
-            } else {
-                btnNuevo.setText("Nuevo");
+        if (!rbF.isSelected() && !rbM.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un sexo");
+        } else {
+            if ((txtCorreo.getText().contains("@gmail.com") || txtCorreo.getText().contains("@hotmail.com") || txtCorreo.getText().contains("@outlook.com")) && txtCorreo.getText().endsWith(".com")) {
 
-                if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
-                        || txtDni.getText().trim().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
-                    return;
+                try {
+                    if (btnNuevo.getText().equals("Nuevo")) {
+                        btnNuevo.setText("Guardar");
+                        limpiarControles();
+                        txtNombre.requestFocus();
+                    } else {
+
+                        if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
+                                || txtDni.getText().trim().isEmpty()) {
+                            JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
+                            return;
+                        }
+                        String nombre = txtNombre.getText();
+                        String apellido = txtApellido.getText();
+                        String documento = txtDni.getText();
+                        String sexo = rbM.isSelected() ? "m" : "f";
+                        String email = txtCorreo.getText();
+                        String telefono = txtTelefono.getText();
+                        String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
+                        String direccion = txtDireccion.getText();
+                        String especialidad = txtEspecialidad.getText();
+                        String numeroLicencia = txtLicencia.getText();
+                        String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+
+                        String username = "";
+                        String passwordHash = "";
+
+                        Integer codCargo = 1;
+
+                        Integer trabajadorId = objTra.registrarOdontologoCompleto(
+                                nombre, apellido, documento, sexo, email, telefono,
+                                fechaNacimiento, direccion, username, passwordHash,
+                                codCargo, numeroLicencia, especialidad, fechaIngreso
+                        );
+
+                        limpiarControles();
+                        cargarTablaOdontologos();
+                        btnNuevo.setText("Nuevo");
+                        JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
                 }
-                String nombre = txtNombre.getText();
-                String apellido = txtApellido.getText();
-                String documento = txtDni.getText();
-                String sexo = rbM.isSelected() ? "m" : "f";
-                String email = txtCorreo.getText();
-                String telefono = txtTelefono.getText();
-                String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
-                String direccion = txtDireccion.getText();
-                String especialidad = txtEspecialidad.getText();
-                String numeroLicencia = txtLicencia.getText();
-                String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-
-                String username = "";
-                String passwordHash = "";
-
-                Integer codCargo = 1;
-
-                Integer trabajadorId = objTra.registrarOdontologoCompleto(
-                        nombre, apellido, documento, sexo, email, telefono,
-                        fechaNacimiento, direccion, username, passwordHash,
-                        codCargo, numeroLicencia, especialidad, fechaIngreso
-                );
-
-                limpiarControles();
-                cargarTablaOdontologos();
-                JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -566,6 +623,10 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDarBajaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

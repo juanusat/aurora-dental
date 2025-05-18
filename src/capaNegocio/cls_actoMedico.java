@@ -16,6 +16,8 @@ public class cls_actoMedico {
     clsJDBC objBD = new clsJDBC();
     ResultSet rs = null;
     String strSQL;
+    String strSQL1;
+    cls_Cita objCita = new cls_Cita();
 
     public void actualizarObservacion(String observacion, String cita_id) throws Exception {
         strSQL = "update acto_medico set observaciones='" + observacion + "' where cita_id = '" + cita_id + "'";
@@ -30,21 +32,28 @@ public class cls_actoMedico {
 
     public void insertarActoMedico(String observaciones, String cita_id) throws Exception {
         rs = consultarBd(cita_id);
-        if (rs.next() == false) {
-            strSQL = "insert into acto_medico(cita_id, observaciones) values (" + cita_id + ", '" + observaciones + "')";
+
+        // Si no existe la cita, rs.next() será false
+        if (!rs.next()) {
             try {
-                objBD.ejecutarBD(strSQL);
+                strSQL = "INSERT INTO acto_medico (cita_id, observaciones) VALUES (" + cita_id + ", '" + observaciones + "')";
+
+                int duracion = objCita.obtenerDiferenciaEntreHoras(Integer.parseInt(cita_id));
+
+                strSQL1 = "UPDATE cita SET duracion = '" + duracion + "' where cita_id = " + cita_id;
+
+                objBD.ejecutarBDTransacciones(strSQL, strSQL1);
             } catch (Exception e) {
-                throw new Exception("Error al actualizar persona " + e.getMessage());
+                throw new Exception("Error al insertar acto médico y actualizar cita: " + e.getMessage());
             }
         } else {
+            // Si ya existe, solo actualiza la observación
             actualizarObservacion(observaciones, cita_id);
         }
-
     }
 
     public ResultSet consultarBd(String cita_id) throws Exception {
-        strSQL = "select * from acto_medico where cita_id ='" + cita_id + "'";
+        strSQL = "select * from acto_medico where cita_id =" + cita_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;

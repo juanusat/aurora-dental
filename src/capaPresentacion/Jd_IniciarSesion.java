@@ -139,7 +139,7 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
                 } else {
 
                     JOptionPane.showMessageDialog(this, "Bienvenido al sistema");
-
+                    objU.asignarHoraUltimoAcceso(txtusuario.getText());
                     nombreCompleto = objT.nombreCompleto(txtusuario.getText());
                     cargo = objT.obtenerCargo(txtusuario.getText());
                     username = txtusuario.getText();

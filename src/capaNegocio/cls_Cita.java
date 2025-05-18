@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 import java.util.Date;
 
 import capaDatos.clsJDBC;
+import java.sql.*;
 import java.sql.ResultSet;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Formatter;
@@ -52,20 +54,32 @@ public class cls_Cita {
     }
 
     public int buscarCita_id(int cita_id) throws Exception {
-        
+
         strSQL = "Select c.cita_id from cita c "
                 + "inner join cliente cl on c.cliente_id=cl.cliente_id "
-                + "where c.cita_id=" + cita_id ;
+                + "where c.cita_id=" + cita_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             while (rs.next()) {
                 return rs.getInt("cita_id");
-                
+
             }
         } catch (Exception e) {
             throw new Exception("Error al buscar cita_id " + e.getMessage());
         }
         return 0;
+    }
+
+    public ResultSet buscarCita(int cita_id) throws Exception {
+
+        strSQL = "Select * from cita "
+                + "where cita_id=" + cita_id;
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return rs;
+        } catch (Exception e) {
+            throw new Exception("Error al buscar cita_id " + e.getMessage());
+        }
     }
 
     public int modificarCitaSF(int cita_id, int doctor_id, int tratamiento_id, int agendor_id) throws Exception {
@@ -81,9 +95,9 @@ public class cls_Cita {
 
     public int modificarCita(int cita_id, int doctor_id, int tratamiento_id, int agendor_id, LocalDateTime fecha_Hora) throws Exception {
         strSQL = "Update cita set tratamiento_id='" + tratamiento_id + "',medico_id='" + doctor_id + "',agendador_id='" + agendor_id + "',reagendada='" + fecha_Hora.format(formatter) + "',estado='reagendada' "
-                + "where cita_id=" + cita_id ;
-        System.out.println("S Format : " +fecha_Hora);
-        System.out.println("C Format : " +fecha_Hora.format(formatter));
+                + "where cita_id=" + cita_id;
+        System.out.println("S Format : " + fecha_Hora);
+        System.out.println("C Format : " + fecha_Hora.format(formatter));
         try {
             int i = objBD.ejecutarBD(strSQL);
             return i;
@@ -110,7 +124,7 @@ public class cls_Cita {
                 + "inner join tratamiento t on c.tratamiento_id = t.tratamiento_id "
                 + "inner join trabajador d on c.medico_id=d.trabajador_id "
                 + "inner join persona p2 on d.persona_id = p2.persona_id "
-                + "where cl.cliente_id =" + cliente_id ;
+                + "where cl.cliente_id =" + cliente_id;
         try {
             rs = objBD.ConsultarBD(strSQL);
             return rs;
@@ -174,12 +188,33 @@ public class cls_Cita {
             throw new Exception("Error al buscar citas de hoy " + e.getMessage());
         }
     }
-    public void actualizarObservacion(String observacion, String cita_id) throws Exception{
-        strSQL = "update acto_medico set observaciones='" +observacion+"' where cita_id = '"+cita_id + "'"; 
+
+    public void actualizarObservacion(String observacion, String cita_id) throws Exception {
+        strSQL = "update acto_medico set observaciones='" + observacion + "' where cita_id = '" + cita_id + "'";
         try {
             objBD.ejecutarBD(strSQL);
         } catch (Exception e) {
-            throw new Exception("Error al actualizar persona " +e.getMessage());
+            throw new Exception("Error al actualizar persona " + e.getMessage());
         }
-    } 
+    }
+
+    public int obtenerDiferenciaEntreHoras(int cita_id) throws Exception {
+        rs = buscarCita(cita_id);
+        rs.next();
+        Timestamp fechaHoraPasada;
+        if (rs.getTimestamp("reagendada") == null) {
+            fechaHoraPasada = rs.getTimestamp("fecha_hora");
+        } else {
+            fechaHoraPasada = rs.getTimestamp("reagendada");
+        }
+
+        // ✅ Conversión directa sin errores de formato
+        LocalDateTime fechaAnterior = fechaHoraPasada.toLocalDateTime();
+        LocalDateTime ahora = LocalDateTime.now();
+
+        Duration duracion = Duration.between(fechaAnterior, ahora);
+        return (int) duracion.toMinutes();
+    }
+
+;
 }

@@ -5,6 +5,8 @@
 package capaPresentacion;
 
 import capaNegocio.cls_Cliente;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,8 +28,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
     DefaultListModel<String> modelo = new DefaultListModel<>();
     private ArrayList<String> cliente_id_array = new ArrayList<>();
     private static String cliente_id = "";
-    private static String nombre="";
-    private static String apellido="";
+    private static String nombre = "";
+    private static String apellido = "";
 
     public static String getNombre() {
         return nombre;
@@ -57,6 +59,22 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setCliente_id("");
+        txtDni.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c) || txtDni.getText().length() >= 8) {
+                    e.consume();
+                }
+            }
+        });
+        txtNombre.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)) {
+                    e.consume();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -86,6 +104,16 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         jLabel2.setText("Nombre:");
 
         txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDniActionPerformed(evt);
+            }
+        });
+        txtDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDniKeyTyped(evt);
+            }
+        });
 
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
@@ -187,7 +215,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                     rsCliente = objCliente.buscarClientexDNI(txtDni.getText());
                     while (rsCliente.next()) {
                         String cliente = rsCliente.getString("nombre") + " " + rsCliente.getString("apellido");
-                        nombre = rsCliente.getString("nombre"); 
+                        nombre = rsCliente.getString("nombre");
                         apellido = rsCliente.getString("apellido");
                         modelo.addElement(cliente);
                         cliente_id_array.add(String.valueOf(rsCliente.getInt("cliente_id")));
@@ -227,6 +255,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             if (list1.isSelectionEmpty()) {
                 JOptionPane.showMessageDialog(this, "Seleccione un cliente");
             } else {
+                JOptionPane.showMessageDialog(this, "Cliente seleccionado");
                 dispose();
             }
         } else {
@@ -235,6 +264,14 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_btnSeleccionarActionPerformed
+
+    private void txtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDniActionPerformed
+
+    private void txtDniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDniKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

@@ -32,6 +32,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     cls_Cliente objCliente = new cls_Cliente();
     cls_Persona objPE = new cls_Persona();
     private String cliente_id = "";
+    private boolean seleccion = false;
 
     public Jd_RegistrarPago(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -56,8 +57,6 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         }
         listarTabla();
     }
-
-
 
     private void listarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
@@ -110,8 +109,8 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setText("Cliente:");
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setText("Cliente:");
 
         txtNombre.setEditable(false);
 
@@ -122,49 +121,49 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Monto:");
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setText("Monto:");
 
-        jLabel3.setText("Emisor:");
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setText("Emisor:");
 
-        jLabel4.setText("Metodo de pago:");
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel4.setText("Metodo de pago:");
 
-        rbtnCredito.setText("Credito");
         rbtnCredito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnCredito.setText("Credito");
         rbtnCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCreditoActionPerformed(evt);
             }
         });
 
-        rbtnDebito.setText("Debito");
         rbtnDebito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnDebito.setText("Debito");
         rbtnDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnDebitoActionPerformed(evt);
             }
         });
 
-        rbtnTransferencia.setText("Transferencia");
         rbtnTransferencia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnTransferencia.setText("Transferencia");
         rbtnTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnTransferenciaActionPerformed(evt);
             }
         });
 
-        rbtnEfectivo.setText("Efectivo");
         rbtnEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnEfectivo.setText("Efectivo");
         rbtnEfectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnEfectivoActionPerformed(evt);
             }
         });
 
-        btnPagar.setText("Pagar");
         btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPagar.setText("Pagar");
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPagarActionPerformed(evt);
@@ -292,22 +291,28 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagarActionPerformed
-        try {
-            if ("".equals(txtEmisor.getText()) || (!rbtnCredito.isSelected() && !rbtnDebito.isSelected() && !rbtnEfectivo.isSelected() && !rbtnTransferencia.isSelected())) {
-                JOptionPane.showMessageDialog(this, "Escoja una cita");
-            } else {
-                if (cita == "") {
-                    JOptionPane.showMessageDialog(this, "Completo el campo o el metodo");
+        if (seleccion == true) {
+            try {
+                if ("".equals(txtEmisor.getText()) || (!rbtnCredito.isSelected() && !rbtnDebito.isSelected() && !rbtnEfectivo.isSelected() && !rbtnTransferencia.isSelected())) {
+                    JOptionPane.showMessageDialog(this, "Escoja una cita");
                 } else {
-                    objP.registrarPago(Integer.parseInt(cita), txtEmisor.getText(), ((Number) spinMonto.getValue()).floatValue(), metodo);
-                    JOptionPane.showMessageDialog(this, "Pago realizado con exito");
-                    txtEmisor.setText("");
-                    listarTabla();
+                    if (cita == "") {
+                        JOptionPane.showMessageDialog(this, "Completo el campo o el metodo");
+                    } else {
+                        objP.registrarPago(Integer.parseInt(cita), txtEmisor.getText(), ((Number) spinMonto.getValue()).floatValue(), metodo);
+                        JOptionPane.showMessageDialog(this, "Pago realizado con exito");
+                        txtEmisor.setText("");
+                        listarTabla();
+                        seleccion = false;
+                    }
                 }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error al registar pago " + e.getMessage());
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registar pago " + e.getMessage());
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente");
         }
+
     }//GEN-LAST:event_btnPagarActionPerformed
 
     private void rbtnCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCreditoActionPerformed
@@ -338,13 +343,14 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
     private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
         int filaSeleccionada = tbl.getSelectedRow();
         if (filaSeleccionada != -1) {
-            cita= (String) tbl.getValueAt(filaSeleccionada, 0);
+            cita = (String) tbl.getValueAt(filaSeleccionada, 0);
             calcularMaxPago(filaSeleccionada);
+            seleccion = true;
         }
     }//GEN-LAST:event_tblMouseClicked
     public void calcularMaxPago(int fila) {
         float costo = Float.parseFloat((String) tbl.getValueAt(fila, 4));
-        float monto_pagado = Float.parseFloat((String)tbl.getValueAt(fila,6));
+        float monto_pagado = Float.parseFloat((String) tbl.getValueAt(fila, 6));
         float max = costo - monto_pagado;
 
         SpinnerNumberModel modelo;

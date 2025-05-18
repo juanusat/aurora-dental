@@ -45,6 +45,8 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static String citaEscogida = "";
 
+    private boolean seleccion = false;
+
     public Jd_ModificarCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -160,6 +162,9 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         tbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblMouseEntered(evt);
             }
         });
         jScrollPane2.setViewportView(tbl);
@@ -293,68 +298,80 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-
-        try {
-            int cl_id = Integer.parseInt(cliente_id);
-            
-            int tratamiento_id = objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString());
-          
-            int posDoc = cbxDoctor.getSelectedIndex(); 
-            String id_Doc = doctor_id_array.get(posDoc); 
-         
-            //----------------------------------------
-            
-            LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
-            System.out.println(fecha);
-            //------------------------------
-            int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
-         
-            int agendor_id = Jd_IniciarSesion.id_usuario;
-       
-
-            if (chkReprogramar.isSelected()) {
-                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
-                if (rpta == JOptionPane.YES_OPTION) {
-                    objC.modificarCita(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
-                    JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Operacion Cancelada");
-                }
-                listarTabla();
-                limpiarValores();
+        if (txtnombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente");
+        } else {
+            if (seleccion == false) {
+                JOptionPane.showMessageDialog(this, "Escoja una cita de la lista");
             } else {
-                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+                try {
+                    int cl_id = Integer.parseInt(cliente_id);
 
-                if (rpta == JOptionPane.YES_OPTION) {
-                    objC.modificarCitaSF(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id);
-                    JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+                    int tratamiento_id = objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString());
+
+                    int posDoc = cbxDoctor.getSelectedIndex();
+                    String id_Doc = doctor_id_array.get(posDoc);
+
+                    //----------------------------------------
+                    LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
+                    System.out.println(fecha);
+                    //------------------------------
+                    int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
+
+                    int agendor_id = Jd_IniciarSesion.id_usuario;
+
+                    if (chkReprogramar.isSelected()) {
+                        int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+                        if (rpta == JOptionPane.YES_OPTION) {
+                            objC.modificarCita(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id, DTPFechaHora.getDateTimeStrict());
+                            JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+                        }
+                        listarTabla();
+                        limpiarValores();
+                    } else {
+                        int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+
+                        if (rpta == JOptionPane.YES_OPTION) {
+                            objC.modificarCitaSF(cita_id, Integer.parseInt(id_Doc), tratamiento_id, agendor_id);
+                            JOptionPane.showMessageDialog(this, "Operacion Realizada con exito");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+                        }
+                        listarTabla();
+                        limpiarValores();
+                        seleccion = false;
+                    }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error al actualizar cita " + e.getMessage());
                 }
-                listarTabla();
-                limpiarValores();
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al actualizar cita " + e.getMessage());
         }
+
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnAnularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnularActionPerformed
-
-        try {
-            int cl_id = Integer.parseInt(cliente_id);
-            LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
-            int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
-            int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
-            if (rpta == JOptionPane.YES_OPTION) {
-                objC.anularCita(cita_id);
-                JOptionPane.showMessageDialog(this, "Cita Anulada");
-                listarTabla();
-                limpiarValores();
-            } else {
-                JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+        if (seleccion == false) {
+            JOptionPane.showMessageDialog(this, "Escoja una cita de la lista");
+        } else {
+            try {
+                int cl_id = Integer.parseInt(cliente_id);
+                LocalDateTime fecha = DTPFechaHora.getDateTimeStrict();
+                int cita_id = objC.buscarCita_id(Integer.parseInt(citaEscogida));
+                int rpta = JOptionPane.showOptionDialog(this, "¿Estás seguro que deseas modificar tu cita?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"Sí", "No"}, "Sí");
+                if (rpta == JOptionPane.YES_OPTION) {
+                    objC.anularCita(cita_id);
+                    JOptionPane.showMessageDialog(this, "Cita Anulada");
+                    listarTabla();
+                    limpiarValores();
+                    seleccion = false;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Operacion Cancelada");
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
         }
     }//GEN-LAST:event_btnAnularActionPerformed
 
@@ -369,24 +386,28 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     private void tblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseClicked
         int filaSeleccionada = tbl.getSelectedRow();
         if (filaSeleccionada != -1) {
-            
+
             cbxDoctor.setSelectedItem(tbl.getValueAt(filaSeleccionada, 2).toString());
-            
+
             cbxTratamiento.setSelectedItem(tbl.getValueAt(filaSeleccionada, 1).toString());
-            
+
             String fecha_hora = String.valueOf(tbl.getValueAt(filaSeleccionada, 3));
-            
+
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            
+
             LocalDateTime FH = LocalDateTime.parse(fecha_hora, formatter);
-            
-            DTPFechaHora.setDateTimeStrict(FH); 
-            
-            citaEscogida=cita_id_array.get(filaSeleccionada); 
-           
+
+            DTPFechaHora.setDateTimeStrict(FH);
+
+            citaEscogida = cita_id_array.get(filaSeleccionada);
+            seleccion = true;
         }
     }//GEN-LAST:event_tblMouseClicked
-    
+
+    private void tblMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblMouseEntered
+
     private void listarDoctores() {
         ResultSet rsDoc = null;
         DefaultComboBoxModel modeloMar = new DefaultComboBoxModel();
@@ -425,20 +446,20 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         modelo.addColumn("Doctor");
         modelo.addColumn("Fecha-Hora");
         modelo.addColumn("Costo");
-        
-        String fecha=""; 
+
+        String fecha = "";
 
         try {
             ResultSet rs = objC.buscarCitas(cliente_id);
             while (rs.next()) {
                 if (rs.getString("reagendada") == null) {
                     fecha = rs.getString("fecha_hora");
-                }else{
+                } else {
                     fecha = rs.getString("reagendada");
                 }
-                
+
                 modelo.addRow(new Object[]{rs.getString("Nombre_C"), rs.getString("Nombre_T"), rs.getString("Nombre_D"), fecha, rs.getString("costo")});
-              
+
                 cita_id_array.add(rs.getString("cita_id"));
             }
             if (tbl.getRowCount() == 0) {
@@ -449,8 +470,8 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
         }
     }
-    
-    private void limpiarValores(){
+
+    private void limpiarValores() {
         cbxDoctor.setSelectedIndex(-1);
         cbxTratamiento.setSelectedIndex(-1);
         DTPFechaHora.setDateTimeStrict(LocalDateTime.now());

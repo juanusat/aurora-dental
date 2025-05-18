@@ -12,6 +12,8 @@ import java.sql.Connection;
 
 import capaDatos.clsJDBC;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter; 
 
 public class clsUsuario {
 
@@ -20,9 +22,10 @@ public class clsUsuario {
     String strSQL;
 
     public String validarIngreso(String usu, String password) throws Exception {
-        String strSQL = "SELECT * FROM usuario "
-                + "WHERE username = ? "
-                + "AND password_hash = encode(digest(? || ? || 'DENTAL', 'sha256'), 'hex');";
+        String strSQL = "SELECT * FROM usuario usu inner join trabajador tra on usu.usuario_id = tra.usuario_id "
+                + "WHERE usu.username = ? "
+                + "AND usu.password_hash = encode(digest(? || ? || 'DENTAL', 'sha256'), 'hex') "
+                + "AND tra.estado = 'true'";
         try {
             Connection con = null;
             objBD.conectar();
@@ -41,6 +44,19 @@ public class clsUsuario {
             throw new Exception("Error al validar ingreso: " + e.getMessage());
         }
         return "";
+    }
+
+    public void asignarHoraUltimoAcceso(String user) throws Exception {
+        LocalDateTime fechaHoraActual = LocalDateTime.now();
+        String fechaHoraFormateada = fechaHoraActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        String strSQL = "UPDATE usuario SET ultimo_acceso = '" + fechaHoraFormateada + "' where username = '" + user + "'";
+
+        try {
+            objBD.ejecutarBD(strSQL);
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar hora del último acceso: " + e.getMessage());
+        }
     }
 
     public int obtenerIdUsu(String usu) throws Exception {
