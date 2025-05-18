@@ -290,17 +290,27 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
-        try {
-            int posDoc = cbxDoctor.getSelectedIndex();
-            String id_Doc = doctor_id_array.get(posDoc);
+        if (txtCliente.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente");
+        } else {
+            if (DTPfechahora.getDatePicker().getDate() != null) {
+                try {
+                    int posDoc = cbxDoctor.getSelectedIndex();
+                    String id_Doc = doctor_id_array.get(posDoc);
 
-            objC.insertCita(Integer.parseInt(cliente_id), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), Integer.parseInt(id_Doc), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Float.parseFloat(txtPrecio.getText()));
-            System.out.println(Jd_SeleccionarCliente.getNombre());
-            JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
-            limpiar();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al insertar cita " + e.getMessage());
+                    objC.insertCita(Integer.parseInt(cliente_id), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), Integer.parseInt(id_Doc), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Float.parseFloat(txtPrecio.getText()));
+                    System.out.println(Jd_SeleccionarCliente.getNombre());
+                    JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
+                    limpiar();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, "Error al insertar cita " + e.getMessage());
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha - hora");
+            }
+
         }
+
     }//GEN-LAST:event_btnProgramarActionPerformed
 
     private void cbxTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTratamientoActionPerformed

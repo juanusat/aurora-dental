@@ -232,50 +232,50 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Citados para hoy:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Citados para hoy:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Datos:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Datos:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Nombres:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombres:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Apellidos:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Apellidos:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Sexo:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Sexo:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Telefono:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Telefono:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtNombre">
@@ -300,26 +300,26 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Medico:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Medico:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Hora:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Hora:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Fecha:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Fecha:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="txtMedico">
@@ -339,10 +339,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Actos Medicos:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Actos Medicos:"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -370,18 +370,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
+            <Property name="text" type="java.lang.String" value="A&#xf1;adir Observacion:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="A&#xf1;adir Observacion:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Observaciones antiguas:"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Yu Gothic UI Semibold" size="16" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Observaciones antiguas:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
@@ -401,6 +401,7 @@
             <Component class="javax.swing.JTextArea" name="txtaObservacionAntigua">
               <Properties>
                 <Property name="columns" type="int" value="20"/>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
             </Component>

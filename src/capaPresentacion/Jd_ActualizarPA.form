@@ -181,6 +181,9 @@
               <Dimension value="[64, 24]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDniKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSeleccionar">
           <Properties>
