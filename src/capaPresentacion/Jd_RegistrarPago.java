@@ -77,6 +77,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             if (tbl.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay citas para este paciente");
             }
+            tbl.getTableHeader().setReorderingAllowed(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
         }
@@ -107,13 +108,18 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registrar Pago");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 75, 97));
         jLabel1.setText("Cliente:");
 
         txtNombre.setEditable(false);
+        txtNombre.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
+        btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
+        btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,32 +127,40 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 75, 97));
         jLabel2.setText("Monto:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 75, 97));
         jLabel3.setText("Emisor:");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel4.setText("Metodo de pago:");
+        txtEmisor.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
-        rbtnCredito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rbtnCredito.setText("Credito");
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel4.setText("Método de pago:");
+
+        rbtnCredito.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        rbtnCredito.setForeground(new java.awt.Color(0, 75, 97));
+        rbtnCredito.setText("Crédito");
         rbtnCredito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnCreditoActionPerformed(evt);
             }
         });
 
-        rbtnDebito.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        rbtnDebito.setText("Debito");
+        rbtnDebito.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        rbtnDebito.setForeground(new java.awt.Color(0, 75, 97));
+        rbtnDebito.setText("Débito");
         rbtnDebito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbtnDebitoActionPerformed(evt);
             }
         });
 
-        rbtnTransferencia.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnTransferencia.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        rbtnTransferencia.setForeground(new java.awt.Color(0, 75, 97));
         rbtnTransferencia.setText("Transferencia");
         rbtnTransferencia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +168,8 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
-        rbtnEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        rbtnEfectivo.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        rbtnEfectivo.setForeground(new java.awt.Color(0, 75, 97));
         rbtnEfectivo.setText("Efectivo");
         rbtnEfectivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +177,9 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
-        btnPagar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnPagar.setBackground(new java.awt.Color(0, 178, 195));
+        btnPagar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnPagar.setForeground(new java.awt.Color(255, 255, 255));
         btnPagar.setText("Pagar");
         btnPagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,17 +187,17 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             }
         });
 
+        spinMonto.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+
         tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        tbl.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         tbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMouseClicked(evt);
@@ -194,42 +211,47 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnCredito)
-                                    .addComponent(rbtnTransferencia))
-                                .addGap(32, 32, 32)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbtnEfectivo)
-                                    .addComponent(rbtnDebito)))
-                            .addComponent(jLabel4))
-                        .addContainerGap(80, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(spinMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(btnPagar))
-                                    .addComponent(txtEmisor))
-                                .addGap(30, 30, 30))))))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(spinMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtEmisor)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(btnPagar)))
+                                        .addGap(33, 33, 33))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel4)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnTransferencia)
+                            .addComponent(rbtnCredito))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbtnDebito)
+                            .addComponent(rbtnEfectivo))
+                        .addGap(58, 58, 58))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,11 +267,11 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtEmisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(40, 40, 40)
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(spinMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                        .addGap(39, 39, 39)
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -262,7 +284,7 @@ public class Jd_RegistrarPago extends javax.swing.JDialog {
                         .addGap(76, 76, 76)
                         .addComponent(btnPagar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

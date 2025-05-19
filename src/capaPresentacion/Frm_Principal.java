@@ -103,9 +103,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(265, 265, 265)
+                .addGap(262, 262, 262)
                 .addComponent(jLabel3)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(269, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,9 +117,9 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(138, 241, 248));
 
-        lblnombreCargo.setForeground(new java.awt.Color(1, 124, 155));
+        lblnombreCargo.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 124, 155));
 
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +156,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jMenu1.setText("Perfil");
-        jMenu1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/address-card-solid.png"))); // NOI18N
         jMenuItem1.setText("Editar");
@@ -179,7 +179,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Pacientes");
-        jMenu2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-plus-solid.png"))); // NOI18N
         jMenu3.setText("Registrar");
@@ -225,7 +225,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         jMenu5.setText("Citas");
-        jMenu5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu5.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/calendar-plus-solid.png"))); // NOI18N
         jMenuItem5.setText("Agendar");
@@ -267,7 +267,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu5);
 
         jMenu8.setText("Pagos");
-        jMenu8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu8.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenuItem21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/receipt-solid.png"))); // NOI18N
         jMenuItem21.setText("Registrar pago");
@@ -290,7 +290,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu8);
 
         jMenu4.setText("Gestión");
-        jMenu4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jMenu4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenuItem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color1/user-tie-solid.png"))); // NOI18N
         jMenuItem18.setText("Recepcionistas");

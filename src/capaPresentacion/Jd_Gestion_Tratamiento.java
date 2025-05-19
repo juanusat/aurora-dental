@@ -67,31 +67,42 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel2.setText("Nombre:");
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 75, 97));
 
+        txtNombre.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        jLabel4.setText("Duracion:");
+        jLabel4.setText("Duración:");
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 75, 97));
 
+        txtDuracion.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         txtDuracion.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel5.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         jLabel5.setText("Costo:");
+        jLabel5.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 75, 97));
 
+        txtCosto.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         txtCosto.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        jLabel6.setText("Duracion:");
+        jLabel6.setText("Duración:");
+        jLabel6.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 75, 97));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
+        txtDescripcion.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(txtDescripcion);
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.setBackground(new java.awt.Color(0, 178, 195));
+        btnNuevo.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
@@ -99,6 +110,9 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.setBackground(new java.awt.Color(0, 178, 195));
+        btnLimpiar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -113,6 +127,9 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         jScrollPane2.setViewportView(tblTratamientos);
 
         btnModificar.setText("Modificar");
+        btnModificar.setBackground(new java.awt.Color(0, 178, 195));
+        btnModificar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
@@ -120,6 +137,9 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(0, 178, 195));
+        btnEliminar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -127,6 +147,9 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         });
 
         btnSalir.setText("Salir");
+        btnSalir.setBackground(new java.awt.Color(0, 178, 195));
+        btnSalir.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -214,7 +237,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                     .addComponent(btnModificar)
                     .addComponent(btnEliminar)
                     .addComponent(btnSalir))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,6 +308,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                     rs.getDouble("costo")
                 });
             }
+            tblTratamientos.getTableHeader().setReorderingAllowed(false);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar tratamientos por nombre: " + e.getMessage());
         }

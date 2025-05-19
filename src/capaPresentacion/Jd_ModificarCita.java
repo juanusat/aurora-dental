@@ -97,15 +97,19 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reagendar Cita");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
         jLabel2.setText("Cliente:");
-        jLabel2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 75, 97));
 
         txtnombre.setEditable(false);
-        txtnombre.setMinimumSize(new java.awt.Dimension(64, 24));
+        txtnombre.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
+        btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarActionPerformed(evt);
@@ -113,21 +117,29 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         });
 
         jLabel4.setText("Doctor :");
-        jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 75, 97));
 
         cbxDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxDoctor.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         cbxDoctor.setPreferredSize(new java.awt.Dimension(72, 24));
 
         jLabel3.setText("Tratamiento :");
-        jLabel3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 75, 97));
 
         cbxTratamiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxTratamiento.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         cbxTratamiento.setPreferredSize(new java.awt.Dimension(72, 24));
 
         jLabel8.setText("Fecha y hora :");
-        jLabel8.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 75, 97));
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.setBackground(new java.awt.Color(0, 178, 195));
+        btnActualizar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -135,13 +147,19 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         });
 
         btnAnular.setText("Anular");
+        btnAnular.setBackground(new java.awt.Color(0, 178, 195));
+        btnAnular.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnAnular.setForeground(new java.awt.Color(255, 255, 255));
         btnAnular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnularActionPerformed(evt);
             }
         });
 
+        DTPFechaHora.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+
         chkReprogramar.setText("Reprogramar");
+        chkReprogramar.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
         chkReprogramar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chkReprogramarActionPerformed(evt);
@@ -150,15 +168,13 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
 
         tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
+        tbl.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         tbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblMouseClicked(evt);
@@ -190,12 +206,13 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
                                         .addComponent(btnActualizar)
-                                        .addGap(86, 86, 86)
-                                        .addComponent(btnAnular))
+                                        .addGap(36, 36, 36)
+                                        .addComponent(btnAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(chkReprogramar))
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +238,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(cbxTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +292,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -465,6 +482,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             if (tbl.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay citas para este paciente");
             }
+            tbl.getTableHeader().setReorderingAllowed(false);
             tbl.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());

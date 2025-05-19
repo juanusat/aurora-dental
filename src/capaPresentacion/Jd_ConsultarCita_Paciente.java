@@ -56,14 +56,19 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Citas por Paciente");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 75, 97));
         jLabel1.setText("Cliente:");
 
         txtnombre.setEditable(false);
+        txtnombre.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
         txtnombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
+        btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
+        btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,15 +76,13 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
             }
         });
 
+        Lista.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
         Lista.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Tratamiento", "Doctor", "Fecha_hora", "Costo", "Reagendado", "Estado"
+
             }
         ));
         jScrollPane1.setViewportView(Lista);
@@ -91,15 +94,15 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(26, 26, 26)
-                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(60, 60, 60)
                         .addComponent(btnSeleccionar))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jSeparator1))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,7 +123,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +175,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
             if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "El paciente no tiene ninguna cita ");
             }
+            Lista.getTableHeader().setReorderingAllowed(false);
             rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
