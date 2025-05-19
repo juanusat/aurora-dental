@@ -72,6 +72,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
         btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/right-long-solid.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,7 +80,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
             }
         });
 
-        tbl.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
+        tbl.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         tbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

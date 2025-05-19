@@ -29,13 +29,11 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -61,8 +59,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="txtDni" min="-2" pref="254" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnSeleccionar" min="-2" pref="105" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="btnSeleccionar" min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -87,24 +85,27 @@
                                       <Component id="jLabel2" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtApellido" alignment="0" max="32767" attributes="0"/>
                                       <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jButton3" min="-2" pref="91" max="-2" attributes="0"/>
+                                              <Component id="btnCambiar" min="-2" pref="91" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="101" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="jLabel4" min="-2" pref="102" max="-2" attributes="0"/>
-                                              <Component id="jLabel3" min="-2" pref="102" max="-2" attributes="0"/>
-                                              <Component id="jLabel10" min="-2" pref="102" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="1" attributes="0">
-                                                      <Component id="jButton3" min="-2" pref="91" max="-2" attributes="0"/>
-                                                      <Component id="btnCambiar" min="-2" pref="91" max="-2" attributes="0"/>
-                                                  </Group>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="dateFechaNac" alignment="1" min="-2" pref="237" max="-2" attributes="0"/>
+                                                  <Component id="txtCorreo" alignment="1" min="-2" pref="238" max="-2" attributes="0"/>
+                                                  <Component id="txtApellido" alignment="1" min="-2" pref="238" max="-2" attributes="0"/>
                                               </Group>
+                                              <Component id="jLabel3" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="0" pref="70" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtCorreo" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="dateFechaNac" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jSeparator1" alignment="1" min="-2" pref="468" max="-2" attributes="0"/>
@@ -137,9 +138,9 @@
                       <Component id="txtNombre" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -150,9 +151,9 @@
                       <Component id="txtCorreo" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -205,6 +206,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSeleccionar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/color2/right-long-solid.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Seleccionar"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="c3" green="b2" red="0" type="rgb"/>
@@ -425,47 +429,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DatePickerSettings settings = dateFechaNac.getSettings();&#xa;&#xa;int anioActual = LocalDate.now().getYear();&#xa;int mesActual = LocalDate.now().getMonthValue();&#xa;int diaActual = LocalDate.now().getDayOfMonth();&#xa;int anioLimite = anioActual - 1;&#xa;&#xa;// Fecha m&#xe1;xima permitida: 31 de diciembre del a&#xf1;o anterior&#xa;LocalDate fechaMaxima = LocalDate.of(anioLimite, mesActual, diaActual);&#xa;&#xa;// Usar una clase an&#xf3;nima que implementa DateVetoPolicy correctamente&#xa;settings.setVetoPolicy(new DateVetoPolicy() {&#xa;    @Override&#xa;    public boolean isDateAllowed(LocalDate date) {&#xa;        boolean permitido = date.isBefore(fechaMaxima) || date.isEqual(fechaMaxima);&#xa;        return permitido;&#xa;    }&#xa;});"/>
           </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="jPanel2">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="c3" green="b2" red="0" type="rgb"/>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="167" max="-2" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Actualizar Paciente"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Cambria" size="18" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

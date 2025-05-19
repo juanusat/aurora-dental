@@ -1,10 +1,13 @@
 package capaPresentacion;
 
 import capaNegocio.*;
+import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.*;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
@@ -69,56 +72,55 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
-        jLabel2.setText("Nombre:");
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel2.setText("Nombre:");
 
         txtNombre.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtNombre.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel4.setText("Duración:");
         jLabel4.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel4.setText("Duración:");
 
         txtDuracion.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtDuracion.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel5.setText("Costo:");
         jLabel5.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel5.setText("Costo:");
 
         txtCosto.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        txtCosto.setMinimumSize(new java.awt.Dimension(64, 24));
 
-        jLabel6.setText("Duración:");
         jLabel6.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel6.setText("Duración:");
 
         txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
         txtDescripcion.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        txtDescripcion.setRows(5);
         jScrollPane1.setViewportView(txtDescripcion);
 
-        btnNuevo.setText("Nuevo");
         btnNuevo.setBackground(new java.awt.Color(0, 178, 195));
         btnNuevo.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnNuevo.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/plus-solid.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
 
-        btnLimpiar.setText("Limpiar");
         btnLimpiar.setBackground(new java.awt.Color(0, 178, 195));
         btnLimpiar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
             }
         });
 
+        tblTratamientos.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         tblTratamientos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTratamientosMouseClicked(evt);
@@ -126,30 +128,30 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblTratamientos);
 
-        btnModificar.setText("Modificar");
         btnModificar.setBackground(new java.awt.Color(0, 178, 195));
         btnModificar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
 
-        btnEliminar.setText("Eliminar");
         btnEliminar.setBackground(new java.awt.Color(0, 178, 195));
         btnEliminar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
 
-        btnSalir.setText("Salir");
         btnSalir.setBackground(new java.awt.Color(0, 178, 195));
         btnSalir.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -180,14 +182,6 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,7 +197,15 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jScrollPane1)
                             .addComponent(jSeparator1)
-                            .addComponent(jScrollPane2))))
+                            .addComponent(jScrollPane2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
@@ -219,7 +221,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                     .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNuevo1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -267,6 +269,7 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
 
     private void cargarTablaTratamientos() {
         try {
+            Font fuenteEnca = new Font("Cambria", Font.PLAIN, 14);
             ResultSet rs = objTrat.listarTratamientos();
             DefaultTableModel modelo = new DefaultTableModel();
             modelo.addColumn("id");
@@ -284,6 +287,14 @@ public class Jd_Gestion_Tratamiento extends javax.swing.JDialog {
                     rs.getDouble("costo")
                 });
             }
+            /*Visualización de tabla: fuente, renderizaciones */
+            tblTratamientos.getTableHeader().setFont(fuenteEnca); //Fuente encabezado
+            // Renderizador alineado a la derecha
+            DefaultTableCellRenderer right = new DefaultTableCellRenderer();
+            right.setHorizontalAlignment(SwingConstants.RIGHT);
+            
+            tblTratamientos.getColumnModel().getColumn(4).setCellRenderer(right); //"Costo"
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar tratamientos: " + e.getMessage());
         }

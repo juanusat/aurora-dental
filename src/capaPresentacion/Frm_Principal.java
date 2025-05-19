@@ -118,6 +118,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(138, 241, 248));
 
         lblnombreCargo.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
+        lblnombreCargo.setForeground(new java.awt.Color(51, 51, 51));
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(1, 124, 155));

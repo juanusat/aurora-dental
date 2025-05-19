@@ -443,6 +443,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnNuevo">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons/color2/plus-solid.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Nuevo"/>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="c3" green="b2" red="0" type="rgb"/>

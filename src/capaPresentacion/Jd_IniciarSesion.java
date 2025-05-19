@@ -57,6 +57,8 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
         jLabel2.setForeground(new java.awt.Color(0, 75, 97));
         jLabel2.setText("Contraseña:");
 
+        txtusuario.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+
         btniniciar.setBackground(new java.awt.Color(0, 178, 195));
         btniniciar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btniniciar.setForeground(new java.awt.Color(255, 255, 255));
@@ -76,6 +78,8 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
                 btncancelarActionPerformed(evt);
             }
         });
+
+        txtcontraseña.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,7 +105,7 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(34, Short.MAX_VALUE)
+                .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

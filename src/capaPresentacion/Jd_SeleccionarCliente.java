@@ -97,13 +97,13 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
-        jLabel1.setText("DNI:");
         jLabel1.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel1.setText("DNI:");
 
-        jLabel2.setText("Nombre:");
         jLabel2.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 75, 97));
+        jLabel2.setText("Nombre:");
 
         txtDni.setMinimumSize(new java.awt.Dimension(64, 24));
         txtDni.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +126,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
             }
         });
 
+        list1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         list1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 list1MouseClicked(evt);
@@ -133,10 +134,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(list1);
 
-        btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
-        btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 13)); // NOI18N
+        btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/right-long-solid.png"))); // NOI18N
+        btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSeleccionarActionPerformed(evt);
@@ -148,9 +150,11 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
@@ -161,13 +165,8 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSeleccionar)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(btnSeleccionar))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +186,7 @@ public class Jd_SeleccionarCliente extends javax.swing.JDialog {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

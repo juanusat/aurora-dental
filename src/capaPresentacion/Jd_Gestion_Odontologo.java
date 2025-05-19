@@ -197,6 +197,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(tblOdontologos);
 
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/plus-solid.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.setBackground(new java.awt.Color(0, 178, 195));
         btnNuevo.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N

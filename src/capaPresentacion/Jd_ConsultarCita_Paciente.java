@@ -8,12 +8,15 @@ import capaNegocio.cls_Cita;
 import capaNegocio.cls_Cliente;
 import capaNegocio.cls_Persona;
 import capaPresentacion.Jd_SeleccionarCliente;
+import java.awt.Font;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
 
 public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
@@ -69,6 +72,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         btnSeleccionar.setBackground(new java.awt.Color(0, 178, 195));
         btnSeleccionar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
+        btnSeleccionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/right-long-solid.png"))); // NOI18N
         btnSeleccionar.setText("Seleccionar");
         btnSeleccionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +151,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
+        Font fuenteEnca = new Font("Cambria", Font.PLAIN, 14);
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Tratamiento");
         modelo.addColumn("Doctor");
@@ -172,10 +177,25 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
 
             }
             Lista.setModel(modelo);
+            /*Visualización de tabla: fuente, renderizaciones */
+            Lista.getTableHeader().setFont(fuenteEnca); //Fuente encabezado
+            // Renderizador alineado al centro
+            DefaultTableCellRenderer center= new DefaultTableCellRenderer();
+            center.setHorizontalAlignment(SwingConstants.CENTER);
+            // Renderizador alineado a la derecha
+            DefaultTableCellRenderer right = new DefaultTableCellRenderer();
+            right.setHorizontalAlignment(SwingConstants.RIGHT);
+
+            Lista.getColumnModel().getColumn(1).setCellRenderer(center);
+            Lista.getColumnModel().getColumn(2).setCellRenderer(center);
+            Lista.getColumnModel().getColumn(3).setCellRenderer(right); //"Costo"
+            Lista.getColumnModel().getColumn(4).setCellRenderer(center); 
+            Lista.getColumnModel().getColumn(5).setCellRenderer(center);
+
             if (modelo.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(this, "El paciente no tiene ninguna cita ");
             }
-            Lista.getTableHeader().setReorderingAllowed(false);
+            Lista.getTableHeader().setReorderingAllowed(false); //No permite mover las columnas
             rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar citas de cliente " + e.getMessage());
