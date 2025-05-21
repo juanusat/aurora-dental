@@ -147,7 +147,7 @@ public class Jd_ConsultarCita_Paciente extends javax.swing.JDialog {
             setClienteSeleccionado(jdSeleccionar.getCliente_id());
             System.out.println("Cliente seleccionado es : " + jdSeleccionar.getCliente_id());
         } catch (Exception ex) {
-            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex.getMessage());
+            Logger.getLogger(Jd_ReagendarCita.class.getName()).log(Level.SEVERE, null, ex.getMessage());
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {

@@ -83,6 +83,7 @@ public class Jd_RegistrarPa_Doctor extends javax.swing.JDialog {
         btnCancelar.setBackground(new java.awt.Color(0, 178, 195));
         btnCancelar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/xmark-solid.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -147,7 +147,7 @@ public class Jd_Consultar_Pagos_Paciente extends javax.swing.JDialog {
         try {
             setClienteSeleccionado(jdSeleccionar.getCliente_id());
         } catch (Exception ex) {
-            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Jd_ReagendarCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
     private void listarCitas() {
