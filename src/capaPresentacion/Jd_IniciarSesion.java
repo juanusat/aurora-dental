@@ -62,6 +62,7 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
         btniniciar.setBackground(new java.awt.Color(0, 178, 195));
         btniniciar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btniniciar.setForeground(new java.awt.Color(255, 255, 255));
+        btniniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/user-tie-solid.png"))); // NOI18N
         btniniciar.setText("Iniciar");
         btniniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +73,7 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
         btncancelar.setBackground(new java.awt.Color(0, 178, 195));
         btncancelar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         btncancelar.setForeground(new java.awt.Color(255, 255, 255));
+        btncancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/xmark-solid.png"))); // NOI18N
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,10 +99,10 @@ public class Jd_IniciarSesion extends javax.swing.JDialog {
                 .addContainerGap(70, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btniniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(btncancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99))
+                .addComponent(btniniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btncancelar)
+                .addGap(103, 103, 103))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

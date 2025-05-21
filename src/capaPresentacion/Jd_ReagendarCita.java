@@ -31,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Antonio
  */
-public class Jd_ModificarCita extends javax.swing.JDialog {
+public class Jd_ReagendarCita extends javax.swing.JDialog {
 
     cls_Trabajador objT = new cls_Trabajador();
     cls_Tratamiento objTR = new cls_Tratamiento();
@@ -42,7 +42,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     private ArrayList<String> cita_id_array = new ArrayList<>();
 
     DefaultListModel<String> modelo = new DefaultListModel<>();
-    private Jd_ModificarCita formularioModificarCita;
+    private Jd_ReagendarCita formularioModificarCita;
     private String cliente_id = "";
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -50,7 +50,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
 
     private boolean seleccion = false;
 
-    public Jd_ModificarCita(java.awt.Frame parent, boolean modal) {
+    public Jd_ReagendarCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         listarDoctores();
@@ -140,6 +140,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
         jLabel8.setFont(new java.awt.Font("Cambria", 1, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 75, 97));
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/arrows-rotate-solid.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setBackground(new java.awt.Color(0, 178, 195));
         btnActualizar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -150,6 +151,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
             }
         });
 
+        btnAnular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/ban-solid.png"))); // NOI18N
         btnAnular.setText("Anular");
         btnAnular.setBackground(new java.awt.Color(0, 178, 195));
         btnAnular.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -198,40 +200,42 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(62, 62, 62)
+                        .addComponent(btnSeleccionar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(btnSeleccionar))
+                                .addGap(32, 32, 32)
+                                .addComponent(DTPFechaHora, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(cbxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(cbxTratamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(btnActualizar)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(btnAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(30, 30, 30)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(31, 31, 31)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cbxTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(32, 32, 32)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(DTPFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(chkReprogramar)))))))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(chkReprogramar))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(51, 51, 51)
+                                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnAnular, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -250,7 +254,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(cbxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(cbxTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +262,7 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(chkReprogramar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(DTPFechaHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -316,13 +320,13 @@ public class Jd_ModificarCita extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarActionPerformed
-        Jd_ModificarCita jdModificarCita = this;
+        Jd_ReagendarCita jdModificarCita = this;
         Jd_SeleccionarCliente jdSeleccionar = new Jd_SeleccionarCliente(null, true);
         jdSeleccionar.setVisible(true);
         try {
             setClienteSeleccionado(jdSeleccionar.getCliente_id());
         } catch (Exception ex) {
-            Logger.getLogger(Jd_ModificarCita.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Jd_ReagendarCita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSeleccionarActionPerformed
 

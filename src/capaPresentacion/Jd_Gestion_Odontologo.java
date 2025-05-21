@@ -109,6 +109,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
         dateN = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestionar Odontólogo");
 
         jPanel1.setBackground(new java.awt.Color(225, 255, 255));
 
@@ -208,6 +209,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             }
         });
 
+        btnDarBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/delete-right.png"))); // NOI18N
         btnDarBaja.setText("Dar Baja");
         btnDarBaja.setBackground(new java.awt.Color(0, 178, 195));
         btnDarBaja.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -218,6 +220,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             }
         });
 
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/pencil-solid.png"))); // NOI18N
         btnModificar.setText("Modificar");
         btnModificar.setBackground(new java.awt.Color(0, 178, 195));
         btnModificar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -228,6 +231,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             }
         });
 
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/broom-wide.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.setBackground(new java.awt.Color(0, 178, 195));
         btnLimpiar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -248,6 +252,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             }
         });
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/trash-solid.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setBackground(new java.awt.Color(0, 178, 195));
         btnEliminar.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -258,6 +263,7 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
             }
         });
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/color2/right-from-bracket-solid.png"))); // NOI18N
         btnSalir.setText("Salir");
         btnSalir.setBackground(new java.awt.Color(0, 178, 195));
         btnSalir.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
@@ -277,15 +283,15 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(btnDarBaja)
                             .addGap(18, 18, 18)
-                            .addComponent(btnEliminar)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addComponent(btnModificar)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnSalir))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnLimpiar))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)

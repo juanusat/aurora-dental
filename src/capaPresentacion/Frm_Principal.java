@@ -361,7 +361,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         if (validarAcceso("r")) {
-            Jd_ModificarCita objdMC = new Jd_ModificarCita(this, true);
+            Jd_ReagendarCita objdMC = new Jd_ReagendarCita(this, true);
             objdMC.setLocationRelativeTo(this);
             objdMC.setVisible(true);
         }
