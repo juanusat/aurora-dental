@@ -298,6 +298,16 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         }
     }
 
+    private void limpiar() {
+        txtCliente.setText("");
+        txtPrecio.setText("");
+        cbxTratamiento.removeActionListener(this::cbxTratamientoActionPerformed);
+        cbxTratamiento.setSelectedIndex(-1);
+        cbxTratamiento.addActionListener(this::cbxTratamientoActionPerformed);
+        cbxDoctor.setSelectedIndex(-1);
+        DTPfechahora.clear();
+    }
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -322,32 +332,65 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         if (txtCliente.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Seleccione un cliente");
-        } else {
-            if (DTPfechahora.getDatePicker().getDate() != null) {
-                try {
-                    int posDoc = cbxDoctor.getSelectedIndex();
-                    String id_Doc = doctor_id_array.get(posDoc);
+            return;
+        }
+        if (DTPfechahora.getDatePicker().getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha - hora");
+            return;
+        }
+        if (cbxTratamiento.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un tratamiento");
+            return;
+        }
+        if (cbxDoctor.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this, "Seleccione un doctor");
+            return;
+        }
 
-                    objC.insertCita(Integer.parseInt(cliente_id), objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString()), Integer.parseInt(id_Doc), Jd_IniciarSesion.id_usuario, DTPfechahora.getDateTimeStrict(), Float.parseFloat(txtPrecio.getText()));
-                    System.out.println(Jd_SeleccionarCliente.getNombre());
-                    JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
-                    limpiar();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error al insertar cita " + e.getMessage());
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha - hora");
+        try {    
+            int posDoc = cbxDoctor.getSelectedIndex();
+            int doctor_id = Integer.parseInt(doctor_id_array.get(posDoc));
+            int tratamiento_id = objTR.buscarTratamiento_id(cbxTratamiento.getSelectedItem().toString());
+            LocalDateTime fecha = DTPfechahora.getDateTimeStrict();
+            int duracionMin = objTR.duracionTratamiento(tratamiento_id);
+            boolean disponible = objC.verificarDisponibilidadDoctor(doctor_id, fecha, duracionMin);
+            if (!disponible) {
+                JOptionPane.showMessageDialog(this,
+                        "El doctor ya tiene una cita que se superpone con ese horario.\nElija otro horario.");
+                return;
             }
+            objC.insertCita(
+                    Integer.parseInt(cliente_id),
+                    tratamiento_id,
+                    doctor_id,
+                    Jd_IniciarSesion.id_usuario,
+                    fecha,
+                    Float.parseFloat(txtPrecio.getText())
+            );
 
+            JOptionPane.showMessageDialog(this, "Cita registrada correctamente");
+            limpiar();
+
+        } catch (Exception ex) {
+            Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al insertar cita: " + ex.getMessage());
         }
 
     }//GEN-LAST:event_btnProgramarActionPerformed
 
     private void cbxTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTratamientoActionPerformed
         try {
-            txtPrecio.setText(String.valueOf(objTR.precioTratamiento(cbxTratamiento.getSelectedItem().toString())));
+            Object selected = cbxTratamiento.getSelectedItem();
+            if (selected == null || selected.toString().trim().equalsIgnoreCase("Seleccione")) {
+                txtPrecio.setText("");
+                return;
+            }
+            String nombreTratamiento = selected.toString();
+            int precio = objTR.precioTratamiento(nombreTratamiento);
+            txtPrecio.setText(String.valueOf(precio));
         } catch (Exception ex) {
             Logger.getLogger(Jd_ProgramarCita.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error al obtener precio: " + ex.getMessage());
         }
     }//GEN-LAST:event_cbxTratamientoActionPerformed
     private void listarDoctores() {
@@ -381,13 +424,6 @@ public class Jd_ProgramarCita extends javax.swing.JDialog {
         }
     }
 
-    private void limpiar() {
-        txtCliente.setText("");
-        cbxDoctor.setSelectedIndex(-1);
-        cbxTratamiento.setSelectedIndex(-1);
-        txtPrecio.setText("");
-        DTPfechahora.setDateTimePermissive(LocalDateTime.now());
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.github.lgooddatepicker.components.DateTimePicker DTPfechahora;
