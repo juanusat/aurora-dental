@@ -216,5 +216,58 @@ public class cls_Cita {
         return (int) duracion.toMinutes();
     }
 
+    public boolean verificarDisponibilidadDoctor(int doctor_id,
+            LocalDateTime fechaHoraNueva,
+            int duracionNuevaMin) throws Exception {
+        String inicioNueva = fechaHoraNueva.format(formatter);
+        String finNueva = fechaHoraNueva.plusMinutes(duracionNuevaMin).format(formatter);
+        strSQL
+                = "select 1 "
+                + "  from cita c                                      \n"
+                + "  JOIN tratamiento t ON c.tratamiento_id = t.tratamiento_id \n"
+                + " WHERE c.medico_id = " + doctor_id + "             \n"
+                + "   AND c.estado IN ('agendada','reagendada')       \n"
+                + "   AND (                                           \n"
+                + "          '" + inicioNueva + "' < (COALESCE(c.reagendada, c.fecha_hora) + (t.duracion_estimada || ' minutes')::interval) \n"
+                + "       AND COALESCE(c.reagendada, c.fecha_hora) < '" + finNueva + "' \n"
+                + "       )";
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return !rs.next();          // true  →   libre
+        } catch (Exception e) {
+            throw new Exception("Error al verificar disponibilidad del doctor: " + e.getMessage());
+        }
+    }
+
+    public boolean verificarDisponibilidadDoctor(int doctor_id,
+            LocalDateTime fechaHoraNueva,
+            int duracionNuevaMin,
+            int citaIdExcluir) throws Exception {
+
+        String inicioNueva = fechaHoraNueva.format(formatter);
+        String finNueva = fechaHoraNueva.plusMinutes(duracionNuevaMin).format(formatter);
+
+        strSQL
+                = "SELECT 1 \n"
+                + "  FROM cita c                                         \n"
+                + "  JOIN tratamiento t ON c.tratamiento_id = t.tratamiento_id \n"
+                + " WHERE c.medico_id = " + doctor_id + "                \n"
+                + "   AND c.estado IN ('agendada','reagendada')          \n"
+                + "   AND c.cita_id <> " + citaIdExcluir + "             \n"
+                + // ← excluye la propia cita
+                "   AND (                                             \n"
+                + "        '" + inicioNueva + "' < (COALESCE(c.reagendada, c.fecha_hora) + \n"
+                + "                               (t.duracion_estimada || ' minutes')::interval) \n"
+                + "    AND COALESCE(c.reagendada, c.fecha_hora) < '" + finNueva + "' \n"
+                + "       )";
+
+        try {
+            rs = objBD.ConsultarBD(strSQL);
+            return !rs.next();   // true → el horario está libre
+        } catch (Exception e) {
+            throw new Exception("Error al verificar disponibilidad del doctor: " + e.getMessage());
+        }
+    }
+
 ;
 }
