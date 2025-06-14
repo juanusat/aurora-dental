@@ -277,7 +277,7 @@ public class Jd_ReagendarCita extends javax.swing.JDialog {
         DatePickerSettings dateSettings = DTPFechaHora.getDatePicker().getSettings();
 
         // --- Configuración de FECHA ---
-        LocalDate hoy = LocalDate.now();
+        LocalDate hoy = LocalDate.now(); // Current date: 2025-06-14
 
         // 1. Veto para fechas pasadas (excluyendo hoy)
         dateSettings.setVetoPolicy(date -> date.isBefore(hoy));
@@ -285,20 +285,36 @@ public class Jd_ReagendarCita extends javax.swing.JDialog {
         // 2. Rango visual en el calendario (opcional)
         dateSettings.setDateRangeLimits(hoy, null);
 
-        // --- Configuración de HORA (solo si la fecha es hoy) ---
+        // --- Configuración de HORA (para cualquier fecha) ---
         DTPFechaHora.getTimePicker().addTimeChangeListener(e -> {
             LocalDate fechaSeleccionada = DTPFechaHora.getDatePicker().getDate();
             LocalTime horaSeleccionada = DTPFechaHora.getTimePicker().getTime();
 
-            if (fechaSeleccionada != null && horaSeleccionada != null && fechaSeleccionada.isEqual(LocalDate.now())) {
-                // Hora actual redondeada a minutos
-                LocalTime ahora = LocalTime.now().withSecond(0).withNano(0);
-                if (horaSeleccionada.isBefore(ahora)) {
+            // Definir los límites de horario permitidos
+            LocalTime horaInicioValida = LocalTime.of(8, 0);  // 8:00 AM
+            LocalTime horaFinValida = LocalTime.of(22, 0);   // 10:00 PM (22:00)
+
+            if (fechaSeleccionada != null && horaSeleccionada != null) {
+                // Validación 1: Verificar si la hora seleccionada está fuera del rango general (8 AM - 10 PM)
+                if (horaSeleccionada.isBefore(horaInicioValida) || horaSeleccionada.isAfter(horaFinValida)) {
                     DTPFechaHora.getTimePicker().setTime(null); // Limpiar selección
                     JOptionPane.showMessageDialog(null,
-                        "¡No puedes seleccionar horas pasadas para hoy!",
-                        "Error",
+                        "¡Solo puedes seleccionar horarios entre las 8:00 AM y las 10:00 PM!",
+                        "Horario no válido",
                         JOptionPane.ERROR_MESSAGE);
+                    return; // Salir del listener si la hora no está en el rango permitido
+                }
+
+                // Validación 2: (Solo si la fecha seleccionada es hoy) No permitir horas pasadas
+                if (fechaSeleccionada.isEqual(LocalDate.now())) { // Current date is 2025-06-14
+                    LocalTime ahora = LocalTime.now().withSecond(0).withNano(0); // Current time: 02:28 PM
+                    if (horaSeleccionada.isBefore(ahora)) {
+                        DTPFechaHora.getTimePicker().setTime(null); // Limpiar selección
+                        JOptionPane.showMessageDialog(null,
+                            "¡No puedes seleccionar horas pasadas para hoy!",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         });
