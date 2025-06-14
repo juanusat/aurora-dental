@@ -198,7 +198,7 @@ INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, 
 VALUES
 (5, 2, 5, 8, 1, '2025-01-04 09:00:00', NULL, 20, 120.00, 'realizada'), -- Ortodoncia mensual (20min, 120.00)
 (6, 2, 6, 9, 2, '2025-01-04 10:30:00', '2025-01-05 10:30:00', 60, 250.00, 'realizada'), -- Blanqueamiento dental (60min, 250.00)
-(7, 2, 1, 10, 1, '2025-01-05 14:00:00', NULL, 45, 80.00, 'cancelada'), -- Limpieza dental (45min, 80.00)
+(7, 2, 1, 10, 1, '2025-01-05 14:00:00', NULL, NULL, 80.00, 'cancelada'), -- Limpieza dental (45min, 80.00)
 (8, 2, 2, 11, 2, '2025-01-06 09:00:00', NULL, 60, 150.00, 'realizada'); -- Extraccion dental (60min, 150.00)
 
 -- Cliente 3 (CLI3003) con 4 citas
@@ -206,7 +206,7 @@ INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, 
 VALUES
 (9, 3, 3, 4, 2, '2025-01-06 10:30:00', '2025-01-07 10:30:00', 90, 350.00, 'realizada'), -- Endodoncia (90min, 350.00)
 (10, 3, 4, 5, 1, '2025-01-07 12:00:00', NULL, 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion) (30min, 100.00)
-(11, 3, 7, 6, 2, '2025-01-08 09:00:00', NULL, 120, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
+(11, 3, 7, 6, 2, '2025-01-08 09:00:00', NULL, NULL, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
 (12, 3, 8, 7, 1, '2025-01-08 14:00:00', NULL, 30, 60.00, 'realizada'); -- Profilaxis en niños (30min, 60.00)
 
 -- Cliente 4 (CLI3004) con 4 citas
@@ -231,14 +231,14 @@ VALUES
 (21, 6, 1, 7, 1, '2025-01-14 09:00:00', NULL, 45, 80.00, 'realizada'), -- Limpieza dental (45min, 80.00)
 (22, 6, 3, 8, 2, '2025-01-14 10:00:00', NULL, 90, 350.00, 'realizada'), -- Endodoncia (90min, 350.00)
 (23, 6, 4, 9, 1, '2025-01-15 11:00:00', NULL, 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion) (30min, 100.00)
-(24, 6, 7, 10, 2, '2025-01-15 14:00:00', NULL, 120, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
+(24, 6, 7, 10, 2, '2025-01-15 14:00:00', NULL, NULL, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
 (25, 6, 9, 11, 1, '2025-01-16 10:00:00', NULL, 30, 70.00, 'realizada'); -- Sellantes dentales (30min, 70.00)
 
 -- Cliente 7 (CLI3007) con 6 citas
 INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, fecha_hora, reagendada, duracion, costo, estado)
 VALUES
 (26, 7, 2, 12, 2, '2025-01-16 11:00:00', NULL, 60, 150.00, 'realizada'), -- Extraccion dental (60min, 150.00)
-(27, 7, 3, 4, 1, '2025-01-17 09:00:00', NULL, 90, 350.00, 'cancelada'), -- Endodoncia (90min, 350.00)
+(27, 7, 3, 4, 1, '2025-01-17 09:00:00', NULL, NULL, 350.00, 'cancelada'), -- Endodoncia (90min, 350.00)
 (28, 7, 5, 5, 2, '2025-01-17 10:30:00', '2025-01-18 10:30:00', 20, 120.00, 'realizada'), -- Ortodoncia mensual (20min, 120.00)
 (29, 7, 8, 6, 1, '2025-01-18 11:00:00', NULL, 30, 60.00, 'realizada'), -- Profilaxis en niños (30min, 60.00)
 (30, 7, 6, 7, 2, '2025-01-19 14:00:00', '2025-01-20 14:00:00', 60, 250.00, 'realizada'), -- Blanqueamiento dental (60min, 250.00)
@@ -248,7 +248,7 @@ VALUES
 INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, fecha_hora, reagendada, duracion, costo, estado)
 VALUES
 (32, 8, 1, 9, 2, '2025-01-21 09:00:00', NULL, 45, 80.00, 'realizada'), -- Limpieza dental (45min, 80.00)
-(33, 8, 2, 10, 1, '2025-01-21 10:30:00', NULL, 60, 150.00, 'cancelada'), -- Extraccion dental (60min, 150.00)
+(33, 8, 2, 10, 1, '2025-01-21 10:30:00', NULL, NULL, 150.00, 'cancelada'), -- Extraccion dental (60min, 150.00)
 (34, 8, 4, 11, 2, '2025-01-22 10:00:00', NULL, 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion) (30min, 100.00)
 (35, 8, 5, 12, 1, '2025-01-22 14:00:00', '2025-01-23 14:00:00', 20, 120.00, 'realizada'), -- Ortodoncia mensual (20min, 120.00)
 (36, 8, 7, 4, 2, '2025-01-23 10:30:00', '2025-01-24 10:30:00', 120, 900.00, 'realizada'), -- Implante dental (120min, 900.00)
@@ -269,7 +269,7 @@ VALUES
 INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, fecha_hora, reagendada, duracion, costo, estado)
 VALUES
 (45, 10, 2, 4, 1, '2025-02-01 09:00:00', NULL, 60, 150.00, 'realizada'), -- Extraccion dental (60min, 150.00)
-(46, 10, 3, 5, 2, '2025-02-01 10:30:00', NULL, 90, 350.00, 'cancelada'), -- Endodoncia (90min, 350.00)
+(46, 10, 3, 5, 2, '2025-02-01 10:30:00', NULL, NULL, 350.00, 'cancelada'), -- Endodoncia (90min, 350.00)
 (47, 10, 4, 6, 1, '2025-02-02 11:00:00', '2025-02-03 11:00:00', 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion) (30min, 100.00)
 (48, 10, 6, 7, 2, '2025-02-03 14:00:00', NULL, 60, 250.00, 'realizada'), -- Blanqueamiento dental (60min, 250.00)
 (49, 10, 7, 8, 1, '2025-02-04 10:00:00', '2025-02-05 10:00:00', 120, 900.00, 'realizada'), -- Implante dental (120min, 900.00)
@@ -282,13 +282,13 @@ INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, 
 VALUES
 (53, 11, 2, 4, 1, '2025-06-01 09:00:00', NULL, 60, 150.00, 'realizada'), -- Extraccion dental (60min, 150.00)
 (54, 12, 4, 5, 2, '2025-06-03 10:00:00', NULL, 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion) (30min, 100.00)
-(55, 13, 7, 6, 1, '2025-06-05 11:30:00', NULL, 120, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
+(55, 13, 7, 6, 1, '2025-06-05 11:30:00', NULL, NULL, 900.00, 'cancelada'), -- Implante dental (120min, 900.00)
 (56, 14, 3, 7, 2, '2025-06-06 09:30:00', NULL, 90, 350.00, 'realizada'), -- Endodoncia (90min, 350.00)
 (57, 15, 1, 8, 1, '2025-06-07 08:00:00', '2025-06-10 08:00:00', 45, 80.00, 'realizada'), -- Limpieza dental (45min, 80.00)
 (58, 16, 5, 9, 2, '2025-06-10 10:00:00', NULL, 20, 120.00, 'realizada'), -- Ortodoncia mensual (20min, 120.00)
 (59, 17, 8, 10, 1, '2025-06-12 11:00:00', NULL, 30, 60.00, 'realizada'), -- Profilaxis en niños (30min, 60.00)
 (60, 18, 6, 11, 2, '2025-06-15 10:30:00', '2025-06-20 10:30:00', 60, 250.00, 'realizada'), -- Blanqueamiento dental (60min, 250.00)
-(61, 19, 10, 12, 1, '2025-06-17 09:00:00', NULL, 120, 750.00, 'cancelada'), -- Rehabilitacion oral (120min, 750.00)
+(61, 19, 10, 12, 1, '2025-06-17 09:00:00', NULL, NULL, 750.00, 'cancelada'), -- Rehabilitacion oral (120min, 750.00)
 (62, 20, 9, 4, 2, '2025-06-18 08:30:00', NULL, 30, 70.00, 'realizada'); -- Sellantes dentales (30min, 70.00)
 
 -- Cliente 21 (CLI3021) con citas (ajustando duracion y costo con valores reales de la tabla tratamiento)
@@ -298,7 +298,7 @@ VALUES
 (64, 21, 4, 6, 1, '2025-02-25 10:00:00', NULL, 30, 100.00, 'realizada'), -- Ortodoncia (evaluacion)
 (65, 21, 2, 7, 2, '2025-03-04 11:00:00', '2025-03-08 11:00:00', 60, 150.00, 'realizada'), -- Extraccion dental
 (66, 21, 1, 8, 1, '2025-01-25 09:00:00', NULL, 45, 80.00, 'realizada'), -- Limpieza dental
-(67, 21, 6, 9, 1, '2024-11-30 10:00:00', NULL, 60, 250.00, 'cancelada'); -- Blanqueamiento dental
+(67, 21, 6, 9, 1, '2024-11-30 10:00:00', NULL, NULL, 250.00, 'cancelada'); -- Blanqueamiento dental
 
 
 --CITAS REALIZADAS PA JUAN patrocinadas por LUXO
@@ -507,15 +507,15 @@ INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, 
 
 -- Primera semana de Julio (9 citas)-------------------
 INSERT INTO cita (cita_id, cliente_id, tratamiento_id, medico_id, agendador_id, fecha_hora, reagendada, duracion, costo, estado) VALUES
-(230, 39, 3, 4, 1, '2025-07-01 08:00:00', NULL, 90, 350.00, 'agendada'),
-(231, 40, 4, 5, 2, '2025-07-01 09:00:00', NULL, 30, 100.00, 'agendada'),
-(232, 41, 5, 6, 1, '2025-07-01 10:00:00', NULL, 20, 120.00, 'agendada'),
-(233, 42, 6, 7, 2, '2025-07-01 11:00:00', NULL, 60, 250.00, 'agendada'),
-(234, 43, 7, 8, 1, '2025-07-01 12:00:00', NULL, 120, 900.00, 'agendada'),
-(235, 44, 8, 9, 2, '2025-07-01 13:00:00', NULL, 30, 60.00, 'agendada'),
-(236, 45, 9, 10, 1, '2025-07-01 14:00:00', NULL, 30, 70.00, 'agendada'),
-(237, 46, 10, 11, 2, '2025-07-01 15:00:00', NULL, 120, 750.00, 'agendada'),
-(238, 47, 1, 12, 1, '2025-07-01 16:00:00', NULL, 45, 80.00, 'agendada');
+(230, 39, 3, 4, 1, '2025-07-01 08:00:00', NULL, NULL, 350.00, 'agendada'),
+(231, 40, 4, 5, 2, '2025-07-01 09:00:00', NULL, NULL, 100.00, 'agendada'),
+(232, 41, 5, 6, 1, '2025-07-01 10:00:00', NULL, NULL, 120.00, 'agendada'),
+(233, 42, 6, 7, 2, '2025-07-01 11:00:00', NULL, NULL, 250.00, 'agendada'),
+(234, 43, 7, 8, 1, '2025-07-01 12:00:00', NULL, NULL, 900.00, 'agendada'),
+(235, 44, 8, 9, 2, '2025-07-01 13:00:00', NULL, NULL, 60.00, 'agendada'),
+(236, 45, 9, 10, 1, '2025-07-01 14:00:00', NULL, NULL, 70.00, 'agendada'),
+(237, 46, 10, 11, 2, '2025-07-01 15:00:00', NULL, NULL, 750.00, 'agendada'),
+(238, 47, 1, 12, 1, '2025-07-01 16:00:00', NULL, NULL, 80.00, 'agendada');
 
 
 
