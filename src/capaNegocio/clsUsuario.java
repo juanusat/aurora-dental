@@ -96,6 +96,7 @@ public class clsUsuario {
         rs = objBD.ConsultarBD(strSQL);
         if (rs.next()) {
             return rs.getInt("usuario_id");
+            
         } else {
             throw new Exception("No se obtuvo usuario_id al insertar usuario.");
         }

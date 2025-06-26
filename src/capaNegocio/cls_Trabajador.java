@@ -161,14 +161,19 @@ public class cls_Trabajador {
             String fechaIngreso) throws Exception {
         try {
             Integer usuarioId = usr.registrarUsuario(username, passwordHash);
-
+            System.out.println("pasó registro de usuario");
+            System.out.println("usuario ID :" + usuarioId);
             Integer personaId = per.registrarPersona2(nombre, apellido, documento,
                     sexo, email, telefono,
                     fechaNacimiento, direccion);
-
+            System.out.println("pasó registro de persona");
+            System.out.println("persona ID :" + personaId);
             String sqlTrab = "insert into trabajador(persona_id, cargo_id, usuario_id, numero_licencia, especialidad, creado_en) "
                     + "values (" + personaId + "," + codCargo + "," + usuarioId + ",'"
                     + numeroLicencia + "','" + especialidad + "','" + fechaIngreso + "') returning trabajador_id";
+
+            System.out.println("pasó registro de trabajador");
+
             rs = objBD.ConsultarBD(sqlTrab);
             if (rs.next()) {
                 return rs.getInt("trabajador_id");
