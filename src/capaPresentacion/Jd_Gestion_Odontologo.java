@@ -12,7 +12,9 @@ import java.awt.event.KeyEvent;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -529,55 +531,66 @@ public class Jd_Gestion_Odontologo extends javax.swing.JDialog {
     }//GEN-LAST:event_tblOdontologosMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        if (!rbF.isSelected() && !rbM.isSelected()) {
-            JOptionPane.showMessageDialog(this, "Seleccione un sexo");
-        } else {
-            if ((txtCorreo.getText().contains("@gmail.com") || txtCorreo.getText().contains("@hotmail.com") || txtCorreo.getText().contains("@outlook.com")) && txtCorreo.getText().endsWith(".com")) {
-
-                try {
-                    if (btnNuevo.getText().equals("Nuevo")) {
-                        btnNuevo.setText("Guardar");
-                        limpiarControles();
-                        txtNombre.requestFocus();
-                    } else {
-
-                        if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
-                                || txtDni.getText().trim().isEmpty()) {
-                            JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
-                            return;
-                        }
-                        String nombre = txtNombre.getText();
-                        String apellido = txtApellido.getText();
-                        String documento = txtDni.getText();
-                        String sexo = rbM.isSelected() ? "m" : "f";
-                        String email = txtCorreo.getText();
-                        String telefono = txtTelefono.getText();
-                        String fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").format(dateN.getDate());
-                        String direccion = txtDireccion.getText();
-                        String especialidad = txtEspecialidad.getText();
-                        String numeroLicencia = txtLicencia.getText();
-                        String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
-
-                        String username = "";
-                        String passwordHash = "";
-
-                        Integer codCargo = 1;
-
-                        Integer trabajadorId = objTra.registrarOdontologoCompleto(
-                                nombre, apellido, documento, sexo, email, telefono,
-                                fechaNacimiento, direccion, username, passwordHash,
-                                codCargo, numeroLicencia, especialidad, fechaIngreso
-                        );
-
-                        limpiarControles();
-                        cargarTablaOdontologos();
-                        btnNuevo.setText("Nuevo");
-                        JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
-                    }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
+        try {
+            if (btnNuevo.getText().equals("Nuevo")) {
+                btnNuevo.setText("Guardar");
+                limpiarControles();
+                txtNombre.requestFocus();
+            } else {
+                if (txtNombre.getText().trim().isEmpty() || txtApellido.getText().trim().isEmpty()
+                        || txtDni.getText().trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Complete todos los campos obligatorios.");
+                    return;
                 }
+                if (!rbF.isSelected() && !rbM.isSelected()) {
+                    JOptionPane.showMessageDialog(this, "Seleccione un sexo");
+                    return;
+                }
+
+                if (!((txtCorreo.getText().contains("@gmail.com") || txtCorreo.getText().contains("@hotmail.com") || txtCorreo.getText().contains("@outlook.com")) && txtCorreo.getText().endsWith(".com"))) {
+                    JOptionPane.showMessageDialog(this, "Formato de correo electrónico no válido. Use @gmail.com, @hotmail.com o @outlook.com y debe terminar en .com.");
+                    return;
+                }
+
+                System.out.println("PASO VALIDACIONES");
+                String nombre = txtNombre.getText();
+                String apellido = txtApellido.getText();
+                String documento = txtDni.getText();
+                String sexo = rbM.isSelected() ? "m" : "f";
+                String email = txtCorreo.getText();
+                String telefono = txtTelefono.getText();
+                String fechaNacimiento;
+                LocalDate selectedDate =dateN.getDate();
+                if (selectedDate != null) {
+                    fechaNacimiento = selectedDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) ;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe seleccionar la fecha de nacimiento.");
+                    return; 
+                }
+                System.out.println("Fecha Nac." + fechaNacimiento);
+                String direccion = txtDireccion.getText();
+                String especialidad = txtEspecialidad.getText();
+                String numeroLicencia = txtLicencia.getText();
+                String fechaIngreso = new SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+
+                String username = "";
+                String passwordHash = "";
+
+                Integer codCargo = 1;
+                System.out.println("Los datos llegaron hasta el registro");
+                Integer trabajadorId = objTra.registrarOdontologoCompleto(
+                        nombre, apellido, documento, sexo, email, telefono,
+                        fechaNacimiento, direccion, username, passwordHash,
+                        codCargo, numeroLicencia, especialidad, fechaIngreso
+                );
+                cargarTablaOdontologos();
+                btnNuevo.setText("Nuevo");
+                JOptionPane.showMessageDialog(this, "Odontólogo registrado correctamente. ID=" + trabajadorId);
+                limpiarControles();
             }
+        } catch (Exception e) {
+            // Captura cualquier excepción que ocurra dentro del bloque try
+            JOptionPane.showMessageDialog(this, "Error al registrar odontólogo: " + e.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
