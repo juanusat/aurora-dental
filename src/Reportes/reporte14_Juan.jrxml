@@ -17,7 +17,7 @@
 			</staticText>
 			<image>
 				<reportElement x="6" y="3" width="107" height="41" uuid="15b4ef11-e3bb-4490-8c9c-9a2f7f7afd15"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
 			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="381" y="64" width="163" height="20" uuid="1a368613-5970-4024-be6a-84dfb4e653e6"/>

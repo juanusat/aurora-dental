@@ -34,7 +34,7 @@ order by t.trabajador_id;]]>
 			</textField>
 			<image>
 				<reportElement x="3" y="4" width="106" height="41" uuid="28cb7a29-a5de-4964-a289-2c752e9a373c"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

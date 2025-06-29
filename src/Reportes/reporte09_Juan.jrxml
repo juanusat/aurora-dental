@@ -34,7 +34,7 @@ order by
 			</staticText>
 			<image>
 				<reportElement x="3" y="3" width="102" height="43" uuid="cdc7bb49-8fc0-43e2-8335-29bdf17e4a72"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
 			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="372" y="75" width="136" height="20" uuid="289922b1-a5b6-4ebd-823a-d2e566cc6c3a"/>
