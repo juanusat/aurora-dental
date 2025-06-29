@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte06_Antonio" language="groovy" pageWidth="500" pageHeight="842" columnWidth="460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62d2fc10-1241-4959-b848-94fcd84d6b5b">
 	<property name="ireport.zoom" value="1.1000000000000003"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="387"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select
     c.medico_id, p.nombre, p.apellido, t.especialidad,
@@ -147,10 +147,6 @@ ORDER BY c.medico_id;]]>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="1" y="2" width="95" height="30" uuid="65be646c-5b25-42a8-b9b9-9dde06c196ee"/>
-				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
