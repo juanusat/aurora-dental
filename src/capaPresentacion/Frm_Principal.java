@@ -81,7 +81,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuItem19 = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem20 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        mnuReportes = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         mnuReporte1 = new javax.swing.JMenuItem();
         mnuReporte2 = new javax.swing.JMenuItem();
@@ -338,8 +338,8 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu6.setText("Reportes");
-        jMenu6.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        mnuReportes.setText("Reportes");
+        mnuReportes.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenu7.setText("Reportes financieros");
 
@@ -359,7 +359,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu7.add(mnuReporte2);
 
-        jMenu6.add(jMenu7);
+        mnuReportes.add(jMenu7);
 
         jMenu9.setText("Reportes sobre recepcionistas");
 
@@ -371,7 +371,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu9.add(mnuReporte3Errea);
 
-        jMenu6.add(jMenu9);
+        mnuReportes.add(jMenu9);
 
         jMenu10.setText("Reportes sobre odontologos");
 
@@ -407,7 +407,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu10.add(mnuReporte8Saavedra);
 
-        jMenu6.add(jMenu10);
+        mnuReportes.add(jMenu10);
 
         jMenu11.setText("Reportes sobre pacientes");
 
@@ -419,7 +419,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu11.add(mnuReporte9Espinoza);
 
-        jMenu6.add(jMenu11);
+        mnuReportes.add(jMenu11);
 
         jMenu12.setText("Reporte sobre tratamientos");
 
@@ -431,9 +431,9 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu12.add(mnuReporte14Juan);
 
-        jMenu6.add(jMenu12);
+        mnuReportes.add(jMenu12);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(mnuReportes);
 
         setJMenuBar(jMenuBar1);
 
@@ -610,63 +610,81 @@ public class Frm_Principal extends javax.swing.JFrame {
 
     private void mnuReporte05SaavedraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte05SaavedraActionPerformed
         // TODO add your handling code here:
-        jdReporte05Saavedra objR5Saavedra = new jdReporte05Saavedra(this, true);
-        objR5Saavedra.setLocationRelativeTo(this);
-        objR5Saavedra.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte05Saavedra objR5Saavedra = new jdReporte05Saavedra(this, true);
+            objR5Saavedra.setLocationRelativeTo(this);
+            objR5Saavedra.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte05SaavedraActionPerformed
 
     private void mnuReporte6ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte6ErreaActionPerformed
         // TODO add your handling code here:
-        jdReporte06Saavedra objR6Saavedra = new jdReporte06Saavedra(this, true);
-        objR6Saavedra.setLocationRelativeTo(this);
-        objR6Saavedra.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte06Saavedra objR6Saavedra = new jdReporte06Saavedra(this, true);
+            objR6Saavedra.setLocationRelativeTo(this);
+            objR6Saavedra.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte6ErreaActionPerformed
 
     private void mnuReporte8SaavedraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte8SaavedraActionPerformed
         // TODO add your handling code here:
-        jdReporte08Saavedra objR8Saavedra = new jdReporte08Saavedra(this, true);
-        objR8Saavedra.setLocationRelativeTo(this);
-        objR8Saavedra.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte08Saavedra objR8Saavedra = new jdReporte08Saavedra(this, true);
+            objR8Saavedra.setLocationRelativeTo(this);
+            objR8Saavedra.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte8SaavedraActionPerformed
 
     private void mnuReporte3ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte3ErreaActionPerformed
         // TODO add your handling code here:
-        jdReporte03Errea objR3Errea = new jdReporte03Errea(this, true);
-        objR3Errea.setLocationRelativeTo(this);
-        objR3Errea.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte03Errea objR3Errea = new jdReporte03Errea(this, true);
+            objR3Errea.setLocationRelativeTo(this);
+            objR3Errea.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte3ErreaActionPerformed
 
     private void mnuReporte7ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte7ErreaActionPerformed
         // TODO add your handling code here:
-        jdReporte07Errea objR7Errea = new jdReporte07Errea(this, true);
-        objR7Errea.setLocationRelativeTo(this);
-        objR7Errea.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte07Errea objR7Errea = new jdReporte07Errea(this, true);
+            objR7Errea.setLocationRelativeTo(this);
+            objR7Errea.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte7ErreaActionPerformed
 
     private void mnuReporte9EspinozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte9EspinozaActionPerformed
         // TODO add your handling code here:
-        jdReporte09Espinoza objR9Juan = new jdReporte09Espinoza(this, true);
-        objR9Juan.setLocationRelativeTo(this);
-        objR9Juan.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte09Espinoza objR9Juan = new jdReporte09Espinoza(this, true);
+            objR9Juan.setLocationRelativeTo(this);
+            objR9Juan.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte9EspinozaActionPerformed
 
     private void mnuReporte14JuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte14JuanActionPerformed
         // TODO add your handling code here:
-        jdReporte14Espinoza objR14Juan = new jdReporte14Espinoza(this, true);
-        objR14Juan.setLocationRelativeTo(this);
-        objR14Juan.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte14Espinoza objR14Juan = new jdReporte14Espinoza(this, true);
+            objR14Juan.setLocationRelativeTo(this);
+            objR14Juan.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte14JuanActionPerformed
 
     private void mnuReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte1ActionPerformed
-        jdReporte01Barboza objR1Luis = new jdReporte01Barboza(this, true);
-        objR1Luis.setLocationRelativeTo(this);
-        objR1Luis.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte01Barboza objR1Luis = new jdReporte01Barboza(this, true);
+            objR1Luis.setLocationRelativeTo(this);
+            objR1Luis.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte1ActionPerformed
 
     private void mnuReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte2ActionPerformed
-        jdReporte02Barboza objR2Luis = new jdReporte02Barboza(this, true);
-        objR2Luis.setLocationRelativeTo(this);
-        objR2Luis.setVisible(true);
+        if (validarAcceso("g")) {
+            jdReporte02Barboza objR2Luis = new jdReporte02Barboza(this, true);
+            objR2Luis.setLocationRelativeTo(this);
+            objR2Luis.setVisible(true);
+        }
     }//GEN-LAST:event_mnuReporte2ActionPerformed
 
 
@@ -683,7 +701,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
@@ -716,5 +733,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuReporte7Errea;
     private javax.swing.JMenuItem mnuReporte8Saavedra;
     private javax.swing.JMenuItem mnuReporte9Espinoza;
+    private javax.swing.JMenu mnuReportes;
     // End of variables declaration//GEN-END:variables
 }

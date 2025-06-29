@@ -4,18 +4,35 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[select t.trabajador_id, p.nombre,p.apellido, count(t.trabajador_id) as cantidad
-from acto_medico am
-join cita c on am.cita_id = c.cita_id
-join trabajador t on c.medico_id = t.trabajador_id
-join persona p on t.persona_id = p.persona_id
-group by t.trabajador_id, p.nombre, p.apellido
-order by t.trabajador_id;]]>
+		<![CDATA[WITH stats AS (
+  SELECT
+    t.trabajador_id   AS medico_id,
+    p.nombre || ' ' || p.apellido AS medico,
+    COUNT(c.cita_id)  AS total_citas,
+    COUNT( CASE
+             WHEN am.modificado_en > am.fecha_realizacion THEN 1
+           END )       AS citas_modificadas
+  FROM cita c
+  JOIN acto_medico am ON c.cita_id = am.cita_id
+  JOIN trabajador  t  ON c.medico_id = t.trabajador_id
+  JOIN persona     p  ON t.persona_id = p.persona_id
+  WHERE c.estado = 'realizada'
+  GROUP BY t.trabajador_id, p.nombre, p.apellido
+)
+SELECT
+  medico_id,
+  medico,
+  total_citas,
+  citas_modificadas,
+  -- Calculamos el % y lo redondeamos a 2 decimales
+  ROUND(citas_modificadas::NUMERIC / NULLIF(total_citas,0) * 100, 2) AS porcentaje_modificacion
+FROM stats;]]>
 	</queryString>
-	<field name="trabajador_id" class="java.lang.Integer"/>
-	<field name="nombre" class="java.lang.String"/>
-	<field name="apellido" class="java.lang.String"/>
-	<field name="cantidad" class="java.lang.Long"/>
+	<field name="medico_id" class="java.lang.Integer"/>
+	<field name="medico" class="java.lang.String"/>
+	<field name="total_citas" class="java.lang.Long"/>
+	<field name="citas_modificadas" class="java.lang.Long"/>
+	<field name="porcentaje_modificacion" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -39,49 +56,60 @@ order by t.trabajador_id;]]>
 	</pageHeader>
 	<columnHeader>
 		<band height="29" splitType="Stretch">
-			<staticText>
-				<reportElement x="39" y="2" width="100" height="20" uuid="ccbc168b-584a-421b-813b-8a7f7b8c9f81"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Nombre]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="207" y="2" width="100" height="20" uuid="555b6c0d-4e81-44b7-895a-279e68460bc9"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Apellidos]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="413" y="2" width="100" height="20" uuid="216d6812-edda-4fb8-a29f-b2c30eb92df8"/>
-				<textElement>
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Cantidad]]></text>
-			</staticText>
 			<line>
 				<reportElement x="38" y="28" width="475" height="1" uuid="4b69d435-2729-4202-a55b-620ab387f34d"/>
 			</line>
+			<staticText>
+				<reportElement x="38" y="3" width="100" height="20" uuid="7a9c996d-a4f3-44bb-a719-c913160dfc35"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Médico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="3" width="73" height="20" uuid="ff456c73-afa7-4a47-b5ac-2235f4497386"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total citas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="3" width="89" height="20" uuid="e2c61ec5-cc0e-4a94-8664-041ebbee85ac"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Citas modificadas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="443" y="3" width="71" height="20" uuid="298c1b5d-1537-483d-a00b-1a65b96893a7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Porcentaje]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="37" splitType="Stretch">
-			<textField>
-				<reportElement x="39" y="10" width="100" height="20" uuid="0119d2ad-34c5-4b3c-8fe8-41ecdcdc5548"/>
-				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="207" y="10" width="100" height="20" uuid="5ff29c31-5641-4882-b0aa-a59edb9e7aa0"/>
-				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="413" y="10" width="100" height="20" uuid="2114e27a-05db-41bc-b021-7c922039bea5"/>
-				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
-			</textField>
+		<band height="38" splitType="Stretch">
 			<line>
-				<reportElement x="39" y="36" width="475" height="1" uuid="74fa83c4-42ee-479c-a0a8-770b6d434fdf"/>
+				<reportElement x="39" y="33" width="475" height="1" uuid="74fa83c4-42ee-479c-a0a8-770b6d434fdf"/>
 			</line>
+			<textField>
+				<reportElement x="38" y="10" width="144" height="20" uuid="1f5bad71-5b94-4c79-ac27-53154c463311"/>
+				<textFieldExpression><![CDATA[$F{medico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="10" width="73" height="20" uuid="42248cb6-934c-4db7-a557-a480e74901d8"/>
+				<textFieldExpression><![CDATA[$F{total_citas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="324" y="10" width="89" height="20" uuid="3e4e82f6-178d-47e6-927c-eaceaa86f588"/>
+				<textFieldExpression><![CDATA[$F{citas_modificadas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="10" width="71" height="20" uuid="0fc97012-4616-45c4-9888-3b142999594d"/>
+				<textFieldExpression><![CDATA[$F{porcentaje_modificacion}+"%"]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -105,23 +133,34 @@ order by t.trabajador_id;]]>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="314" splitType="Stretch">
-			<pieChart>
+		<band height="334" splitType="Stretch">
+			<barChart>
 				<chart>
-					<reportElement x="4" y="10" width="547" height="295" uuid="a28a112b-65bd-44a9-ba27-d67b2ff54e24"/>
+					<reportElement x="6" y="10" width="542" height="314" uuid="0b017c11-18b9-477c-a2cf-f3767ef5d0ba"/>
 					<chartTitle/>
 					<chartSubtitle/>
 					<chartLegend/>
 				</chart>
-				<pieDataset>
-					<keyExpression><![CDATA[$F{nombre}+" "+$F{apellido}]]></keyExpression>
-					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
-				</pieDataset>
-				<piePlot labelFormat="{0} ({1})">
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Actos médicos modificados"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{medico}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{citas_modificadas}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
 					<plot/>
 					<itemLabel/>
-				</piePlot>
-			</pieChart>
+					<categoryAxisLabelExpression><![CDATA["Médicos"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Cantidad citas modificadas"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
 		</band>
 	</summary>
 </jasperReport>
