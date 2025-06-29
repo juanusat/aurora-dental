@@ -69,7 +69,7 @@ BEGIN
     UPDATE cita
       SET duracion = nueva_duracion
       WHERE cita_id = rec.cita_id;
-
+      
     -- 8) Actualizar la fecha_realizacion y modificado_en en acto_medico
     UPDATE acto_medico
       SET

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte07" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ccf9b272-0c34-4b8f-a578-e96511e774c3">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="279"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[select t.trabajador_id, p.nombre,p.apellido, count(t.trabajador_id) as cantidad
 from acto_medico am
@@ -32,10 +32,6 @@ order by t.trabajador_id;]]>
 				<reportElement x="397" y="63" width="156" height="20" uuid="50f0573a-8c91-4c1b-9228-22dfa430eb9a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="3" y="4" width="106" height="41" uuid="28cb7a29-a5de-4964-a289-2c752e9a373c"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

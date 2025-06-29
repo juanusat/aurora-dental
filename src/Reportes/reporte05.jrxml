@@ -79,10 +79,6 @@ ORDER BY
 				<reportElement x="26" y="64" width="548" height="28" uuid="db333c4f-165b-4c7e-aec9-1d2b991d0c79"/>
 				<text><![CDATA["Análisis de la eficiencia de los odontólogos: Valores menores al 100% indican que las citas se completaron en menos tiempo del estimado, mientras que valores superiores indican excedente de tiempo."]]></text>
 			</staticText>
-			<image>
-				<reportElement x="1" y="2" width="89" height="33" uuid="aaabaf67-cc59-4532-a35a-207ab078d465"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

@@ -51,7 +51,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="586" max="32767" attributes="0"/>
+                  <EmptySpace pref="482" max="32767" attributes="0"/>
                   <Component id="btnVerReporte" min="-2" pref="147" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
@@ -90,7 +90,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="12" style="2"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Lorem"/>
+            <Property name="text" type="java.lang.String" value="Ingresos por tratamientos "/>
           </Properties>
         </Component>
       </SubComponents>

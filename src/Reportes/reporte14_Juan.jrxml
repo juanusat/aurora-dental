@@ -2,7 +2,30 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte14_Juan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fbedace8-1458-4413-840f-06d765357561">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="106"/>
+	<property name="ireport.y" value="17"/>
+	<queryString>
+		<![CDATA[SELECT
+    t.tratamiento_id,
+    t.nombre AS tratamiento,
+    COUNT(p.pago_id) AS cantidad_pagos,
+    SUM(p.monto) AS ingresos_totales
+FROM
+    pago p
+INNER JOIN
+    cita c ON p.cita_id = c.cita_id
+INNER JOIN
+    tratamiento t ON c.tratamiento_id = t.tratamiento_id
+WHERE
+    p.estado = 'correcto'
+GROUP BY
+    t.tratamiento_id, t.nombre
+ORDER BY
+    ingresos_totales DESC;]]>
+	</queryString>
+	<field name="tratamiento_id" class="java.lang.Integer"/>
+	<field name="tratamiento" class="java.lang.String"/>
+	<field name="cantidad_pagos" class="java.lang.Long"/>
+	<field name="ingresos_totales" class="java.math.BigDecimal"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -15,10 +38,6 @@
 				</textElement>
 				<text><![CDATA[Ingresos por tratamientos]]></text>
 			</staticText>
-			<image>
-				<reportElement x="6" y="3" width="107" height="41" uuid="15b4ef11-e3bb-4490-8c9c-9a2f7f7afd15"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="381" y="64" width="163" height="20" uuid="1a368613-5970-4024-be6a-84dfb4e653e6"/>
 				<textElement textAlignment="Right"/>
@@ -30,10 +49,49 @@
 		<band height="35" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="2" width="100" height="20" uuid="ce596c71-b9c1-4d0a-962a-c9c835c955c3"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tratamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="2" width="100" height="20" uuid="e69244dc-0f1c-4aa9-bd58-ff7a046abf84"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="2" width="100" height="20" uuid="5153e075-d18f-49e6-b60b-d037ce35de03"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingresos totales]]></text>
+			</staticText>
+			<line>
+				<reportElement x="23" y="26" width="493" height="1" uuid="01b829c7-5ebe-4aba-b3cd-fe5e45b417d3"/>
+			</line>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="6" width="219" height="20" uuid="b660fcbf-e9c6-48bb-95f8-9f72a06a39cf"/>
+				<textFieldExpression><![CDATA[$F{tratamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="264" y="6" width="100" height="20" uuid="f968b8b0-db2d-45b5-9d93-7e6c6eb8644b"/>
+				<textFieldExpression><![CDATA[$F{cantidad_pagos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="415" y="6" width="100" height="20" uuid="356bea10-3b2a-49f9-96e6-e63d304a21cc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{ingresos_totales}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>

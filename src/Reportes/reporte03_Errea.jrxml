@@ -79,10 +79,6 @@ ORDER BY trabajador_id;]]>
 				<reportElement x="382" y="85" width="166" height="20" uuid="36a2ca59-c097-4e30-9613-57b2e8371310"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<image>
-				<reportElement x="3" y="2" width="98" height="35" uuid="2983ecbb-dd28-4092-bb6a-f7b9cbf777e1"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>
