@@ -7,8 +7,6 @@ package capaPresentacion;
 import capaNegocio.clsReporte;
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.swing.JRViewer;
 
@@ -16,12 +14,12 @@ import net.sf.jasperreports.swing.JRViewer;
  *
  * @author RICARDO
  */
-public class jdReporte05Saavedra extends javax.swing.JDialog {
+public class jdReporte09Espinoza extends javax.swing.JDialog {
 
     /**
-     * Creates new form jdReporte05Saavedra
+     * Creates new form jdReporte09Espinoza
      */
-    public jdReporte05Saavedra(java.awt.Frame parent, boolean modal) {
+    public jdReporte09Espinoza(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.vistaReporte.setVisible(false);
@@ -37,27 +35,16 @@ public class jdReporte05Saavedra extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jDFechaInicio = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        jDFechaFin = new com.toedter.calendar.JDateChooser();
         btnVerReporte = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         vistaReporte = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Reporte 05");
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setText("Fecha inicio:");
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Fecha fin:");
-
-        btnVerReporte.setBackground(new java.awt.Color(153, 0, 153));
-        btnVerReporte.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnVerReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerReporte.setBackground(new java.awt.Color(102, 255, 102));
+        btnVerReporte.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVerReporte.setText("Ver reporte");
         btnVerReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,35 +52,28 @@ public class jdReporte05Saavedra extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel1.setText("Frecuencia de citas realizadas por clientes, agrupándolas por la edad de los clientes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                .addComponent(btnVerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                .addComponent(btnVerReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerReporte)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jDFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jDFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout vistaReporteLayout = new javax.swing.GroupLayout(vistaReporte);
@@ -104,7 +84,7 @@ public class jdReporte05Saavedra extends javax.swing.JDialog {
         );
         vistaReporteLayout.setVerticalGroup(
             vistaReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 375, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,32 +108,13 @@ public class jdReporte05Saavedra extends javax.swing.JDialog {
     private void btnVerReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerReporteActionPerformed
         // TODO add your handling code here:
         try {
-            if (jDFechaInicio.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de inicio", "Sistema", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (jDFechaFin.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una fecha de fin", "Sistema", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (jDFechaInicio.getDate().after(jDFechaFin.getDate())) {
-                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin", "Sistema", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             Container contenedor = this.vistaReporte;
             contenedor.removeAll();
             contenedor.revalidate();
             contenedor.repaint();
             contenedor.setLayout(new BorderLayout());
 
-            Map<String, Object> parametros = new HashMap<>();
-           
-            parametros.put("parFechaInicio", jDFechaInicio.getDate());
-            parametros.put("parFechaFin", jDFechaFin.getDate());
-
-            JRViewer objReporte = new clsReporte().reporteInterno("reporte05.jasper", parametros);
+            JRViewer objReporte = new clsReporte().reporteInterno("reporte09_Juan.jasper", null);
 
             contenedor.add(objReporte);
             objReporte.setVisible(true);
@@ -161,17 +122,14 @@ public class jdReporte05Saavedra extends javax.swing.JDialog {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage() + " Error en Reporte", "Error", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace(); 
+            e.printStackTrace();
         }
     }//GEN-LAST:event_btnVerReporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVerReporte;
-    private com.toedter.calendar.JDateChooser jDFechaFin;
-    private com.toedter.calendar.JDateChooser jDFechaInicio;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JDesktopPane vistaReporte;
     // End of variables declaration//GEN-END:variables
