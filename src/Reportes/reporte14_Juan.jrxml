@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte14_Juan" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fbedace8-1458-4413-840f-06d765357561">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="17"/>
+	<property name="ireport.y" value="264"/>
 	<queryString>
 		<![CDATA[SELECT
     t.tratamiento_id,
@@ -122,6 +122,34 @@ ORDER BY
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="289" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="6" y="10" width="538" height="268" uuid="3da1d973-43b0-440c-b561-f2deeb226630"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend textColor="#000000" position="Bottom"/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Ingresos por tratamientos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{tratamiento}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{ingresos_totales}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisLabelExpression><![CDATA["Tratamientos"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Ingresos"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
 	</summary>
 </jasperReport>
