@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte05" language="groovy" pageWidth="680" pageHeight="842" columnWidth="640" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a64b8087-e3e4-4b1f-a3e0-3a1da021fdad">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="49"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{pct_rendimiento} >= 100]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{pct_rendimiento} < 100]]></conditionExpression>
+			<style forecolor="#00CC00"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="parFechaInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="parFechaFin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+    tr.trabajador_id AS medico_id,
+    p.nombre || ' ' || p.apellido AS medico,
+    COUNT(*) AS total_citas,
+    ROUND(AVG((c.duracion::numeric / t.duracion_estimada) * 100), 2) AS pct_rendimiento,
+    ROUND(AVG(c.duracion - t.duracion_estimada), 2) AS diff_minutos_promedio,
+    ROUND(AVG(((c.duracion::numeric - t.duracion_estimada) / t.duracion_estimada) * 100), 2) AS diff_pct_promedio
+FROM
+    cita c
+JOIN tratamiento t ON c.tratamiento_id = t.tratamiento_id
+JOIN trabajador tr ON c.medico_id = tr.trabajador_id
+JOIN persona p ON tr.persona_id = p.persona_id
+WHERE
+    c.estado = 'realizada'
+    AND t.duracion_estimada > 0
+    AND c.duracion IS NOT NULL
+    AND c.fecha_hora::date BETWEEN $P{parFechaInicio}::date AND $P{parFechaFin}::date
+GROUP BY
+    tr.trabajador_id,
+    p.nombre,
+    p.apellido
+ORDER BY
+    pct_rendimiento DESC;]]>
+	</queryString>
+	<field name="medico_id" class="java.lang.Integer"/>
+	<field name="medico" class="java.lang.String"/>
+	<field name="total_citas" class="java.lang.Long"/>
+	<field name="pct_rendimiento" class="java.math.BigDecimal">
+		<property name="estiloRendimiento" value=""/>
+	</field>
+	<field name="diff_minutos_promedio" class="java.math.BigDecimal"/>
+	<field name="diff_pct_promedio" class="java.math.BigDecimal"/>
+	<variable name="total_citas_1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{total_citas}]]></variableExpression>
+	</variable>
+	<variable name="total_citas_2" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_citas}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="142" splitType="Stretch">
+			<staticText>
+				<reportElement x="106" y="19" width="456" height="33" uuid="962def63-caf6-4409-8d5c-defd8f8c3e07"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rendimiento por tiempo - Odontólogos]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="439" y="112" width="170" height="20" uuid="eb1930e9-59b5-42c2-9515-f5221c3b5861"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="64" width="548" height="28" uuid="db333c4f-165b-4c7e-aec9-1d2b991d0c79"/>
+				<text><![CDATA["Análisis de la eficiencia de los odontólogos: Valores menores al 100% indican que las citas se completaron en menos tiempo del estimado, mientras que valores superiores indican excedente de tiempo."]]></text>
+			</staticText>
+			<image>
+				<reportElement x="1" y="2" width="89" height="33" uuid="aaabaf67-cc59-4532-a35a-207ab078d465"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="4" width="100" height="20" uuid="28940f9b-0ef0-409c-8b99-94b45c6d3dac"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="4" width="76" height="20" uuid="3ce56168-b852-4bc2-8f1f-7b12abb86d81"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de citas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="4" width="128" height="20" uuid="2e0a4fa4-0301-4323-ad51-1e77fcadb540"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia_min_promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="4" width="136" height="20" uuid="638e456a-ca82-4d04-bfc8-da3a7e482efc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Diferencia de % promedio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="261" y="4" width="76" height="20" uuid="6474b7db-e525-43c6-bc6a-2df823f7d2fb"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rendimiento %]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="6" width="144" height="20" uuid="ec20ddae-11b8-4cfb-ac94-e23a98dcff79"/>
+				<textFieldExpression><![CDATA[$F{medico}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="6" width="76" height="20" uuid="e21f9645-01f2-4d29-aac5-389d0aacf5f2"/>
+				<textFieldExpression><![CDATA[$F{total_citas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="349" y="6" width="77" height="20" uuid="d5501376-7571-4d87-9084-c77196faf0ae"/>
+				<textFieldExpression><![CDATA[$F{diff_minutos_promedio}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="-4" width="613" height="1" uuid="e35489b9-6571-4d3e-8385-6a2e9eb77adf"/>
+			</line>
+			<textField>
+				<reportElement x="487" y="6" width="136" height="20" uuid="14eff022-af05-4a5d-91a9-c65532b3f4e7"/>
+				<textFieldExpression><![CDATA[$F{diff_pct_promedio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="261" y="6" width="76" height="20" uuid="3500bacc-8972-48a7-a474-396a8c6258b6"/>
+				<textFieldExpression><![CDATA[$F{pct_rendimiento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="18" splitType="Stretch">
+			<line>
+				<reportElement x="10" y="-7" width="613" height="1" uuid="01a06bfa-ca31-4c35-8f2d-438552e15164"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="38" splitType="Stretch">
+			<textField>
+				<reportElement x="470" y="11" width="80" height="20" uuid="164504e4-ef9c-4677-9e75-5ec0fd9c12a4"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="551" y="11" width="40" height="20" uuid="681f77bc-fb33-481a-9ba6-c33eabf1c572"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="7" y="12" width="190" height="20" uuid="df04beaa-015c-45f1-8642-a8e56d493d9d"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Creado por: Pamela Saavedra]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="234" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="10" y="8" width="613" height="217" uuid="56aa4729-a26f-4ac4-8d46-86a5f281caf1"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{medico}]]></keyExpression>
+					<valueExpression><![CDATA[$F{pct_rendimiento}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0}({2})">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
