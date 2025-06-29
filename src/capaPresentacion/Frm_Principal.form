@@ -250,6 +250,24 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Reportes financieros"/>
               </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuReporte1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ganacias por mes y semana"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte1ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuReporte2">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Tratamientos con mas ingresos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte2ActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
             </Menu>
             <Menu class="javax.swing.JMenu" name="jMenu9">
               <Properties>

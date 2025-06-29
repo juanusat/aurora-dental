@@ -13,6 +13,8 @@ DECLARE
   nueva_duracion INTEGER;
   base_ts TIMESTAMP;
   umbral NUMERIC;
+  nueva_fecha_realizacion TIMESTAMP;
+  modificado TIMESTAMP;
 BEGIN
   FOR rec IN
     SELECT
@@ -23,8 +25,8 @@ BEGIN
       p.nombre
     FROM cita c
     JOIN tratamiento tr   ON c.tratamiento_id = tr.tratamiento_id
-    JOIN trabajador t      ON c.medico_id      = t.trabajador_id
-    JOIN persona p         ON t.persona_id     = p.persona_id
+    JOIN trabajador t     ON c.medico_id       = t.trabajador_id
+    JOIN persona p        ON t.persona_id      = p.persona_id
     WHERE c.duracion IS NOT NULL
   LOOP
     -- 1) Determinar umbral de probabilidades según paridad de longitud del nombre
@@ -51,16 +53,28 @@ BEGIN
       base_ts := rec.fecha_hora;
     END IF;
 
-    -- 5) Actualizar la duración en cita
+    -- 5) Calcular la nueva fecha de realizacion
+    nueva_fecha_realizacion := base_ts + (nueva_duracion * INTERVAL '1 minute');
+
+    -- 6) Determinar la fecha de modificacion
+    IF random() < 0.85 THEN
+      -- 85% de las veces la misma fecha y hora
+      modificado := nueva_fecha_realizacion;
+    ELSE
+      -- 15% de las veces entre 2 y 4 horas después
+      modificado := nueva_fecha_realizacion + ( (floor(random() * 3)::INTEGER + 2) * INTERVAL '1 hour' );
+    END IF;
+
+    -- 7) Actualizar la duración en cita
     UPDATE cita
       SET duracion = nueva_duracion
       WHERE cita_id = rec.cita_id;
-
-    -- 6) Actualizar la fecha_realizacion y modificado_en en acto_medico
+      
+    -- 8) Actualizar la fecha_realizacion y modificado_en en acto_medico
     UPDATE acto_medico
       SET
-        fecha_realizacion = base_ts + (nueva_duracion * INTERVAL '1 minute'),
-        modificado_en    = current_timestamp
+        fecha_realizacion = nueva_fecha_realizacion,
+        modificado_en     = modificado
       WHERE cita_id = rec.cita_id;
   END LOOP;
 END;
