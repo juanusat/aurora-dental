@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte06_Antonio" language="groovy" pageWidth="500" pageHeight="842" columnWidth="460" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="62d2fc10-1241-4959-b848-94fcd84d6b5b">
+	<property name="ireport.zoom" value="1.1000000000000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="387"/>
+	<queryString>
+		<![CDATA[select
+    c.medico_id, p.nombre, p.apellido, t.especialidad,
+	EXTRACT(YEAR FROM c.fecha_hora) AS anio,
+	EXTRACT(WEEK FROM c.fecha_hora) AS numero_semana,
+	SUM(c.duracion) as horas_trabajadas
+from cita c
+JOIN tratamiento tr ON c.tratamiento_id = tr.tratamiento_id
+JOIN trabajador t ON c.medico_id = t.trabajador_id
+JOIN persona p ON t.persona_id = p.persona_id
+WHERE c.estado = 'realizada'
+GROUP BY c.medico_id, p.nombre, p.apellido, numero_semana, anio,t.especialidad
+ORDER BY c.medico_id;]]>
+	</queryString>
+	<field name="medico_id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="especialidad" class="java.lang.String"/>
+	<field name="anio" class="java.math.BigDecimal"/>
+	<field name="numero_semana" class="java.math.BigDecimal"/>
+	<field name="horas_trabajadas" class="java.lang.Long"/>
+	<variable name="numero_semana_1" class="java.math.BigDecimal" resetType="Group" resetGroup="medico" calculation="Sum">
+		<variableExpression><![CDATA[$F{numero_semana}]]></variableExpression>
+	</variable>
+	<variable name="horas_trabajadas_1" class="java.lang.Long" resetType="Group" resetGroup="medico" calculation="Sum">
+		<variableExpression><![CDATA[$F{horas_trabajadas}]]></variableExpression>
+	</variable>
+	<variable name="numero_semana_2" class="java.lang.Integer" resetType="Group" resetGroup="medico" calculation="Count">
+		<variableExpression><![CDATA[$F{numero_semana}]]></variableExpression>
+	</variable>
+	<group name="medico">
+		<groupExpression><![CDATA[$F{nombre}]]></groupExpression>
+		<groupHeader>
+			<band height="98">
+				<staticText>
+					<reportElement x="39" y="73" width="100" height="20" uuid="d460de73-08a0-4ec3-99b5-129e04b9d479"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="73" width="100" height="20" uuid="470f217b-09f8-48f9-bddc-82bfbda6cc24"/>
+					<textElement>
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Horas trabajadas]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="11" y="37" width="42" height="20" uuid="dd23c23d-975b-4b15-b41e-625a5e8a6967"/>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Médico:]]></text>
+				</staticText>
+				<line>
+					<reportElement x="8" y="95" width="418" height="1" uuid="92409a4c-d402-4391-8fcb-83a1656d87bc"/>
+				</line>
+				<textField>
+					<reportElement x="55" y="37" width="54" height="20" uuid="c30c7ea0-47df-43d9-8020-55c766739c79"/>
+					<textElement textAlignment="Right"/>
+					<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="113" y="37" width="104" height="20" uuid="563436b4-cf2f-4ca4-9011-7d0c7892a41e"/>
+					<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="264" y="37" width="75" height="20" uuid="67752a06-f0f4-4891-bcdb-f7c7cb59c494"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Especialidad:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="343" y="37" width="108" height="20" uuid="80a3800a-f6ff-4a82-9218-0b52f62f3f46"/>
+					<textFieldExpression><![CDATA[$F{especialidad}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="58" y="7" width="55" height="20" uuid="78bf2dbf-6456-459b-aa8a-37543e4bad3a"/>
+					<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="14" y="7" width="39" height="20" uuid="cdc53919-3217-4fbe-9702-886771f48753"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Año:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="87">
+				<staticText>
+					<reportElement x="29" y="7" width="29" height="20" uuid="6e492f1a-fdac-4e88-9803-b6bf34f38871"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="308" y="7" width="29" height="20" uuid="ad7b4b7f-c2a4-49df-b11e-fcbb2e4aee94"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="341" y="7" width="54" height="20" uuid="11c2e741-34b7-4eeb-b108-99364e47d710"/>
+					<textFieldExpression><![CDATA[$V{horas_trabajadas_1}+" horas"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="23" y="29" width="100" height="1" uuid="8cd753ac-78d2-481f-a49d-7a9302e72205"/>
+				</line>
+				<line>
+					<reportElement x="304" y="30" width="100" height="1" uuid="64ef224e-79ec-4f38-801b-3c8290ca2a31"/>
+				</line>
+				<textField>
+					<reportElement x="63" y="7" width="61" height="20" uuid="03199ea4-7f7c-4942-a15a-3f316d8bdbf2"/>
+					<textFieldExpression><![CDATA[$V{numero_semana_2}+" semanas"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="anio">
+		<groupExpression><![CDATA[$F{anio}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="116" y="10" width="225" height="41" uuid="c2441044-215a-448e-b50a-21cd67496179"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horas de trabajo por semanas (Odontólogos)]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="305" y="55" width="146" height="20" uuid="098ad745-1a84-47bf-9340-7c5491ca817f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="1" y="2" width="95" height="30" uuid="65be646c-5b25-42a8-b9b9-9dde06c196ee"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="7" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="6" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="29" splitType="Stretch">
+			<textField>
+				<reportElement x="39" y="5" width="100" height="20" uuid="4ff0cb84-c1e5-43f0-bcdb-e731ea2d5485"/>
+				<textFieldExpression><![CDATA[$F{numero_semana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="5" width="100" height="20" uuid="4569da43-509c-4310-b4cc-37ac8f885774"/>
+				<textFieldExpression><![CDATA[$F{horas_trabajadas}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="11" y="25" width="415" height="1" uuid="622f0b05-94dd-4d0c-903c-d2fac1e17e57"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="16" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="44" splitType="Stretch">
+			<textField>
+				<reportElement x="315" y="12" width="80" height="20" uuid="7049fda8-8011-4b4c-9b68-86bd4b60c07f"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="398" y="12" width="40" height="20" uuid="6d99b07a-c578-4f1d-806a-4f24c690c77c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="12" width="171" height="20" uuid="e66d422a-9d21-4f79-95c3-b87c7c8641de"/>
+				<text><![CDATA[Creado por: Pamela Saavedra]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="273" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="4" y="13" width="452" height="249" uuid="ac908add-1e59-4d88-a0f6-ebde7394a908"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Horas trabajadas por semana - Odontólogos"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{nombre}+" "+$F{apellido}]]></categoryExpression>
+						<valueExpression><![CDATA[$V{horas_trabajadas_1}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot labelRotation="0.0"/>
+					<itemLabel/>
+					<categoryAxisLabelExpression><![CDATA["Medico"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat labelRotation="0.0">
+						<axisFormat verticalTickLabels="true">
+							<tickLabelFont>
+								<font size="9" isStrikeThrough="false"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Horas trabajadas"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

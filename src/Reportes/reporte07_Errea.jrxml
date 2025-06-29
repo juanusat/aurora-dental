@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte07" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ccf9b272-0c34-4b8f-a578-e96511e774c3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="279"/>
+	<queryString>
+		<![CDATA[select t.trabajador_id, p.nombre,p.apellido, count(t.trabajador_id) as cantidad
+from acto_medico am
+join cita c on am.cita_id = c.cita_id
+join trabajador t on c.medico_id = t.trabajador_id
+join persona p on t.persona_id = p.persona_id
+group by t.trabajador_id, p.nombre, p.apellido
+order by t.trabajador_id;]]>
+	</queryString>
+	<field name="trabajador_id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="161" y="25" width="229" height="33" uuid="f3e1f7ae-02db-4237-ac33-7c6015ac6bbc"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Actos médicos modificados]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="397" y="63" width="156" height="20" uuid="50f0573a-8c91-4c1b-9228-22dfa430eb9a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="3" y="4" width="106" height="41" uuid="28cb7a29-a5de-4964-a289-2c752e9a373c"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="39" y="2" width="100" height="20" uuid="ccbc168b-584a-421b-813b-8a7f7b8c9f81"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="2" width="100" height="20" uuid="555b6c0d-4e81-44b7-895a-279e68460bc9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="413" y="2" width="100" height="20" uuid="216d6812-edda-4fb8-a29f-b2c30eb92df8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="38" y="28" width="475" height="1" uuid="4b69d435-2729-4202-a55b-620ab387f34d"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="39" y="10" width="100" height="20" uuid="0119d2ad-34c5-4b3c-8fe8-41ecdcdc5548"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="10" width="100" height="20" uuid="5ff29c31-5641-4882-b0aa-a59edb9e7aa0"/>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="10" width="100" height="20" uuid="2114e27a-05db-41bc-b021-7c922039bea5"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="39" y="36" width="475" height="1" uuid="74fa83c4-42ee-479c-a0a8-770b6d434fdf"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="23" width="141" height="20" uuid="06c12ad3-3089-4202-9cdf-e814a235b225"/>
+				<text><![CDATA[Creado por: Antonio Errea]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="23" width="80" height="20" uuid="4f4acd61-96d3-490b-9b21-66de07134367"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="493" y="23" width="40" height="20" uuid="eb7d340b-c901-40a3-811c-84edf3449214"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="314" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="4" y="10" width="547" height="295" uuid="a28a112b-65bd-44a9-ba27-d67b2ff54e24"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre}+" "+$F{apellido}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0} ({1})">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

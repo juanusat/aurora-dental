@@ -82,7 +82,14 @@ public class Frm_Principal extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        mnuReporte3Errea = new javax.swing.JMenuItem();
+        jMenu10 = new javax.swing.JMenu();
+        mnuReporte05Saavedra = new javax.swing.JMenuItem();
+        mnuReporte6Errea = new javax.swing.JMenuItem();
+        mnuReporte7Errea = new javax.swing.JMenuItem();
+        mnuReporte8Saavedra = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -326,14 +333,58 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu4);
 
         jMenu6.setText("Reportes");
+        jMenu6.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        jMenuItem7.setText("Reporte1");
-        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+        jMenu7.setText("Reportes financieros");
+        jMenu6.add(jMenu7);
+
+        jMenu9.setText("Reportes sobre recepcionistas");
+
+        mnuReporte3Errea.setText("Reporte03Errea");
+        mnuReporte3Errea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem7ActionPerformed(evt);
+                mnuReporte3ErreaActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem7);
+        jMenu9.add(mnuReporte3Errea);
+
+        jMenu6.add(jMenu9);
+
+        jMenu10.setText("Reportes sobre odontologos");
+
+        mnuReporte05Saavedra.setText("Reporte05Saavedra");
+        mnuReporte05Saavedra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte05SaavedraActionPerformed(evt);
+            }
+        });
+        jMenu10.add(mnuReporte05Saavedra);
+
+        mnuReporte6Errea.setText("Reporte06Saavedra");
+        mnuReporte6Errea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte6ErreaActionPerformed(evt);
+            }
+        });
+        jMenu10.add(mnuReporte6Errea);
+
+        mnuReporte7Errea.setText("Reporte07Errea");
+        mnuReporte7Errea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte7ErreaActionPerformed(evt);
+            }
+        });
+        jMenu10.add(mnuReporte7Errea);
+
+        mnuReporte8Saavedra.setText("Reporte08Saavedra");
+        mnuReporte8Saavedra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte8SaavedraActionPerformed(evt);
+            }
+        });
+        jMenu10.add(mnuReporte8Saavedra);
+
+        jMenu6.add(jMenu10);
 
         jMenuBar1.add(jMenu6);
 
@@ -510,12 +561,40 @@ public class Frm_Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem18ActionPerformed
 
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+    private void mnuReporte05SaavedraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte05SaavedraActionPerformed
         // TODO add your handling code here:
-            jdPruebaReporte objPR = new jdPruebaReporte(this, true);
-            objPR.setLocationRelativeTo(this);
-            objPR.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
+        jdReporte05Saavedra objR5Saavedra = new jdReporte05Saavedra(this, true);
+        objR5Saavedra.setLocationRelativeTo(this);
+        objR5Saavedra.setVisible(true);
+    }//GEN-LAST:event_mnuReporte05SaavedraActionPerformed
+
+    private void mnuReporte6ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte6ErreaActionPerformed
+        // TODO add your handling code here:
+        jdReporte06Saavedra objR6Saavedra = new jdReporte06Saavedra(this, true);
+        objR6Saavedra.setLocationRelativeTo(this);
+        objR6Saavedra.setVisible(true);
+    }//GEN-LAST:event_mnuReporte6ErreaActionPerformed
+
+    private void mnuReporte8SaavedraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte8SaavedraActionPerformed
+        // TODO add your handling code here:
+        jdReporte08Saavedra objR8Saavedra = new jdReporte08Saavedra(this, true);
+        objR8Saavedra.setLocationRelativeTo(this);
+        objR8Saavedra.setVisible(true);
+    }//GEN-LAST:event_mnuReporte8SaavedraActionPerformed
+
+    private void mnuReporte3ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte3ErreaActionPerformed
+        // TODO add your handling code here:
+        jdReporte03Errea objR3Errea = new jdReporte03Errea(this, true);
+        objR3Errea.setLocationRelativeTo(this);
+        objR3Errea.setVisible(true);
+    }//GEN-LAST:event_mnuReporte3ErreaActionPerformed
+
+    private void mnuReporte7ErreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte7ErreaActionPerformed
+        // TODO add your handling code here:
+        jdReporte07Errea objR7Errea = new jdReporte07Errea(this, true);
+        objR7Errea.setLocationRelativeTo(this);
+        objR7Errea.setVisible(true);
+    }//GEN-LAST:event_mnuReporte7ErreaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -524,12 +603,15 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
@@ -543,7 +625,6 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
@@ -551,5 +632,10 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JLabel lblnombreCargo;
+    private javax.swing.JMenuItem mnuReporte05Saavedra;
+    private javax.swing.JMenuItem mnuReporte3Errea;
+    private javax.swing.JMenuItem mnuReporte6Errea;
+    private javax.swing.JMenuItem mnuReporte7Errea;
+    private javax.swing.JMenuItem mnuReporte8Saavedra;
     // End of variables declaration//GEN-END:variables
 }

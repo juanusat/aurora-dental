@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte08" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="19c7750c-dd43-4c2c-b125-7810ee3ff024">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parLimit" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select t.trabajador_id ,p.nombre , p.apellido, count(t.trabajador_id)
+from cita c
+join trabajador t on c.medico_id = t.trabajador_id
+join persona p on t.persona_id = p.persona_id
+join cargo ca on t.cargo_id = ca.cargo_id
+where ca.cargo_id = 1
+group by t.trabajador_id , p.nombre, p.apellido
+order by t.trabajador_id
+limit $P{parLimit};]]>
+	</queryString>
+	<field name="trabajador_id" class="java.lang.Integer"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="count" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="141" y="27" width="280" height="27" uuid="f8239b36-98f1-4013-913c-a344fbdd4de5"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Odontólogos con más citas agendadas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="6" y="5" width="111" height="39" uuid="0f007a53-210e-44bf-b099-9513e57b4a50"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="377" y="59" width="149" height="20" uuid="29f2b753-a882-4dae-85f1-b798157e37f1"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="2" width="100" height="20" uuid="1f739d8b-54a7-46b5-a98a-a9f512092da5"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Trabajador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="135" y="2" width="100" height="20" uuid="0e2a2cb7-df51-4acb-bbb8-373997ea3cad"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="3" width="100" height="20" uuid="3213703b-be63-44c1-bddd-85ff34707e80"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Apellidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="2" width="100" height="20" uuid="c0c6121e-22f9-49b9-b8d5-69c283cabdca"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="13" y="26" width="525" height="1" uuid="9cd53350-f73c-40fd-a93d-ee815f6ddfc7"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="15" y="6" width="100" height="20" uuid="8fcbbecd-7cb8-4f0d-b1c2-9b6f7f6e7a8f"/>
+				<textFieldExpression><![CDATA[$F{trabajador_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="135" y="6" width="100" height="20" uuid="33b41ad2-ec9f-43e7-9f92-d51ccf87f869"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="252" y="6" width="100" height="20" uuid="7a76feda-d0fc-410e-bae5-d19897af9f34"/>
+				<textFieldExpression><![CDATA[$F{apellido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="6" width="100" height="20" uuid="3fb55626-5d9b-4e3a-8b9d-4b89b2980cbe"/>
+				<textFieldExpression><![CDATA[$F{count}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="15" y="30" width="525" height="1" uuid="c7ab5bb2-c43b-43a6-a108-07898b16486e"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="403" y="10" width="80" height="20" uuid="0c1c5938-aa99-40de-9ddd-b5322f9f79f6"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="16" width="159" height="20" uuid="4ab7c9ac-4dcc-459d-b9b2-3bd357393197"/>
+				<text><![CDATA[Creado por: Pamela Saavedra]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="486" y="10" width="40" height="20" uuid="c5120b90-11c4-428c-9a77-9525592a77e0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="26" splitType="Stretch"/>
+	</summary>
+</jasperReport>

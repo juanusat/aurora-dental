@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte03" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e372522f-28a1-4cd7-a129-a866396ca9db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+    p.nombre, p.apellido,t.trabajador_id,
+	EXTRACT(WEEK FROM c.fecha_hora) AS numero_semana,
+    EXTRACT(YEAR FROM c.fecha_hora) AS anio,
+    COUNT(c.cita_id) AS total_citas
+FROM
+    cita c
+JOIN trabajador t ON c.agendador_id = t.trabajador_id
+JOIN persona p ON t.persona_id = p.persona_id
+JOIN cargo ca ON t.cargo_id = ca.cargo_id
+WHERE ca.cargo_id = 2 and c.estado in ('agendada' , 'reagendada')
+GROUP BY p.nombre, p.apellido, t.trabajador_id, numero_semana, anio
+ORDER BY trabajador_id;]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="apellido" class="java.lang.String"/>
+	<field name="trabajador_id" class="java.lang.Integer"/>
+	<field name="numero_semana" class="java.math.BigDecimal"/>
+	<field name="anio" class="java.math.BigDecimal"/>
+	<field name="total_citas" class="java.lang.Long"/>
+	<group name="porTrabajador">
+		<groupExpression><![CDATA[$F{trabajador_id}]]></groupExpression>
+		<groupHeader>
+			<band height="71">
+				<staticText>
+					<reportElement x="43" y="13" width="100" height="20" uuid="17b69c2d-24be-46d3-8a91-96973dd9d32b"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Recepcionista:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="143" y="13" width="292" height="20" uuid="889d843f-bf7a-4485-bece-0a57b0af9a94"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre}+" "+$F{apellido}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="43" y="44" width="100" height="20" uuid="7284074b-9529-4a94-bf46-5491feba9e5a"/>
+					<text><![CDATA[Número de semana]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="187" y="44" width="100" height="20" uuid="4eab10ed-309a-4cf8-8402-44d38d7bdf51"/>
+					<text><![CDATA[Año]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="352" y="44" width="100" height="20" uuid="015e94b2-5a83-4705-a021-6ab6c79d1ab8"/>
+					<text><![CDATA[Total de citas]]></text>
+				</staticText>
+				<line>
+					<reportElement x="42" y="67" width="442" height="1" uuid="355b460e-9738-4748-91c7-5297b6989ab0"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="111" y="29" width="304" height="49" uuid="1267657b-2291-4760-8aad-73f7cb8c57e6"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de citas agendadas por semanas (recepcionista)]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="382" y="85" width="166" height="20" uuid="36a2ca59-c097-4e30-9613-57b2e8371310"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="3" y="2" width="98" height="35" uuid="2983ecbb-dd28-4092-bb6a-f7b9cbf777e1"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="15" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="46" y="13" width="100" height="20" uuid="4248f134-0be5-40eb-adb4-550a76710c6b"/>
+				<textFieldExpression><![CDATA[$F{numero_semana}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="187" y="13" width="100" height="20" uuid="8b806521-c4d7-4601-9533-59a0c7da4713"/>
+				<textFieldExpression><![CDATA[$F{anio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="13" width="100" height="20" uuid="57198242-c49b-4ea3-8c84-ea3579ed94e5"/>
+				<textFieldExpression><![CDATA[$F{total_citas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="29" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="22" width="153" height="20" uuid="461c4dec-cb6e-4c1b-9e11-58c070ebb696"/>
+				<text><![CDATA[Creado por: Antonio Errea]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="415" y="22" width="80" height="20" uuid="c1ee022e-ef21-4bed-ad6b-62fe78b7865d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="498" y="22" width="40" height="20" uuid="a98d4c2c-ade1-44d9-b93f-9bbe6efbf745"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="191" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="16" y="13" width="522" height="166" uuid="6c0ccbb8-9290-4340-86c6-14d415ff3447"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre}]]></keyExpression>
+					<valueExpression><![CDATA[$F{total_citas}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0}({2})">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>
