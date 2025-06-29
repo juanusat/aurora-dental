@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte02_Barboza" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89e9b806-87bd-4a77-bbcb-04a7babbee54">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="af9ed7c8-4b22-4c10-8efd-f2e0c0dc821c"/>
+	<queryString>
+		<![CDATA[SELECT
+    t.nombre AS nombre_tratamiento,
+    SUM(CASE WHEN p.estado = 'correcto' THEN p.monto ELSE 0 END) AS ingresos_totales_tratamiento,
+    COUNT(c.cita_id) AS cantidad_total_citas,
+    COUNT(DISTINCT CASE WHEN p.estado = 'correcto' THEN c.cita_id END) AS cantidad_citas_pagadas
+FROM
+    tratamiento AS t
+JOIN
+    cita AS c ON t.tratamiento_id = c.tratamiento_id
+LEFT JOIN
+    pago AS p ON c.cita_id = p.cita_id
+GROUP BY
+    t.nombre
+ORDER BY
+    t.nombre ASC;]]>
+	</queryString>
+	<field name="nombre_tratamiento" class="java.lang.String"/>
+	<field name="ingresos_totales_tratamiento" class="java.math.BigDecimal"/>
+	<field name="cantidad_total_citas" class="java.lang.Long"/>
+	<field name="cantidad_citas_pagadas" class="java.lang.Long"/>
+	<variable name="ingresos_totales_tratamiento_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ingresos_totales_tratamiento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="56" splitType="Stretch">
+			<staticText>
+				<reportElement x="118" y="0" width="304" height="49" uuid="738ec595-e450-4502-b451-e8a8c7b22aba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tratamientos con más ingresos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="16" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="51" y="0" width="100" height="20" uuid="ee253fbb-2438-4d8c-84c5-86a53ff2ea26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tratamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="0" width="129" height="20" uuid="5bb3cdf1-6498-4656-862d-e0bd793a83ce"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ingresos por Tratamiento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="168" y="0" width="100" height="20" uuid="5f72a3ff-e392-4011-8284-970f042ff34f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad Citas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="0" width="100" height="20" uuid="78731abb-25ab-457f-abdb-713493305bdb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Citas Pagadas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="51" y="19" width="481" height="1" uuid="297b9358-23d4-4885-b102-bfa339d3a358"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="51" y="0" width="100" height="20" uuid="14b30682-ff8e-44ec-8587-e083480f8303"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombre_tratamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="100" height="20" uuid="a3a84c0d-86fe-48ec-bbb3-60c5c6335266"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ingresos_totales_tratamiento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="168" y="0" width="100" height="20" uuid="731879ba-dd01-459e-9277-7e01511b98d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad_total_citas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="0" width="100" height="20" uuid="c4ef741f-47f9-4f31-9765-7e2eac53fb53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cantidad_citas_pagadas}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="51" y="20" width="481" height="1" uuid="b0390c36-cd60-47e0-bbb8-822615716720"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="34" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="505" y="0" width="40" height="20" uuid="a32b5d91-cd7f-44a7-8313-821d9c6eef52"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="0" width="80" height="20" uuid="81afff9e-9fff-4e05-809d-26b306226cd5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="23" y="0" width="153" height="20" uuid="e2649e14-ccc8-4df1-b558-fc035247a195"/>
+				<text><![CDATA[Creado por: Luis Barboza.]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="361" splitType="Stretch">
+			<textField>
+				<reportElement x="451" y="0" width="71" height="20" uuid="a69692dc-1ad5-48f1-aa65-9f86ff3d0031"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{ingresos_totales_tratamiento_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="351" y="0" width="100" height="20" uuid="7541b54f-dd88-4825-a18a-0a887da5ad3f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Suma Total:]]></text>
+			</staticText>
+			<pieChart>
+				<chart>
+					<reportElement x="38" y="36" width="484" height="214" uuid="9f6ba196-e378-4c2f-a332-ecb22f58cf2e"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{nombre_tratamiento}]]></keyExpression>
+					<valueExpression><![CDATA[$F{ingresos_totales_tratamiento}]]></valueExpression>
+				</pieDataset>
+				<piePlot labelFormat="{0} ({2})" legendLabelFormat="{0} ({1})">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

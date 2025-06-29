@@ -83,6 +83,8 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenuItem20 = new javax.swing.JMenuItem();
         jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
+        mnuReporte1 = new javax.swing.JMenuItem();
+        mnuReporte2 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         mnuReporte3Errea = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
@@ -340,6 +342,23 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu6.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jMenu7.setText("Reportes financieros");
+
+        mnuReporte1.setText("Ganacias por mes y semana");
+        mnuReporte1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte1ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(mnuReporte1);
+
+        mnuReporte2.setText("Tratamientos con mas ingresos");
+        mnuReporte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte2ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(mnuReporte2);
+
         jMenu6.add(jMenu7);
 
         jMenu9.setText("Reportes sobre recepcionistas");
@@ -638,6 +657,18 @@ public class Frm_Principal extends javax.swing.JFrame {
         objR14Juan.setVisible(true);
     }//GEN-LAST:event_mnuReporte14JuanActionPerformed
 
+    private void mnuReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte1ActionPerformed
+        jdReporte01Barboza objR1Luis = new jdReporte01Barboza(this, true);
+        objR1Luis.setLocationRelativeTo(this);
+        objR1Luis.setVisible(true);
+    }//GEN-LAST:event_mnuReporte1ActionPerformed
+
+    private void mnuReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte2ActionPerformed
+        jdReporte02Barboza objR2Luis = new jdReporte02Barboza(this, true);
+        objR2Luis.setLocationRelativeTo(this);
+        objR2Luis.setVisible(true);
+    }//GEN-LAST:event_mnuReporte2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CerrarSesion;
@@ -677,7 +708,9 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JLabel lblnombreCargo;
     private javax.swing.JMenuItem mnuReporte05Saavedra;
+    private javax.swing.JMenuItem mnuReporte1;
     private javax.swing.JMenuItem mnuReporte14Juan;
+    private javax.swing.JMenuItem mnuReporte2;
     private javax.swing.JMenuItem mnuReporte3Errea;
     private javax.swing.JMenuItem mnuReporte6Errea;
     private javax.swing.JMenuItem mnuReporte7Errea;
