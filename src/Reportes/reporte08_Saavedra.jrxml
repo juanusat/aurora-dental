@@ -33,10 +33,6 @@ limit $P{parLimit};]]>
 				</textElement>
 				<text><![CDATA[Odontólogos con más citas agendadas]]></text>
 			</staticText>
-			<image>
-				<reportElement x="6" y="5" width="111" height="39" uuid="0f007a53-210e-44bf-b099-9513e57b4a50"/>
-				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
-			</image>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="377" y="59" width="149" height="20" uuid="29f2b753-a882-4dae-85f1-b798157e37f1"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
