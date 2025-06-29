@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte05" language="groovy" pageWidth="680" pageHeight="842" columnWidth="640" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a64b8087-e3e4-4b1f-a3e0-3a1da021fdad">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="49"/>
+	<property name="ireport.y" value="19"/>
 	<style name="style1">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{pct_rendimiento} >= 100]]></conditionExpression>
@@ -183,23 +183,6 @@ ORDER BY
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="234" splitType="Stretch">
-			<pieChart>
-				<chart>
-					<reportElement x="10" y="8" width="613" height="217" uuid="56aa4729-a26f-4ac4-8d46-86a5f281caf1"/>
-					<chartTitle/>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<pieDataset>
-					<keyExpression><![CDATA[$F{medico}]]></keyExpression>
-					<valueExpression><![CDATA[$F{pct_rendimiento}]]></valueExpression>
-				</pieDataset>
-				<piePlot labelFormat="{0}({2})">
-					<plot/>
-					<itemLabel/>
-				</piePlot>
-			</pieChart>
-		</band>
+		<band height="42" splitType="Stretch"/>
 	</summary>
 </jasperReport>
