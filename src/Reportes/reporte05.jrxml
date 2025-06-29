@@ -81,7 +81,7 @@ ORDER BY
 			</staticText>
 			<image>
 				<reportElement x="1" y="2" width="89" height="33" uuid="aaabaf67-cc59-4532-a35a-207ab078d465"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

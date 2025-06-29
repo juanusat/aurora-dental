@@ -149,7 +149,7 @@ ORDER BY c.medico_id;]]>
 			</textField>
 			<image>
 				<reportElement x="1" y="2" width="95" height="30" uuid="65be646c-5b25-42a8-b9b9-9dde06c196ee"/>
-				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+				<imageExpression><![CDATA[".\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>
