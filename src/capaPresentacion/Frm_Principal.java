@@ -90,6 +90,10 @@ public class Frm_Principal extends javax.swing.JFrame {
         mnuReporte6Errea = new javax.swing.JMenuItem();
         mnuReporte7Errea = new javax.swing.JMenuItem();
         mnuReporte8Saavedra = new javax.swing.JMenuItem();
+        jMenu11 = new javax.swing.JMenu();
+        mnuReporte9Espinoza = new javax.swing.JMenuItem();
+        jMenu12 = new javax.swing.JMenu();
+        mnuReporte14Juan = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -340,7 +344,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenu9.setText("Reportes sobre recepcionistas");
 
-        mnuReporte3Errea.setText("Reporte03Errea");
+        mnuReporte3Errea.setText("Cantidad de citas agendadas por semanas");
         mnuReporte3Errea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuReporte3ErreaActionPerformed(evt);
@@ -352,7 +356,7 @@ public class Frm_Principal extends javax.swing.JFrame {
 
         jMenu10.setText("Reportes sobre odontologos");
 
-        mnuReporte05Saavedra.setText("Reporte05Saavedra");
+        mnuReporte05Saavedra.setText("Rendimiento por tiempo");
         mnuReporte05Saavedra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuReporte05SaavedraActionPerformed(evt);
@@ -360,7 +364,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu10.add(mnuReporte05Saavedra);
 
-        mnuReporte6Errea.setText("Reporte06Saavedra");
+        mnuReporte6Errea.setText("Horas de trabajo");
         mnuReporte6Errea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuReporte6ErreaActionPerformed(evt);
@@ -368,7 +372,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu10.add(mnuReporte6Errea);
 
-        mnuReporte7Errea.setText("Reporte07Errea");
+        mnuReporte7Errea.setText("Modificaciones de actos médicos");
         mnuReporte7Errea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuReporte7ErreaActionPerformed(evt);
@@ -376,7 +380,7 @@ public class Frm_Principal extends javax.swing.JFrame {
         });
         jMenu10.add(mnuReporte7Errea);
 
-        mnuReporte8Saavedra.setText("Reporte08Saavedra");
+        mnuReporte8Saavedra.setText("Con más citas agendadas");
         mnuReporte8Saavedra.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuReporte8SaavedraActionPerformed(evt);
@@ -385,6 +389,30 @@ public class Frm_Principal extends javax.swing.JFrame {
         jMenu10.add(mnuReporte8Saavedra);
 
         jMenu6.add(jMenu10);
+
+        jMenu11.setText("Reportes sobre pacientes");
+
+        mnuReporte9Espinoza.setText("Frecuencia por edad");
+        mnuReporte9Espinoza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte9EspinozaActionPerformed(evt);
+            }
+        });
+        jMenu11.add(mnuReporte9Espinoza);
+
+        jMenu6.add(jMenu11);
+
+        jMenu12.setText("Reporte sobre tratamientos");
+
+        mnuReporte14Juan.setText("Ingresos por tratamientos");
+        mnuReporte14Juan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuReporte14JuanActionPerformed(evt);
+            }
+        });
+        jMenu12.add(mnuReporte14Juan);
+
+        jMenu6.add(jMenu12);
 
         jMenuBar1.add(jMenu6);
 
@@ -596,6 +624,20 @@ public class Frm_Principal extends javax.swing.JFrame {
         objR7Errea.setVisible(true);
     }//GEN-LAST:event_mnuReporte7ErreaActionPerformed
 
+    private void mnuReporte9EspinozaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte9EspinozaActionPerformed
+        // TODO add your handling code here:
+        jdReporte09Espinoza objR9Juan = new jdReporte09Espinoza(this, true);
+        objR9Juan.setLocationRelativeTo(this);
+        objR9Juan.setVisible(true);
+    }//GEN-LAST:event_mnuReporte9EspinozaActionPerformed
+
+    private void mnuReporte14JuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuReporte14JuanActionPerformed
+        // TODO add your handling code here:
+        jdReporte14Espinoza objR14Juan = new jdReporte14Espinoza(this, true);
+        objR14Juan.setLocationRelativeTo(this);
+        objR14Juan.setVisible(true);
+    }//GEN-LAST:event_mnuReporte14JuanActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CerrarSesion;
@@ -604,6 +646,8 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -633,9 +677,11 @@ public class Frm_Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JLabel lblnombreCargo;
     private javax.swing.JMenuItem mnuReporte05Saavedra;
+    private javax.swing.JMenuItem mnuReporte14Juan;
     private javax.swing.JMenuItem mnuReporte3Errea;
     private javax.swing.JMenuItem mnuReporte6Errea;
     private javax.swing.JMenuItem mnuReporte7Errea;
     private javax.swing.JMenuItem mnuReporte8Saavedra;
+    private javax.swing.JMenuItem mnuReporte9Espinoza;
     // End of variables declaration//GEN-END:variables
 }

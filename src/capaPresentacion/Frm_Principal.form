@@ -258,7 +258,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuReporte3Errea">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reporte03Errea"/>
+                    <Property name="text" type="java.lang.String" value="Cantidad de citas agendadas por semanas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte3ErreaActionPerformed"/>
@@ -273,7 +273,7 @@
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuReporte05Saavedra">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reporte05Saavedra"/>
+                    <Property name="text" type="java.lang.String" value="Rendimiento por tiempo"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte05SaavedraActionPerformed"/>
@@ -281,7 +281,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuReporte6Errea">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reporte06Saavedra"/>
+                    <Property name="text" type="java.lang.String" value="Horas de trabajo"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte6ErreaActionPerformed"/>
@@ -289,7 +289,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuReporte7Errea">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reporte07Errea"/>
+                    <Property name="text" type="java.lang.String" value="Modificaciones de actos m&#xe9;dicos"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte7ErreaActionPerformed"/>
@@ -297,10 +297,40 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mnuReporte8Saavedra">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Reporte08Saavedra"/>
+                    <Property name="text" type="java.lang.String" value="Con m&#xe1;s citas agendadas"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte8SaavedraActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reportes sobre pacientes"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuReporte9Espinoza">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Frecuencia por edad"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte9EspinozaActionPerformed"/>
+                  </Events>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="jMenu12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reporte sobre tratamientos"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="mnuReporte14Juan">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Ingresos por tratamientos"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuReporte14JuanActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

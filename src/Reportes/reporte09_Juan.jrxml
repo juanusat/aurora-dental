@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="570" pageHeight="842" columnWidth="530" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="97619bfe-aa7c-4efe-89e5-b894e0f0a29b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select
+    date_part('year', age(p.fecha_nacimiento)) as edad,
+    count(*) as frecuencia
+from
+    cita c
+join cliente cl on c.cliente_id = cl.cliente_id
+join persona p on cl.persona_id = p.persona_id
+where
+    c.estado = 'realizada'
+group by
+    edad
+order by
+    edad;]]>
+	</queryString>
+	<field name="edad" class="java.lang.Double"/>
+	<field name="frecuencia" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement x="121" y="14" width="313" height="49" uuid="4d475cc7-0530-405a-8e64-f0809d98d173"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frecuencia de citas realizadas por edad de los pacientes]]></text>
+			</staticText>
+			<image>
+				<reportElement x="3" y="3" width="102" height="43" uuid="cdc7bb49-8fc0-43e2-8335-29bdf17e4a72"/>
+				<imageExpression><![CDATA["C:\\Users\\RICARDO\\Documents\\NetBeansProyects\\aurora-dental\\aurora-dental\\src\\media\\logo-completo-aurora-dental.png"]]></imageExpression>
+			</image>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="372" y="75" width="136" height="20" uuid="289922b1-a5b6-4ebd-823a-d2e566cc6c3a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="72" y="4" width="100" height="20" uuid="b06690c7-223f-472c-85fa-283d2017c3ff"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Edad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="3" width="100" height="20" uuid="81458426-205d-49f9-9174-da738ef9ecb1"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Frecuencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="72" y="6" width="100" height="20" uuid="308657bd-5647-4693-a28e-68cb0b4700cf"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="3" width="100" height="20" uuid="8d22a13e-ff68-496c-8651-c0b6166c0078"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{frecuencia}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="51" y="-2" width="350" height="1" uuid="3df178e2-a24c-4bb4-a461-49b099918420"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="11" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="14" y="5" width="126" height="20" uuid="21770093-a7d9-466c-8272-e5209d56a53d"/>
+				<text><![CDATA[Creado por Juan Espinoza]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="5" width="80" height="20" uuid="1a0f9c40-06ea-43ff-b194-37d996231f33"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="486" y="5" width="40" height="20" uuid="dba9a0e1-4795-42f4-a61d-63f8c8ed0db5"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="487" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="1" y="9" width="526" height="463" uuid="0f158b4b-06f2-40b6-a0fe-6f7dc8dc57bf"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Frecuencia de citas realizadas por edad de los pacientes"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{edad}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{frecuencia}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisLabelExpression><![CDATA["Edad"]]></categoryAxisLabelExpression>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Frecuencia"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>
